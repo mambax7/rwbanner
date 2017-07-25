@@ -339,7 +339,7 @@ function rwbanner_getModuleConfig()
  *
  * @package       News
  * @author        Hervé Thouzard (www.herve-thouzard.com)
- * @copyright (c) XOOPS Project (http://xoops.org)
+ * @copyright (c) XOOPS Project (https://xoops.org)
  * @param $tablename
  * @return bool
  */
@@ -356,7 +356,7 @@ function rwTableExists($tablename)
  *
  * @package       News
  * @author        Hervé Thouzard (www.herve-thouzard.com)
- * @copyright (c) XOOPS Project (http://xoops.org)
+ * @copyright (c) XOOPS Project (https://xoops.org)
  * @param $fieldname
  * @param $table
  * @return bool
@@ -374,7 +374,7 @@ function rwFieldExists($fieldname, $table)
  *
  * @package       News
  * @author        Hervé Thouzard (www.herve-thouzard.com)
- * @copyright (c) XOOPS Project (http://xoops.org)
+ * @copyright (c) XOOPS Project (https://xoops.org)
  * @param $field
  * @param $table
  * @return

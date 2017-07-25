@@ -1,4 +1,4 @@
-![alt XOOPS CMS](http://xoops.org/images/logoXoops4GithubRepository.png)
+![alt XOOPS CMS](https://xoops.org/images/logoXoops4GithubRepository.png)
 ## rwBanner for [XOOPS CMS 2.5.8+](https://xoops.org)
 [![Software License](https://img.shields.io/badge/license-GPL-brightgreen.svg?style=flat)](LICENSE)
 [![Scrutinizer Code Quality](https://img.shields.io/scrutinizer/g/mambax7/rwbanner.svg?style=flat)](https://scrutinizer-ci.com/g/mambax7/rwbanner/?branch=master)
@@ -8,13 +8,13 @@
 [![Latest Pre-Resease](https://img.shields.io/github/tag/XoopsModules25x/rwbanner.svg?style=flat)](https://github.com/XoopsModules25x/rwbanner/tags/)
 [![Latest Version](https://img.shields.io/github/release/XoopsModules25x/rwbanner.svg?style=flat)](https://github.com/XoopsModules25x/rwbanner/releases/)
 
-**rwBanner** module for [XOOPS CMS](http://xoops.org), is for managing and showing random banners, that can be used or not together with the default xoops banner system..
+**rwBanner** module for [XOOPS CMS](https://xoops.org), is for managing and showing random banners, that can be used or not together with the default xoops banner system..
 
-[![Tutorial Available](http://xoops.org/images/tutorial-available-blue.svg)](https://www.gitbook.com/book/xoops/rwbanner-tutorial/) Tutorial: see [here](https://www.gitbook.com/book/xoops/rwbanner-tutorial/).
+[![Tutorial Available](https://xoops.org/images/tutorial-available-blue.svg)](https://www.gitbook.com/book/xoops/rwbanner-tutorial/) Tutorial: see [here](https://www.gitbook.com/book/xoops/rwbanner-tutorial/).
 To contribute to the Tutorial, [fork it on GitHub](https://github.com/XoopsDocs/rwbanner-tutorial)
 
-[![Translations on Transifex](http://xoops.org/images/translations-transifex-blue.svg)](https://www.transifex.com/xoops)
+[![Translations on Transifex](https://xoops.org/images/translations-transifex-blue.svg)](https://www.transifex.com/xoops)
 
-Please visit us on **http://xoops.org**
+Please visit us on **https://xoops.org**
 
 The upcoming "next generation" version of XOOPS CMS is being crafted on GitHub at: https://github.com/XOOPS
