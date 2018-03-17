@@ -1,8 +1,9 @@
-<?php
+<?php namespace XoopsModules\Rwbanner;
+
 //  ------------------------------------------------------------------------ //
 //                                  RW-Banner                                //
-//                    Copyright (c) 2006 BrInfo                              //
-//                     <http://www.brinfo.com.br>                            //
+//                    Copyright (c) 2006 Web Applications                    //
+//                     <http://www.bcsg.com.br/rwbanner>                    //
 //  ------------------------------------------------------------------------ //
 //  This program is free software; you can redistribute it and/or modify     //
 //  it under the terms of the GNU General Public License as published by     //
@@ -23,42 +24,43 @@
 //  along with this program; if not, write to the Free Software              //
 //  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA //
 // ------------------------------------------------------------------------- //
-// Author: Rodrigo Pereira Lima (BrInfo - Soluções Web)                      //
-// Site: http://www.brinfo.com.br                                            //
+// Author: Rodrigo Pereira Lima (Web Applications)                           //
+// Site: http://www.bcsg.com.br/rwbanner                                     //
 // Project: RW-Banner                                                        //
 // Descrição: Sistema de gerenciamento de mídias publicitárias               //
 // ------------------------------------------------------------------------- //
 
-use  XoopsModules\Rwbanner;
 
-// require_once __DIR__ . '/../class/class.banner.php';
-// require_once __DIR__ . '/../class/class.tags.php';
-global $xoopsTpl;
+use XoopsModules\Rwbanner;
 
-$url_arr = explode('/', strstr($_SERVER['PHP_SELF'], '/modules/'));
-$mod     = isset($url_arr[2]) ? XoopsModule::getByDirname($url_arr[2]) : false;
-if ($mod) {
-    $mid = $mod->mid();
-} else {
-    $mid = 0;
-}
+/**
+ * class Rect
+ * store the size values into an associative array
+ */
+class Rect
+{
+    /**
+     * Rect constructor.
+     * @param $x2
+     * @param $y2
+     */
+    public function __construct($x2, $y2)
+    {
+        $this->xmax  = $x2;
+        $this->ymax  = $y2;
+        $this->value = $this->__str__();
+    }
 
-$tag        = new Rwbanner\Tag();
-$lista_tags = $tag->getTags('ORDER BY id ASC');
+    /**
+     * @return array
+     */
+    public function __str__()
+    {
+        $ret           = [$this->xmax, $this->ymax];
+        $ret['width']  = $this->xmax;
+        $ret['height'] = $this->ymax;
 
-for ($i = 0; $i <= count($lista_tags) - 1; ++$i) {
-    $mods = unserialize($lista_tags[$i]->modid);
-    if (1 == $lista_tags[$i]->getStatus()) {
-        if (in_array(0, $mods)) {
-            $rwbanner = new Rwbanner\Banner();
-            $xoopsTpl->assign($lista_tags[$i]->getName(), $rwbanner->showBanner($lista_tags[$i]->getCateg(), $lista_tags[$i]->getQtde(), $lista_tags[$i]->getCols()));
-        } elseif (!in_array(0, $mods) && in_array($mid, $mods)) {
-            $rwbanner = new Banner();
-            $xoopsTpl->assign($lista_tags[$i]->getName(), $rwbanner->showBanner($lista_tags[$i]->getCateg(), $lista_tags[$i]->getQtde(), $lista_tags[$i]->getCols()));
-        } else {
-            $xoopsTpl->assign($lista_tags[$i]->getName(), '');
-        }
-    } else {
-        $xoopsTpl->assign($lista_tags[$i]->getName(), '');
+        return $ret;
     }
 }
+/* end */

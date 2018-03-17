@@ -34,9 +34,9 @@ include __DIR__ . '/../../mainfile.php';
 
 $id = $_GET['id'];
 
-require_once __DIR__ . '/class/class.banner.php';
+require_once __DIR__ . '/class/Banner.php';
 
-$rwbanner = new RWbanners(null, $id);
+$rwbanner = new Banner(null, $id);
 
 $rwbanner->incClicks();
 

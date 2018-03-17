@@ -18,6 +18,8 @@
  * @author          The SmartFactory <www.smartfactory.ca>
  */
 
+use  XoopsModules\Rwbanner;
+
 require_once __DIR__ . '/admin_header.php';
 xoops_cp_header();
 
@@ -39,8 +41,8 @@ $block_view     = [];
 
 $result_view = $xoopsDB->query('SELECT cod, titulo FROM ' . $xoopsDB->prefix('rwbanner_categorias') . ' ');
 if ($xoopsDB->getRowsNum($result_view)) {
-    $form_submit = new XoopsGroupPermForm($title_of_form, $module_id, 'category_read', '', 'admin/permissions.php');
-    while ($myrow_view = $xoopsDB->fetchArray($result_view)) {
+    $form_submit = new \XoopsGroupPermForm($title_of_form, $module_id, 'category_read', '', 'admin/permissions.php');
+    while (false !== ($myrow_view = $xoopsDB->fetchArray($result_view))) {
         $form_submit->addItem($myrow_view['cod'], $myts->displayTarea($myrow_view['titulo']));
     }
     echo $form_submit->render();
@@ -55,8 +57,8 @@ echo "<br>\n";
 
 $result_view = $xoopsDB->query('SELECT cod, titulo FROM ' . $xoopsDB->prefix('rwbanner_categorias') . ' ');
 if ($xoopsDB->getRowsNum($result_view)) {
-    $form_submit = new XoopsGroupPermForm($title_of_form2, $module_id, 'category_submit', '', 'admin/permissions.php');
-    while ($myrow_view = $xoopsDB->fetchArray($result_view)) {
+    $form_submit = new \XoopsGroupPermForm($title_of_form2, $module_id, 'category_submit', '', 'admin/permissions.php');
+    while (false !== ($myrow_view = $xoopsDB->fetchArray($result_view))) {
         $form_submit->addItem($myrow_view['cod'], $myts->displayTarea($myrow_view['titulo']));
     }
     echo $form_submit->render();

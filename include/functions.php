@@ -376,7 +376,7 @@ function EmailStats($bid)
 }
 
 /**
- * @return mixed|null|XoopsModule
+ * @return mixed|null|\XoopsModule
  */
 function &rwbanner_getModuleInfo()
 {

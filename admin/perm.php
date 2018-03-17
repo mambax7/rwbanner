@@ -1,5 +1,8 @@
 <?php
 //
+
+use  XoopsModules\Rwbanner;
+
 require_once __DIR__ . '/admin_header.php';
 // Функции модуля
 include __DIR__ . '/../include/functions.php';
@@ -48,12 +51,12 @@ switch ($permission) {
 }
 
 // Права
-$permissionsForm = new XoopsGroupPermForm($formTitle, $moduleId, $permissionName, $permissionDescription, 'admin/perm.php?permission=' . $permission);
+$permissionsForm = new \XoopsGroupPermForm($formTitle, $moduleId, $permissionName, $permissionDescription, 'admin/perm.php?permission=' . $permission);
 
 $sql    = 'SELECT cid, pid, title FROM ' . $xoopsDB->prefix('instruction_cat') . ' ORDER BY title';
 $result = $xoopsDB->query($sql);
 if ($result) {
-    while ($row = $xoopsDB->fetchArray($result)) {
+    while (false !== ($row = $xoopsDB->fetchArray($result))) {
         $permissionsForm->addItem($row['cid'], $row['title'], $row['pid']);
     }
 }

@@ -30,13 +30,14 @@
 // ------------------------------------------------------------------------- //
 
 use Xmf\Request;
+use  XoopsModules\Rwbanner;
 
 require_once __DIR__ . '/admin_header.php';
 
 require_once XOOPS_ROOT_PATH . '/include/cp_functions.php';
 
 require_once XOOPS_ROOT_PATH . '/class/uploader.php';
-require_once __DIR__ . '/../class/class.banner.php';
+// require_once __DIR__ . '/../class/class.banner.php';
 $local_folder = $xoopsModuleConfig['dir_images'];
 
 $op = Request::getCmd('op', '');
@@ -56,7 +57,7 @@ switch ($op) {
         if ('' == $form['grafico']) {
             //Inicio da rotina de upload de arquivo
             $maxfilesize = 500000;
-            $uploader    = new XoopsMediaUploader($local_folder, require_once XOOPS_ROOT_PATH . '/modules/' . $xoopsModule->dirname() . '/include/mimetypes.inc.php', $maxfilesize);
+            $uploader    = new \XoopsMediaUploader($local_folder, require_once XOOPS_ROOT_PATH . '/modules/' . $xoopsModule->dirname() . '/include/mimetypes.inc.php', $maxfilesize);
             for ($i = 0, $iMax = count($_POST['xoops_upload_file']); $i <= $iMax; ++$i) {
                 if ($uploader->fetchMedia($_POST['xoops_upload_file'][$i])) {
                     if (!$uploader->upload()) {
@@ -77,7 +78,7 @@ switch ($op) {
         $form['periodo']  = isset($form['periodo']) ? $form['periodo'] : 0;
         $form['showimg']  = 1;
 
-        $banner = new RWbanners($form);
+        $banner = new Rwbanner\Banner($form);
 
         if (_AM_RWBANNER_BTN_OP1 == $_POST['post']) {
             if ($banner->grava()) {
@@ -141,10 +142,10 @@ function monta_form($value)
   </script>
   ';
 
-    $banner_form = new XoopsThemeForm(_AM_RWBANNER_VALUE_BTN1, 'form', 'inser.php', 'post', false);
+    $banner_form = new \XoopsThemeForm(_AM_RWBANNER_VALUE_BTN1, 'form', 'inser.php', 'post', false);
     $banner_form->setExtra('enctype="multipart/form-data"');
-    $user_selbox  = new XoopsFormSelectUser(_AM_RWBANNER_TITLE22, 'form[idcliente]', false, $form['idcliente']);
-    $categ_selbox = new XoopsFormSelect(_AM_RWBANNER_TITLE23, 'form[categoria]', $form['categoria']);
+    $user_selbox  = new \XoopsFormSelectUser(_AM_RWBANNER_TITLE22, 'form[idcliente]', false, $form['idcliente']);
+    $categ_selbox = new \XoopsFormSelect(_AM_RWBANNER_TITLE23, 'form[categoria]', $form['categoria']);
     $categ_selbox->addOption('rodrigo', '--------');
     $js = 'var campo = document.getElementById("form[categoria]");
   if (campo.value == \'rodrigo\') {
@@ -158,7 +159,7 @@ function monta_form($value)
     }
     $query    = 'SELECT titulo,cod FROM ' . $xoopsDB->prefix('rwbanner_categorias');
     $consulta = $xoopsDB->queryF($query);
-    while (list($titulo, $cod) = $xoopsDB->fetchRow($consulta)) {
+    while (false !== (list($titulo, $cod) = $xoopsDB->fetchRow($consulta))) {
         $categ_selbox->addOption($cod, $titulo);
     }
 
@@ -171,8 +172,8 @@ function monta_form($value)
         $check = '';
         $disa  = '';
     }
-    $label = new XoopsFormElementTray(_AM_RWBANNER_TITLE24, '');
-    $max   = new XoopsFormText('', 'form[maxexibe]', 10, 255, $exibe);
+    $label = new \XoopsFormElementTray(_AM_RWBANNER_TITLE24, '');
+    $max   = new \XoopsFormText('', 'form[maxexibe]', 10, 255, $exibe);
     $max->setExtra($disa);
     echo '
   <script>
@@ -189,7 +190,7 @@ function monta_form($value)
     }
   </script>
   ';
-    $ilimitado = new XoopsFormCheckBox('', _AM_RWBANNER_BTN_OP3);
+    $ilimitado = new \XoopsFormCheckBox('', _AM_RWBANNER_BTN_OP3);
     $ilimitado->setExtra('onClick="javascript:checa();" ' . $check);
     $ilimitado->addOption(1, _AM_RWBANNER_BTN_OP3);
     if (0 == $form['maxclick']) {
@@ -201,8 +202,8 @@ function monta_form($value)
         $check1 = '';
         $disa1  = '';
     }
-    $label1   = new XoopsFormElementTray(_AM_RWBANNER_TITLE500, '');
-    $maxclick = new XoopsFormText('', 'form[maxclick]', 10, 255, $exibe1);
+    $label1   = new \XoopsFormElementTray(_AM_RWBANNER_TITLE500, '');
+    $maxclick = new \XoopsFormText('', 'form[maxclick]', 10, 255, $exibe1);
     $maxclick->setExtra($disa1);
     echo '
   <script>
@@ -219,7 +220,7 @@ function monta_form($value)
     }
   </script>
   ';
-    $ilimitado1 = new XoopsFormCheckBox('', _AM_RWBANNER_BTN_OP3);
+    $ilimitado1 = new \XoopsFormCheckBox('', _AM_RWBANNER_BTN_OP3);
     $ilimitado1->setExtra('onClick="javascript:checa1();" ' . $check1);
     $ilimitado1->addOption(1, _AM_RWBANNER_BTN_OP3);
     if (0 == $form['periodo']) {
@@ -231,8 +232,8 @@ function monta_form($value)
         $check2 = '';
         $disa2  = '';
     }
-    $label2  = new XoopsFormElementTray(_AM_RWBANNER_TITLE5001, '');
-    $periodo = new XoopsFormText('', 'form[periodo]', 10, 255, $exibe2);
+    $label2  = new \XoopsFormElementTray(_AM_RWBANNER_TITLE5001, '');
+    $periodo = new \XoopsFormText('', 'form[periodo]', 10, 255, $exibe2);
     $periodo->setExtra($disa2);
     echo '
   <script>
@@ -249,10 +250,10 @@ function monta_form($value)
     }
   </script>
   ';
-    $ilimitado2 = new XoopsFormCheckBox('', _AM_RWBANNER_BTN_OP3);
+    $ilimitado2 = new \XoopsFormCheckBox('', _AM_RWBANNER_BTN_OP3);
     $ilimitado2->setExtra('onClick="javascript:checa2();" ' . $check2);
     $ilimitado2->addOption(1, _AM_RWBANNER_BTN_OP3);
-    $imagem = new XoopsFormText(_AM_RWBANNER_TITLE25, 'form[grafico]', 45, 255, $form['grafico']);
+    $imagem = new \XoopsFormText(_AM_RWBANNER_TITLE25, 'form[grafico]', 45, 255, $form['grafico']);
     $js     = '
   var campo = document.getElementById("form[grafico]");
   var campo1 = document.getElementById("banner");
@@ -266,10 +267,10 @@ function monta_form($value)
         $imagem->setEspecValid($js);
     }
     $max_size = 5000000;
-    $file_box = new XoopsFormFile(_AM_RWBANNER_TITLE51_ED, 'banner', $max_size);
+    $file_box = new \XoopsFormFile(_AM_RWBANNER_TITLE51_ED, 'banner', $max_size);
     $file_box->setExtra('size ="45" onChange="vai();"');
     $file_box->setDescription($file_name);
-    $link = new XoopsFormText(_AM_RWBANNER_TITLE26, 'form[url]', 45, 255, $form['url']);
+    $link = new \XoopsFormText(_AM_RWBANNER_TITLE26, 'form[url]', 45, 255, $form['url']);
     echo '
   <script>
     function checar()
@@ -283,26 +284,26 @@ function monta_form($value)
     }
   </script>
   ';
-    $usarhtml = new XoopsFormCheckBox(_AM_RWBANNER_TITLE27, 'form[usarhtml]', $form['usarhtml']);
+    $usarhtml = new \XoopsFormCheckBox(_AM_RWBANNER_TITLE27, 'form[usarhtml]', $form['usarhtml']);
     $usarhtml->setExtra('onClick="javascript:checar();"');
     $usarhtml->addOption(1, _MI_RWBANNER_YES);
-    $htmlcode = new XoopsFormTextArea(_AM_RWBANNER_TITLE28, 'form[htmlcode]', $form['htmlcode']);
+    $htmlcode = new \XoopsFormTextArea(_AM_RWBANNER_TITLE28, 'form[htmlcode]', $form['htmlcode']);
     if (1 != $form['usarhtml']) {
         $htmlcode->setExtra('disabled');
     }
-    $target_selbox = new XoopsFormSelect(_AM_RWBANNER_TITLE29, 'form[target]', $form['target']);
+    $target_selbox = new \XoopsFormSelect(_AM_RWBANNER_TITLE29, 'form[target]', $form['target']);
     $target_selbox->addOption('_blank', '_blank');
     $target_selbox->addOption('_self', '_self');
     $target_selbox->addOption('_parent', '_parent');
     $target_selbox->addOption('_top', '_top');
-    $button_tray = new XoopsFormElementTray('', '');
+    $button_tray = new \XoopsFormElementTray('', '');
     if (_AM_RWBANNER_BTN_OP2 == $value) {
-        $id     = new XoopsFormHidden('form[codigo]', $form['codigo']);
-        $status = new XoopsFormHidden('form[status]', $form['status']);
+        $id     = new \XoopsFormHidden('form[codigo]', $form['codigo']);
+        $status = new \XoopsFormHidden('form[status]', $form['status']);
     }
-    $submit_btn = new XoopsFormButton('', 'post', $value, 'submit');
+    $submit_btn = new \XoopsFormButton('', 'post', $value, 'submit');
     if (_AM_RWBANNER_BTN_OP2 == $value && 2 == $form['status']) {
-        $obs = new XoopsFormTextArea(_AM_RWBANNER_TITLE5000, 'form[obs]', $form['obs']);
+        $obs = new \XoopsFormTextArea(_AM_RWBANNER_TITLE5000, 'form[obs]', $form['obs']);
         $obs->setDescription(_AM_RWBANNER_TITLE5000_DESC);
     }
     $banner_form->addElement($user_selbox);

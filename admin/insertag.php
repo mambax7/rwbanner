@@ -30,11 +30,12 @@
 // ------------------------------------------------------------------------- //
 
 use Xmf\Request;
+use  XoopsModules\Rwbanner;
 
 require_once __DIR__ . '/admin_header.php';
 
 require_once XOOPS_ROOT_PATH . '/include/cp_functions.php';
-require_once __DIR__ . '/../class/class.tags.php';
+// require_once __DIR__ . '/../class/class.tags.php';
 
 $op = Request::getCmd('op', '');
 $id = Request::getCmd('id', '');
@@ -49,7 +50,7 @@ switch ($op) {
     case 'grava':
         if (_AM_RWBANNER_BTN_OP1 == $_POST['post']) {
             $form['modid'] = serialize($form['modid']);
-            $tag           = new RWTag($form);
+            $tag           = new Rwbanner\Tag($form);
             if ($tag->grava()) {
                 redirect_header('index.php', 1, _AM_RWBANNER_MSG22);
             } else {
@@ -57,7 +58,7 @@ switch ($op) {
             }
         } elseif (_AM_RWBANNER_BTN_OP2 == $_POST['post']) {
             $form['modid'] = serialize($form['modid']);
-            $tag           = new RWTag($form);
+            $tag           = new Rwbanner\Tag($form);
             if ($tag->edita()) {
                 redirect_header('index.php', 1, _AM_RWBANNER_MSG24);
             } else {
@@ -68,7 +69,7 @@ switch ($op) {
     case 'editar_tag':
         xoops_cp_header();
         // rwbanner_adminMenu('','Modifico Tag: '.$id);
-        $tag = new RWTag(null, $id);
+        $tag = new Rwbanner\Tag(null, $id);
         $tag->clearDb();
         foreach ($tag as $key => $value) {
             $form[$key] = $value;
@@ -97,52 +98,52 @@ function monta_form($value)
     require_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
     $id = '';
 
-    $banner_form = new XoopsThemeForm(_AM_RWBANNER_TAG_TITLE08, 'form', 'insertag.php', 'post', false);
+    $banner_form = new \XoopsThemeForm(_AM_RWBANNER_TAG_TITLE08, 'form', 'insertag.php', 'post', false);
 
-    $title = new XoopsFormText(_AM_RWBANNER_TAG_TITLE09, 'form[title]', 50, 255, (isset($form['title']) ? $form['title'] : ''));
-    $name1 = new XoopsFormText(_AM_RWBANNER_TAG_TITLE14, 'form[name]', 50, 255, (isset($form['name']) ? $form['name'] : ''));
+    $title = new \XoopsFormText(_AM_RWBANNER_TAG_TITLE09, 'form[title]', 50, 255, (isset($form['title']) ? $form['title'] : ''));
+    $name1 = new \XoopsFormText(_AM_RWBANNER_TAG_TITLE14, 'form[name]', 50, 255, (isset($form['name']) ? $form['name'] : ''));
     $name1->setDescription(_AM_RWBANNER_TAG_TITLE15);
-    $codbanner = new XoopsFormText(_AM_RWBANNER_TAG_TITLE22, 'form[codbanner]', 10, 255, (isset($form['codbanner']) ? $form['codbanner'] : ''));
+    $codbanner = new \XoopsFormText(_AM_RWBANNER_TAG_TITLE22, 'form[codbanner]', 10, 255, (isset($form['codbanner']) ? $form['codbanner'] : ''));
     $codbanner->setDescription(_AM_RWBANNER_TAG_TITLE23);
-    $categ = new XoopsFormSelect(_AM_RWBANNER_TAG_TITLE10, 'form[categ]', (isset($form['categ']) ? $form['categ'] : ''));
+    $categ = new \XoopsFormSelect(_AM_RWBANNER_TAG_TITLE10, 'form[categ]', (isset($form['categ']) ? $form['categ'] : ''));
     $categ->addOption(0, _AM_RWBANNER_TAG_TITLE13);
     //mb ---------------------------
-    $db = XoopsDatabaseFactory::getDatabaseConnection();
+    $db = \XoopsDatabaseFactory::getDatabaseConnection();
 
     $myDB = $db->prefix('rwbanner_categorias');
     //  $query = "SELECT titulo,cod FROM ".$xoopsDB->prefix("rwbanner_categorias");
     $query    = 'SELECT titulo,cod FROM ' . $myDB;
     $consulta = $xoopsDB->queryF($query);
-    while (list($titulo, $cod) = $xoopsDB->fetchRow($consulta)) {
+    while (false !== (list($titulo, $cod) = $xoopsDB->fetchRow($consulta))) {
         $categ->addOption($cod, $titulo);
     }
 
     $form['modid'] = unserialize((isset($form['modid']) ? $form['modid'] : ''));
-    $mid_selbox    = new XoopsFormSelect(_AM_RWBANNER_TAG_TITLE16, 'form[modid]', $form['modid'], 5, true);
+    $mid_selbox    = new \XoopsFormSelect(_AM_RWBANNER_TAG_TITLE16, 'form[modid]', $form['modid'], 5, true);
     $mid_selbox->addOption(0, _AM_RWBANNER_TAG_TITLE17);
     $query = $xoopsDB->queryF('SELECT mid,name FROM ' . $xoopsDB->prefix('modules') . ' WHERE (hasmain="1" OR mid="1") AND isactive="1" AND (weight!="0" OR mid="1") ORDER BY name');
-    while (list($mid, $name) = $xoopsDB->fetchRow($query)) {
+    while (false !== (list($mid, $name) = $xoopsDB->fetchRow($query))) {
         $mid_selbox->addOption($mid, $name);
     }
     $mid_selbox->setDescription(_AM_RWBANNER_TITLE37);
 
-    $qtde = new XoopsFormText(_AM_RWBANNER_TAG_TITLE11, 'form[qtde]', 10, 255, (isset($form['qtde']) ? $form['qtde'] : ''));
-    $cols = new XoopsFormText(_AM_RWBANNER_TAG_TITLE12, 'form[cols]', 10, 255, (isset($form['cols']) ? $form['cols'] : ''));
+    $qtde = new \XoopsFormText(_AM_RWBANNER_TAG_TITLE11, 'form[qtde]', 10, 255, (isset($form['qtde']) ? $form['qtde'] : ''));
+    $cols = new \XoopsFormText(_AM_RWBANNER_TAG_TITLE12, 'form[cols]', 10, 255, (isset($form['cols']) ? $form['cols'] : ''));
 
-    $obs = new XoopsFormTextArea(_AM_RWBANNER_TAG_TITLE20, 'form[obs]', (isset($form['obs']) ? $form['obs'] : ''));
+    $obs = new \XoopsFormTextArea(_AM_RWBANNER_TAG_TITLE20, 'form[obs]', (isset($form['obs']) ? $form['obs'] : ''));
     $obs->setDescription(_AM_RWBANNER_TAG_TITLE21);
 
-    $status = new XoopsFormSelect(_AM_RWBANNER_TAG_TITLE18, 'form[status]', (isset($form['status']) ? $form['status'] : ''));
+    $status = new \XoopsFormSelect(_AM_RWBANNER_TAG_TITLE18, 'form[status]', (isset($form['status']) ? $form['status'] : ''));
     $status->addOption(1, _AM_RWBANNER_TAG_STATUS1);
     $status->addOption(0, _AM_RWBANNER_TAG_STATUS2);
 
-    $button_tray = new XoopsFormElementTray('', '');
+    $button_tray = new \XoopsFormElementTray('', '');
     if (_AM_RWBANNER_BTN_OP4 == $value) {
         // bug fix - luciorota
 
-        $id = new XoopsFormHidden('form[id]', $form['id']);
+        $id = new \XoopsFormHidden('form[id]', $form['id']);
     }
-    $submit_btn = new XoopsFormButton('', 'post', $value, 'submit');
+    $submit_btn = new \XoopsFormButton('', 'post', $value, 'submit');
 
     $banner_form->addElement($title);
     $banner_form->addElement($name1);

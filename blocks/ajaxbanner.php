@@ -35,8 +35,8 @@
 
 function exibe_ajaxbanner($options)
 {
-    require_once __DIR__ . '/../class/class.categoria.php';
-    require_once __DIR__ . '/../class/class.banner.php';
+    // require_once __DIR__ . '/../class/class.categoria.php';
+    // require_once __DIR__ . '/../class/class.banner.php';
 
     global $xoopsTpl;
     $dirname = basename(dirname(__DIR__));
@@ -53,7 +53,7 @@ function exibe_ajaxbanner($options)
     $block['lang_carreg'] = _MB_RWBANNER_OPTION15;
 
     $categ                    = new Categoria(null, $options[0]);
-    $banner                   = new RWbanners();
+    $banner                   = new Banner();
     $block['qtde_encontrado'] = count($banner->getBanners(false, 'ORDER BY RAND()', $options[0], $options[1]));
     $block['alt']             = ($block['qtde'] > 1 && 1 == $block['cols']) ? (($categ->getAlt() * $block['qtde_encontrado']) + (15 * $block['qtde_encontrado'])) : ($categ->getAlt() + 20);
 
@@ -70,7 +70,7 @@ function edita_ajaxbanner($options)
     $query    = 'SELECT cod,titulo FROM ' . $xoopsDB->prefix('rwbanner_categorias');
     $consulta = $xoopsDB->queryF($query);
     $categ    = _MB_RWBANNER_OPTION1 . "&nbsp;<select options[0] name=\"options[0]\" onchange='javascript:options0.value = this.value;'>";
-    while (list($cod, $titulo) = $xoopsDB->fetchRow($consulta)) {
+    while (false !== (list($cod, $titulo) = $xoopsDB->fetchRow($consulta))) {
         $sel   = ($options[0] == $cod) ? " 'selected'" : '';
         $categ .= '<option value="' . $cod . '" ' . $sel . '>' . $titulo . '</option>';
     }

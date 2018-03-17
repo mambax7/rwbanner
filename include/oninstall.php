@@ -17,6 +17,8 @@
  * @author       XOOPS Development Team
  */
 
+use XoopsModules\Rwbanner;
+
 //require_once __DIR__ . '/setup.php';
 
 /**
@@ -26,7 +28,7 @@
  *
  * @return bool true if ready to install, false if not
  */
-function xoops_module_pre_install_rwbanner(XoopsModule $module)
+function xoops_module_pre_install_rwbanner(\XoopsModule $module)
 {
     $moduleDirName = basename(dirname(__DIR__));
     $utilityClass     = ucfirst($moduleDirName) . 'Utility';
@@ -58,13 +60,13 @@ function xoops_module_pre_install_rwbanner(XoopsModule $module)
  *
  * @return bool true if installation successful, false if not
  */
-function xoops_module_install_rwbanner(XoopsModule $module)
+function xoops_module_install_rwbanner(\XoopsModule $module)
 {
     require_once  __DIR__ . '/../../../mainfile.php';
     require_once  __DIR__ . '/../include/config.php';
 
     $moduleDirName = basename(dirname(__DIR__));
-    $helper = \Xmf\Module\Helper::getHelper($moduleDirName);
+    $helper = Rwbanner\Helper::getInstance();
 
     // Load language files
     $helper->loadLanguage('admin');
@@ -97,10 +99,10 @@ function xoops_module_install_rwbanner(XoopsModule $module)
     }
 
     //  ---  COPY blank.png FILES ---------------
-    if (count($configurator->blankFiles) > 0) {
+    if (count($configurator->copyBlankFiles) > 0) {
         $file = __DIR__ . '/../assets/images/blank.png';
-        foreach (array_keys($configurator->blankFiles) as $i) {
-            $dest = $configurator->blankFiles[$i] . '/blank.png';
+        foreach (array_keys($configurator->copyBlankFiles) as $i) {
+            $dest = $configurator->copyBlankFiles[$i] . '/blank.png';
             $utilityClass::copyFile($file, $dest);
         }
     }
@@ -119,7 +121,9 @@ $blankFile = $GLOBALS['xoops']->path('modules/randomquote/assets/images/icons/bl
 //Creation du dossier "uploads" pour le module à la racine du site
 $module_uploads = $GLOBALS['xoops']->path('uploads/randomquote');
 if (!is_dir($module_uploads)) {
-    mkdir($module_uploads, 0777);
+    if (!mkdir($module_uploads, 0777) && !is_dir($module_uploads)) {
+        throw new \RuntimeException(sprintf('Directory "%s" was not created', $module_uploads));
+    }
 }
 chmod($module_uploads, 0777);
 copy($indexFile, $GLOBALS['xoops']->path('uploads/randomquote/index.html'));
@@ -127,7 +131,9 @@ copy($indexFile, $GLOBALS['xoops']->path('uploads/randomquote/index.html'));
 //Creation du fichier citas dans uploads
 $module_uploads = $GLOBALS['xoops']->path('uploads/randomquote/citas');
 if (!is_dir($module_uploads)) {
-    mkdir($module_uploads, 0777);
+    if (!mkdir($module_uploads, 0777) && !is_dir($module_uploads)) {
+        throw new \RuntimeException(sprintf('Directory "%s" was not created', $module_uploads));
+    }
 }
 chmod($module_uploads, 0777);
 copy($indexFile, $GLOBALS['xoops']->path('uploads/randomquote/citas/index.html'));

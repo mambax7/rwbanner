@@ -29,17 +29,16 @@
 // Descrição: Sistema de gerenciamento de mídias publicitárias               //
 // ------------------------------------------------------------------------- //
 use Xmf\Request;
+use XoopsModules\Rwbanner;
 
 $path = dirname(dirname(__DIR__));
 require_once $path . '/mainfile.php';
-require_once __DIR__ . '/class/class.banner.php';
+require_once __DIR__ . '/class/Banner.php';
 require_once XOOPS_ROOT_PATH . '/class/pagenav.php';
 
-if (file_exists(__DIR__ . '/language/' . $xoopsConfig['language'] . '/admin.php')) {
-    include __DIR__ . '/language/' . $xoopsConfig['language'] . '/admin.php';
-} else {
-    include __DIR__ . '/language/english/admin.php';
-}
+/** @var Rwbanner\Helper $helper */
+$helper = Rwbanner\Helper::getInstance();
+$helper->loadLanguage('admin');
 
 /*
 $cod = (isset($_GET['cod']))?$_GET['cod']:((isset($_POST['cod']))?$_POST['cod']:'');
@@ -84,7 +83,7 @@ function lista_banners($uid, $order = null, $seq = '', $limit = 10, $start = 0)
     global $xoopsModule, $xoopsModuleConfig;
     $pathIcon16 = \Xmf\Module\Admin::iconUrl('', 16);
 
-    $banner = new RWbanners();
+    $banner = new Rwbanner\Banner();
     $total  = $banner->getRowNum(null, $uid);
 
     if ($total > 0) {
@@ -250,7 +249,7 @@ function lista_banners($uid, $order = null, $seq = '', $limit = 10, $start = 0)
         } else {
             $extra_pag = '';
         }
-        $pagenav = new XoopsPageNav($total, $limit, $start, 'start', $extra_pag);
+        $pagenav = new \XoopsPageNav($total, $limit, $start, 'start', $extra_pag);
         $pag     = $pagenav->renderNav();
         echo '  <tr class="head">';
         echo '    <td align="left" colspan="12" nowrap="nowrap" style="padding:5px;">' . _AM_RWBANNER_TOTAL_BANNER_LEG . ' ' . $total . '<br><div align="center">' . $pag . '</div></td>';

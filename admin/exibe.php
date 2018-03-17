@@ -33,8 +33,10 @@
  *
  */
 
+use  XoopsModules\Rwbanner;
+
 require_once __DIR__ . '/admin_header.php';
-require_once __DIR__ . '/../class/class.banner.php';
+// require_once __DIR__ . '/../class/class.banner.php';
 
 if ('' == $_GET['id']) {
     $id = $_POST['id'];
@@ -42,12 +44,12 @@ if ('' == $_GET['id']) {
     $id = $_GET['id'];
 }
 
-$banner = new RWbanners(null, $id);
+$banner = new Rwbanner\Banner(null, $id);
 
 if (1 == $banner->getUsarhtml()) {
     echo $banner->getHtmlCode();
 } else {
-    if (stristr($banner->getGrafico(), '.swf')) {
+    if (false !== stripos($banner->getGrafico(), '.swf')) {
         echo '<object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,40,0" width="'
              . $banner->getLargura()
              . '" height="'

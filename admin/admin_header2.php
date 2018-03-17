@@ -29,6 +29,8 @@
 // Descrição: Sistema de gerenciamento de mídias publicitárias               //
 // ------------------------------------------------------------------------- //
 
+use XoopsModules\Rwbanner;
+
 $path = dirname(dirname(dirname(__DIR__)));
 require_once $path . '/mainfile.php';
 require_once $path . '/include/cp_header.php';
@@ -52,10 +54,8 @@ if (is_object($xoopsUser)) {
 
 require_once XOOPS_ROOT_PATH . '/modules/' . $module->dirname() . '/include/functions.php';
 
-if (file_exists('../language/' . $xoopsConfig['language'] . '/modinfo.php')) {
-    include __DIR__ . '/../language/' . $xoopsConfig['language'] . '/modinfo.php';
-} else {
-    include __DIR__ . '/../language/english/modinfo.php';
-}
+/** @var Rwbanner\Helper $helper */
+$helper = Rwbanner\Helper::getInstance();
+$helper->loadLanguage('modinfo');
 
 $myts = \MyTextSanitizer::getInstance();

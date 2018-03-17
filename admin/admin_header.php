@@ -13,6 +13,8 @@
  * @author       XOOPS Development Team
  **/
 
+use XoopsModules\Rwbanner;
+
 $path = dirname(dirname(dirname(__DIR__)));
 require_once $path . '/mainfile.php';
 
@@ -26,11 +28,11 @@ require_once $path . '/class/xoopslists.php';
 require_once $path . '/class/xoopsformloader.php';
 require_once $path . '/class/pagenav.php';
 
-//require_once __DIR__ . '/../class/Utility.php';
+// require_once __DIR__ . '/../class/Utility.php';
 require_once __DIR__ . '/../include/functions.php';
 
 $moduleDirName = basename(dirname(__DIR__));
-$helper = \Xmf\Module\Helper::getHelper($moduleDirName);
+$helper = Rwbanner\Helper::getInstance();
 $adminObject = \Xmf\Module\Admin::getInstance();
 
 if (is_object($xoopsUser)) {
@@ -55,5 +57,5 @@ $myts = \MyTextSanitizer::getInstance();
 
 if (!isset($GLOBALS['xoopsTpl']) || !($GLOBALS['xoopsTpl'] instanceof XoopsTpl)) {
     require_once $GLOBALS['xoops']->path('class/template.php');
-    $xoopsTpl = new XoopsTpl();
+    $xoopsTpl = new \XoopsTpl();
 }

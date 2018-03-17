@@ -164,7 +164,7 @@
     <{/if}>
 </script>
 <div id="dropin"
-     style="position:absolute;visibility:hidden;padding:10px;padding-top:0;left:<{$block.left}>px;top:<{$block.top}>px;width:<{$block.width}>px;height:<{$block.height}>px; background-color:#<{$block.bgcolor}>; border:1px solid #000000;">
+     style="position:absolute;visibility:hidden;padding: 0 10px 10px;left:<{$block.left}>px;top:<{$block.top}>px;width:<{$block.width}>px;height:<{$block.height}>px; background-color:#<{$block.bgcolor}>; border:1px solid #000000;">
 
     <div align="right" style="width:100%; padding-top:5px; padding-bottom:5px;"><a
                 style="color:#000000; font-weight:bold;" href="#"

@@ -36,7 +36,7 @@
 function estatisticas_banner($options)
 {
     global $xoopsUser, $xoopsConfig;
-    require_once __DIR__ . '/../class/class.banner.php';
+    // require_once __DIR__ . '/../class/class.banner.php';
     require_once XOOPS_ROOT_PATH . '/class/pagenav.php';
 
     if ($xoopsUser) {
@@ -79,7 +79,7 @@ function estatisticas_banner($options)
         }
         $block['select1'] .= '</select>';
 
-        $banner = new RWbanners();
+        $banner = new Banner();
         $arr    = $banner->getAllByClient($uid, $ord, null, $limit, $start);
         $total  = $banner->getRowNum(null, $uid);
 
@@ -132,7 +132,7 @@ function estatisticas_banner($options)
         } else {
             $extra_pag = '';
         }
-        $pagenav      = new XoopsPageNav($total, $limit, $start, 'start', $extra_pag);
+        $pagenav      = new \XoopsPageNav($total, $limit, $start, 'start', $extra_pag);
         $block['pag'] = $pagenav->renderNav();
 
         $block['lang_msg1']    = _MB_RWBANNER_MSG1;

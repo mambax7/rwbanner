@@ -30,11 +30,12 @@
 // ------------------------------------------------------------------------- //
 
 use Xmf\Request;
+use  XoopsModules\Rwbanner;
 
 require_once __DIR__ . '/admin_header.php';
 
 require_once XOOPS_ROOT_PATH . '/include/cp_functions.php';
-require_once __DIR__ . '/../class/class.categoria.php';
+// require_once __DIR__ . '/../class/class.categoria.php';
 
 $op = Request::getCmd('op', '');
 $id = Request::getCmd('id', '');
@@ -48,14 +49,14 @@ global $xoopsDB;
 switch ($op) {
     case 'grava':
         if (_AM_RWBANNER_BTN_OP1 == $_POST['post']) {
-            $cat = new Categoria($form);
+            $cat = new Rwbanner\Categoria($form);
             if ($cat->grava()) {
                 redirect_header('main.php', 1, _AM_RWBANNER_MSG5);
             } else {
                 redirect_header('index.php', 1, _AM_RWBANNER_MSG6 . '<br>' . $cat->getError());
             }
         } elseif (_AM_RWBANNER_BTN_OP2 == $_POST['post']) {
-            $cat = new Categoria($form);
+            $cat = new Rwbanner\Categoria($form);
             if ($cat->edita()) {
                 redirect_header('main.php', 1, _AM_RWBANNER_MSG4);
             } else {
@@ -66,7 +67,7 @@ switch ($op) {
     case 'editar_categ':
         xoops_cp_header();
         // rwbanner_adminMenu('','Editando Categoria codigo: '.$id);
-        $cat = new Categoria(null, $id);
+        $cat = new Rwbanner\Categoria(null, $id);
         $cat->clearDb();
         foreach ($cat as $key => $value) {
             $form[$key] = $value;
@@ -92,24 +93,24 @@ switch ($op) {
 function monta_form($value)
 {
     global $form;
-    $xoopsDB = XoopsDatabaseFactory::getDatabaseConnection();
+    $xoopsDB = \XoopsDatabaseFactory::getDatabaseConnection();
     require_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
 
     $id = '';
 
-    $banner_form = new XoopsThemeForm(_AM_RWBANNER_TITLE38, 'form', 'insercateg.php', 'post', false);
+    $banner_form = new \XoopsThemeForm(_AM_RWBANNER_TITLE38, 'form', 'insercateg.php', 'post', false);
     $banner_form->setExtra('enctype="multipart/form-data"');
-    $titulo  = new XoopsFormText(_AM_RWBANNER_TITLE31, 'form[titulo]', 50, 255, (isset($form['titulo']) ? $form['titulo'] : ''));
-    $largura = new XoopsFormText(_AM_RWBANNER_TITLE32, 'form[larg]', 10, 255, (isset($form['larg']) ? $form['larg'] : ''));
-    $altura  = new XoopsFormText(_AM_RWBANNER_TITLE33, 'form[alt]', 10, 255, (isset($form['alt']) ? $form['alt'] : ''));
+    $titulo  = new \XoopsFormText(_AM_RWBANNER_TITLE31, 'form[titulo]', 50, 255, (isset($form['titulo']) ? $form['titulo'] : ''));
+    $largura = new \XoopsFormText(_AM_RWBANNER_TITLE32, 'form[larg]', 10, 255, (isset($form['larg']) ? $form['larg'] : ''));
+    $altura  = new \XoopsFormText(_AM_RWBANNER_TITLE33, 'form[alt]', 10, 255, (isset($form['alt']) ? $form['alt'] : ''));
 
-    $button_tray = new XoopsFormElementTray('', '');
+    $button_tray = new \XoopsFormElementTray('', '');
     if (_AM_RWBANNER_BTN_OP2 == $value) {
         // bug fix - luciorota
 
-        $id = new XoopsFormHidden('form[cod]', $form['cod']);
+        $id = new \XoopsFormHidden('form[cod]', $form['cod']);
     }
-    $submit_btn = new XoopsFormButton('', 'post', $value, 'submit');
+    $submit_btn = new \XoopsFormButton('', 'post', $value, 'submit');
 
     $banner_form->addElement($titulo);
     $banner_form->addElement($largura);

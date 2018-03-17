@@ -158,7 +158,7 @@ define('_MI_RWBANNER_WARNING_RC', 'This module is available as it is. This modul
 //admin/menu.php
 define('_MI_RWBANNER_MENU_TITLE0', 'Index');
 define('_MI_RWBANNER_MENU_TITLE1', 'Campaigns');
-//define('_MI_RWBANNER_MENU_TITLE2', 'Blocks/Groups');
+define('_MI_RWBANNER_MENU_TITLE2', 'Blocks/Groups');
 define('_MI_RWBANNER_MENU_TITLE3', 'Banners');
 define('_MI_RWBANNER_SUBMENU_TITLE3', 'Add Banner');
 define('_MI_RWBANNER_MENU_TITLE4', 'Categories');
@@ -167,6 +167,8 @@ define('_MI_RWBANNER_MENU_TITLE6', 'About');
 //define('_MI_RWBANNER_MENU_TITLE7', 'Preferences');
 define('_MI_RWBANNER_MENU_TITLE8', 'Tags');
 define('_MI_RWBANNER_IMPORT', 'Import');
+define('_MI_RWBANNER_PERMISSIONS', 'Permissions');
+
 
 define('_MI_RWBANNER_YES', 'Yes');
 define('_MI_RWBANNER_USER_OPT0', 'Number of Replays');

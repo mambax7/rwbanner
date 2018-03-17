@@ -29,6 +29,8 @@
 // Descrição: Sistema de gerenciamento de mídias publicitárias               //
 // ------------------------------------------------------------------------- //
 
+
+
 return [
 
     'bmp'  => 'image/bmp',

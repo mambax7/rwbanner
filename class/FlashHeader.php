@@ -1,4 +1,5 @@
-<?php
+<?php namespace XoopsModules\Rwbanner;
+
 //  ------------------------------------------------------------------------ //
 //                                  RW-Banner                                //
 //                    Copyright (c) 2006 Web Applications                    //
@@ -29,6 +30,8 @@
 // Descrição: Sistema de gerenciamento de mídias publicitárias               //
 // ------------------------------------------------------------------------- //
 
+use XoopsModules\Rwbanner;
+
 /**
  * Flash Header reader
  * Alessandro Crugnola (sephiroth)
@@ -51,6 +54,7 @@
  * -------------------------------------
  *
  */
+
 class FlashHeader
 {
     public $version;
@@ -172,7 +176,7 @@ class FlashHeader
         $xmax = $this->readbits($l) / 20;
         $ymin = $this->readbits($l) / 20;
         $ymax = $this->readbits($l) / 20;
-        $rect = new Rect($xmax, $ymax);
+        $rect = new Rwbanner\Rect($xmax, $ymax);
 
         return $rect->__str__();
     }
@@ -222,35 +226,3 @@ class FlashHeader
         $this->pos = 1;
     }
 }
-
-/**
- * class Rect
- * store the size values into an associative array
- */
-class Rect
-{
-    /**
-     * Rect constructor.
-     * @param $x2
-     * @param $y2
-     */
-    public function __construct($x2, $y2)
-    {
-        $this->xmax  = $x2;
-        $this->ymax  = $y2;
-        $this->value = $this->__str__();
-    }
-
-    /**
-     * @return array
-     */
-    public function __str__()
-    {
-        $ret           = [$this->xmax, $this->ymax];
-        $ret['width']  = $this->xmax;
-        $ret['height'] = $this->ymax;
-
-        return $ret;
-    }
-}
-/* end */

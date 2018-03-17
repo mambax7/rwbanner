@@ -1,4 +1,5 @@
-<?php
+<?php namespace XoopsModules\Rwbanner;
+
 /*
                                   RW-Banner
                           Copyright (c) 2006 BrInfo
@@ -48,7 +49,7 @@ define('_RWBANNER_DIRIMAGES', $rwbannerConfigs['dir_images']);
 /**
  * Class RWbanners
  */
-class RWbanners
+class Banner
 {
     public $db;
     public $codigo;
@@ -86,7 +87,7 @@ class RWbanners
     {
         $this->rwbanner = Rwbanner\Helper::getInstance();
         if (null == $dados && null != $id) {
-            $this->db = XoopsDatabaseFactory::getDatabaseConnection();
+            $this->db = \XoopsDatabaseFactory::getDatabaseConnection();
             $sql      = 'SELECT * FROM ' . $this->db->prefix('rwbanner_banner') . ' WHERE codigo=' . $id;
             $query    = $this->db->query($sql);
             $row      = $this->db->fetchArray($query);
@@ -113,7 +114,7 @@ class RWbanners
             $this->alt       = $this->setAltura();
             $this->obs       = $row['obs'];
         } elseif (null != $dados) {
-            $this->codigo    = isset($dados['codigo']) ? $dados['codigo'] : '';
+            $this->codigo    = isset($dados['codigo']) ? $dados['codigo'] : 0;
             $this->categoria = isset($dados['categoria']) ? $dados['categoria'] : '';
             $this->titulo    = isset($dados['titulo']) ? $dados['titulo'] : '';
             $this->texto     = isset($dados['texto']) ? $dados['texto'] : '';
@@ -122,10 +123,10 @@ class RWbanners
             $this->usarhtml  = isset($dados['usarhtml']) ? $dados['usarhtml'] : '';
             $this->htmlcode  = isset($dados['htmlcode']) ? $dados['htmlcode'] : '';
             $this->showimg   = isset($dados['showimg']) ? $dados['showimg'] : '';
-            $this->exibicoes = isset($dados['exibicoes']) ? $dados['exibicoes'] : '';
-            $this->maxexib   = isset($dados['maxexib']) ? $dados['maxexib'] : '';
-            $this->clicks    = isset($dados['clicks']) ? $dados['clicks'] : '';
-            $this->maxclick  = isset($dados['maxclick']) ? $dados['maxclick'] : '';
+            $this->exibicoes = isset($dados['exibicoes']) ? $dados['exibicoes'] : 0;
+            $this->maxexib   = isset($dados['maxexib']) ? $dados['maxexib'] : 0;
+            $this->clicks    = isset($dados['clicks']) ? $dados['clicks'] : 0;
+            $this->maxclick  = isset($dados['maxclick']) ? $dados['maxclick'] : 0;
             $this->data      = isset($dados['data']) ? $dados['data'] : '';
             $this->periodo   = isset($dados['periodo']) ? $dados['periodo'] : '';
             $this->status    = isset($dados['status']) ? $dados['status'] : $this->status;
@@ -135,7 +136,7 @@ class RWbanners
             $this->alt       = isset($dados['alt']) ? $dados['alt'] : '';
             $this->obs       = isset($dados['obs']) ? $dados['obs'] : '';
         } else {
-            $this->codigo    = '';
+            $this->codigo    = 0;
             $this->categoria = '';
             $this->titulo    = '';
             $this->texto     = '';
@@ -144,7 +145,7 @@ class RWbanners
             $this->usarhtml  = '';
             $this->htmlcode  = '';
             $this->showimg   = '';
-            $this->exibicoes = '';
+            $this->exibicoes = 0;
             $this->maxexib   = '';
             $this->clicks    = '';
             $this->maxclick  = '';
@@ -493,7 +494,7 @@ class RWbanners
      */
     public function grava($flag = null)
     {
-        $this->db = XoopsDatabaseFactory::getDatabaseConnection();
+        $this->db = \XoopsDatabaseFactory::getDatabaseConnection();
         $sts      = (null != $flag) ? $flag : 1;
         $sql      = 'INSERT INTO '
                     . $this->db->prefix('rwbanner_banner')
@@ -552,7 +553,7 @@ class RWbanners
      */
     public function edita()
     {
-        $this->db = XoopsDatabaseFactory::getDatabaseConnection();
+        $this->db = \XoopsDatabaseFactory::getDatabaseConnection();
         $myts     = \MyTextSanitizer::getInstance();
         $sql      = 'UPDATE '
                     . $this->db->prefix('rwbanner_banner')
@@ -606,7 +607,7 @@ class RWbanners
      */
     public function exclui()
     {
-        $this->db = XoopsDatabaseFactory::getDatabaseConnection();
+        $this->db = \XoopsDatabaseFactory::getDatabaseConnection();
         $sql      = 'DELETE FROM ' . $this->db->prefix('rwbanner_banner') . ' WHERE codigo= ' . $this->codigo;
         if ($query = $this->db->queryF($sql)) {
             return true;
@@ -629,7 +630,7 @@ class RWbanners
      */
     public function getBanners($admin = false, $order = null, $categ = null, $limit = null, $start = 0)
     {
-        $this->db = XoopsDatabaseFactory::getDatabaseConnection();
+        $this->db = \XoopsDatabaseFactory::getDatabaseConnection();
         $extra    = (null != $categ) ? ' WHERE categoria=' . $categ : '';
         $extra    .= (!$admin && null != $categ) ? ' and status=1' : ((!$admin
                                                                        && null == $categ) ? ' WHERE status=1' : '');
@@ -638,8 +639,8 @@ class RWbanners
         $sql      = 'SELECT codigo FROM ' . $this->db->prefix('rwbanner_banner') . $extra;
         $query    = $this->db->query($sql);
         $banners  = [];
-        while (list($id) = $this->db->fetchRow($query)) {
-            $banner = new RWbanners(null, $id);
+        while (false !== (list($id) = $this->db->fetchRow($query))) {
+            $banner = new Banner(null, $id);
             unset($banner->db);
             unset($banner->errormsg);
             $banners[] =& $banner;
@@ -656,7 +657,7 @@ class RWbanners
      */
     public function getBannnerCategName()
     {
-        $this->db = XoopsDatabaseFactory::getDatabaseConnection();
+        $this->db = \XoopsDatabaseFactory::getDatabaseConnection();
         $sql      = 'SELECT titulo FROM ' . $this->db->prefix('rwbanner_categorias') . ' WHERE cod=' . $this->categoria;
         $query    = $this->db->query($sql);
         list($nome) = $this->db->fetchRow($query);
@@ -671,7 +672,7 @@ class RWbanners
      */
     public function getBannnerClientName()
     {
-        $this->db = XoopsDatabaseFactory::getDatabaseConnection();
+        $this->db = \XoopsDatabaseFactory::getDatabaseConnection();
         $sql      = 'SELECT uname FROM ' . $this->db->prefix('users') . ' WHERE uid=' . $this->idcliente;
         $query    = $this->db->query($sql);
         list($nome) = $this->db->fetchRow($query);
@@ -688,7 +689,7 @@ class RWbanners
      */
     public function getRowNum($categ = null, $id = null)
     {
-        $this->db = XoopsDatabaseFactory::getDatabaseConnection();
+        $this->db = \XoopsDatabaseFactory::getDatabaseConnection();
         $extra    = (null != $categ) ? ' and categoria=' . $categ : '';
         $extra    .= (null != $id) ? ' and status!=2 and idcliente=' . $id : '';
         $sql      = 'SELECT codigo FROM ' . $this->db->prefix('rwbanner_banner') . ' WHERE 1=1 ' . $extra;
@@ -705,7 +706,7 @@ class RWbanners
      */
     public function setLargura()
     {
-        $this->db = XoopsDatabaseFactory::getDatabaseConnection();
+        $this->db = \XoopsDatabaseFactory::getDatabaseConnection();
         $sql      = 'SELECT larg FROM ' . $this->db->prefix('rwbanner_categorias') . ' WHERE cod=' . $this->categoria;
         $query    = $this->db->query($sql);
         list($larg) = $this->db->fetchRow($query);
@@ -726,7 +727,7 @@ class RWbanners
      */
     public function setAltura()
     {
-        $this->db = XoopsDatabaseFactory::getDatabaseConnection();
+        $this->db = \XoopsDatabaseFactory::getDatabaseConnection();
         $sql      = 'SELECT alt FROM ' . $this->db->prefix('rwbanner_categorias') . ' WHERE cod=' . $this->getCategoria();
         $query    = $this->db->query($sql);
         list($alt) = $this->db->fetchRow($query);
@@ -769,10 +770,10 @@ class RWbanners
                 } else {
                     $bannerobject = '<div align="' . $align . '"><a href="' . $this->rwbanner->getDirName() . '/conta_click.php?id=' . $arr[$i]->getCodigo() . '" target="' . $arr[$i]->getTarget() . '">';
                 }
-                if (stristr($arr[$i]->getGrafico(), '.swf')) {
+                if (false !== stripos($arr[$i]->getGrafico(), '.swf')) {
                     $arq      = explode('/', $arr[$i]->getGrafico());
                     $grafico1 = _RWBANNER_DIRIMAGES . '/' . $arq[count($arq) - 1];
-                    require_once __DIR__ . '/../class/FlashHeader.php';
+                    // require_once __DIR__ . '/../class/FlashHeader.php';
                     $f            = new FlashHeader($grafico1);
                     $result       = $f->getimagesize();
                     $fps          = $result['frameRate'];
@@ -856,7 +857,7 @@ class RWbanners
      */
     public function show1Banner($id = 0, $align = 'center')
     {
-        $ban     = new RWbanners(null, $id);
+        $ban     = new Banner(null, $id);
         $showban = '<table border="0" cellpadding="0" cellspacing="5"><tr>';
         if (1 == $ban->getUsarhtml()) {
             $bannerobject = '<div align="' . $align . '">';
@@ -868,10 +869,10 @@ class RWbanners
             } else {
                 $bannerobject = '<div align="' . $align . '"><a href="' . $this->rwbanner->getDirName() . '/conta_click.php?id=' . $ban->getCodigo() . '" target="' . $ban->getTarget() . '">';
             }
-            if (stristr($ban->getGrafico(), '.swf')) {
+            if (false !== stripos($ban->getGrafico(), '.swf')) {
                 $arq      = explode('/', $ban->getGrafico());
                 $grafico1 = _RWBANNER_DIRIMAGES . '/' . $arq[count($arq) - 1];
-                require_once __DIR__ . '/../class/FlashHeader.php';
+                // require_once __DIR__ . '/../class/FlashHeader.php';
                 $f            = new FlashHeader($grafico1);
                 $result       = $f->getimagesize();
                 $fps          = $result['frameRate'];
@@ -1000,15 +1001,15 @@ class RWbanners
      */
     public function getAllByClient($uid, $order = null, $categ = null, $limit = null, $start = 0)
     {
-        $this->db = XoopsDatabaseFactory::getDatabaseConnection();
+        $this->db = \XoopsDatabaseFactory::getDatabaseConnection();
         $extra    = (null != $categ) ? ' and categoria=' . $categ : '';
         $extra    .= (null != $order) ? ' ' . $order : '';
         $extra    .= (null != $limit) ? ' LIMIT ' . $start . ',' . $limit : '';
         $sql      = 'SELECT codigo FROM ' . $this->db->prefix('rwbanner_banner') . ' WHERE idcliente=' . $uid . ' AND status!=2' . $extra;
         $query    = $this->db->query($sql);
         $banners  = [];
-        while (list($id) = $this->db->fetchRow($query)) {
-            $banner = new RWbanners(null, $id);
+        while (false !== (list($id) = $this->db->fetchRow($query))) {
+            $banner = new Banner(null, $id);
             unset($banner->db);
             unset($banner->errormsg);
             $banners[] =& $banner;

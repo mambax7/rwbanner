@@ -9,6 +9,8 @@
  */
 
 
+use XoopsModules\Rwbanner;
+
 /**
  * Prepares system prior to attempting to uninstall module
  * @param XoopsModule $module {@link XoopsModule}
@@ -16,7 +18,7 @@
  * @return bool true if ready to uninstall, false if not
  */
 
-function xoops_module_pre_uninstall_rwbanner(XoopsModule $module)
+function xoops_module_pre_uninstall_rwbanner(\XoopsModule $module)
 {
     // Do some synchronization
     return true;
@@ -29,7 +31,7 @@ function xoops_module_pre_uninstall_rwbanner(XoopsModule $module)
  *
  * @return bool true if uninstallation successful, false if not
  */
-function xoops_module_uninstall_rwbanner(XoopsModule $module)
+function xoops_module_uninstall_rwbanner(\XoopsModule $module)
 {
     return true;
 }
@@ -40,14 +42,14 @@ function xoops_module_uninstall_rwbanner(XoopsModule $module)
 
 
 
-// defined('XOOPS_ROOT_PATH') || exit('Restricted access.');
+// defined('XOOPS_ROOT_PATH') || die('Restricted access');
 
 /**
  * @param XoopsModule $module
  *
  * @return bool
  */
-function xoops_module_uninstall_XXXX(XoopsModule $module)
+function xoops_module_uninstall_XXXX(\XoopsModule $module)
 {
     // global $xoopsDB,$xoopsConfig;
     //

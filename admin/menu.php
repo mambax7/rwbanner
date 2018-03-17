@@ -35,7 +35,7 @@
 
 use XoopsModules\Rwbanner;
 
-require_once __DIR__ . '/../class/Helper.php';
+// require_once __DIR__ . '/../class/Helper.php';
 //require_once __DIR__ . '/../include/common.php';
 $helper = Rwbanner\Helper::getInstance();
 
@@ -55,11 +55,6 @@ $adminmenu[] = [
     'link'  => 'admin/main.php',
     'icon'  => $pathIcon32 . '/manage.png'
 ];
-
-//++$i;
-//$adminmenu[$i]["title"] = _MI_RWBANNER_MENU_TITLE2;
-//$adminmenu[$i]["link"] = "admin/myblocksadmin.php";
-//$adminmenu[$i]["icon"] = $pathIcon32.'/block.png';
 
 $adminmenu[] = [
     'title' => _MI_RWBANNER_MENU_TITLE3,
@@ -85,15 +80,25 @@ $adminmenu[] = [
     'icon'  => $pathIcon32 . '/download.png'
 ];
 
-//++$i;
-//$adminmenu[$i]["title"] = _AM_RWBANNER_PERMISSIONS;
-//$adminmenu[$i]["link"] = "admin/permissions.php";
-//$adminmenu[$i]["icon"] = $pathIcon32.'/permissions.png';
 
-//++$i;
-//$adminmenu[$i]["title"] = _MI_RWBANNER_MENU_TITLE6;
-//$adminmenu[$i]["link"] = "admin/about2.php";
-//$adminmenu[$i]["icon"] = $pathIcon32.'/about.png';
+$adminmenu[] = [
+    'title' => _MI_RWBANNER_MENU_TITLE2,
+    'link'  => 'admin/blocksadmin.php',
+    'icon'  => $pathIcon32.'/block.png'
+];
+
+
+$adminmenu[] = [
+    'title' => _MI_RWBANNER_PERMISSIONS,
+    'link'  => 'admin/permissions.php',
+    'icon'  => $pathIcon32.'/permissions.png'
+];
+
+$adminmenu[] = [
+    'title' => _MI_RWBANNER_MENU_TITLE6,
+    'link'  => 'admin/about2.php',
+    'icon'  => $pathIcon32.'/about.png'
+];
 
 $adminmenu[] = [
     'title' => _MI_RWBANNER_MENU_TITLE6,

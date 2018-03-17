@@ -37,7 +37,7 @@ $moduleDirName = basename(__DIR__);
 
 $modversion['version']             = '1.52';
 $modversion['module_status']       = 'Beta 1';
-$modversion['release_date']        = '2017/10/25';
+$modversion['release_date']        = '2018/03/15';
 $modversion['name']                = _MI_RWBANNER_NAME;
 $modversion['description']         = _MI_RWBANNER_DESC;
 $modversion['author']              = 'TheRpLima [Rodrigo Pereira Lima] ';

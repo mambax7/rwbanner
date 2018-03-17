@@ -16,7 +16,7 @@
  * @author          trabis <lusopoemas@gmail.com>
  */
 
-// defined('XOOPS_ROOT_PATH') || exit('Restricted access.');
+// defined('XOOPS_ROOT_PATH') || die('Restricted access');
 
 /**
  * rw-banner core preloads
@@ -37,6 +37,6 @@ class RwbannerCorePreload extends XoopsPreloadItem
         }
 
         // to add PSR-4 autoloader
-         include __DIR__ . '/autoloader.php';
+        include __DIR__ . '/autoloader.php';
     }
 }

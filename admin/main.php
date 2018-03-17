@@ -32,12 +32,14 @@
  *
  */
 
+use  XoopsModules\Rwbanner;
+
 require_once __DIR__ . '/admin_header.php';
 
 require_once XOOPS_ROOT_PATH . '/include/cp_functions.php';
-require_once __DIR__ . '/../class/class.banner.php';
-require_once __DIR__ . '/../class/class.categoria.php';
-require_once __DIR__ . '/../class/class.tags.php';
+// require_once __DIR__ . '/../class/class.banner.php';
+// require_once __DIR__ . '/../class/class.categoria.php';
+// require_once __DIR__ . '/../class/class.tags.php';
 
 $dir   = $xoopsModuleConfig['dir_images'];
 $limit = $xoopsModuleConfig['total_reg_index'];
@@ -71,7 +73,7 @@ switch ($op) {
         break;
     case 'mudastatus':
         $id     = isset($_GET['id']) ? $_GET['id'] : '';
-        $banner = new RWbanners(null, $id);
+        $banner = new Rwbanner\Banner(null, $id);
         if ($banner->mudaStatus()) {
             redirect_header('main.php', 2, _AM_RWBANNER_MSG1);
         } else {
@@ -80,7 +82,7 @@ switch ($op) {
         break;
     case 'mudastatus_tag':
         $id  = isset($_GET['id']) ? $_GET['id'] : '';
-        $tag = new RWTag(null, $id);
+        $tag = new Rwbanner\Tag(null, $id);
         if ($tag->mudaStatus()) {
             redirect_header('main.php', 2, _AM_RWBANNER_MSG1);
         } else {
@@ -95,7 +97,7 @@ switch ($op) {
         break;
     case 'deletar_ok':
         $id     = isset($_POST['id']) ? $_POST['id'] : '';
-        $banner = new RWbanners(null, $id);
+        $banner = new Rwbanner\Banner(null, $id);
         if ($banner->exclui()) {
             redirect_header('main.php', 2, _AM_RWBANNER_MSG101);
         } else {
@@ -110,7 +112,7 @@ switch ($op) {
         break;
     case 'deletar_categ_ok':
         $id    = isset($_POST['id']) ? $_POST['id'] : '';
-        $categ = new Categoria(null, $id);
+        $categ = new Rwbanner\Categoria(null, $id);
         if ($categ->exclui()) {
             redirect_header('main.php', 2, _AM_RWBANNER_MSG102);
         } else {
@@ -125,7 +127,7 @@ switch ($op) {
         break;
     case 'deletar_tag_ok':
         $id  = isset($_POST['id']) ? $_POST['id'] : '';
-        $tag = new RWTag(null, $id);
+        $tag = new Rwbanner\Tag(null, $id);
         if ($tag->exclui()) {
             redirect_header('main.php', 2, _AM_RWBANNER_MSG21);
         } else {
@@ -133,7 +135,7 @@ switch ($op) {
         }
         break;
     case 'criardir':
-        if (mkdir($dir, 0777)) {
+        if (!mkdir($dir, 0777) && !is_dir($dir)) {
             $msg = _AM_RWBANNER_MSG17;
         } else {
             $msg = _AM_RWBANNER_MSG18;
@@ -152,7 +154,7 @@ function lista_banners($order = null, $seq = '', $limit = 10, $start = 0)
 {
     global $xoopsModule, $pathIcon16;
 
-    $banner    = new RWbanners();
+    $banner    = new Rwbanner\Banner();
     $total     = $banner->getRowNum();
     $ord       = $order;
     $order     = 'ORDER BY ' . $order;
@@ -299,7 +301,7 @@ function lista_banners($order = null, $seq = '', $limit = 10, $start = 0)
     } else {
         $extra_pag = '';
     }
-    $pagenav = new XoopsPageNav($total, $limit, $start, 'start', $extra_pag);
+    $pagenav = new \XoopsPageNav($total, $limit, $start, 'start', $extra_pag);
     $pag     = $pagenav->renderNav();
     echo '  <tr class="head">';
     echo '    <td align="left" colspan="12" nowrap="nowrap">' . _AM_RWBANNER_TOTAL_BANNER_LEG . ' ' . $total . '<br><div align="center">' . $pag . '</div></td>';
@@ -312,7 +314,7 @@ function lista_categs()
 {
     global $xoopsModule;
 
-    $categ        = new Categoria();
+    $categ        = new Rwbanner\Categoria();
     $lista_categs = $categ->getCategorias('ORDER BY cod ASC');
     global $pathIcon16;
 
@@ -337,7 +339,7 @@ function lista_categs()
         } else {
             $class = 'even';
         }
-        $banner = new RWbanners();
+        $banner = new Rwbanner\Banner();
         $qtde   = 0;
         $qtde   = $banner->getRowNum($lista_categs[$i]->getCod());
         $banner->clearDb();
@@ -361,7 +363,7 @@ function lista_tags()
 {
     global $xoopsModule, $pathIcon16;
 
-    $tag        = new RWTag();
+    $tag        = new Rwbanner\Tag();
     $lista_tags = $tag->getTags('ORDER BY id ASC');
 
     rwbanner_collapsableBar('tags', 'tagsicon');
@@ -424,7 +426,7 @@ function lista_users()
 {
     global $xoopsDB, $xoopsModule, $pathIcon16;
 
-    $categ        = new Categoria();
+    $categ        = new Rwbanner\Categoria();
     $lista_categs = $categ->getCategorias('ORDER BY cod ASC');
 
     rwbanner_collapsableBar('users', 'usersicon');
@@ -445,7 +447,7 @@ function lista_users()
   ';
     $class = 'even';
     $query = $xoopsDB->queryF('SELECT uid,uname,name,email FROM ' . $xoopsDB->prefix('users'));
-    while (list($uid, $uname, $name, $email) = $xoopsDB->fetchRow($query)) {
+    while (false !== (list($uid, $uname, $name, $email) = $xoopsDB->fetchRow($query))) {
         $query1    = $xoopsDB->queryF('SELECT * FROM ' . $xoopsDB->prefix('rwbanner_banner') . ' WHERE idcliente=' . $uid);
         $qtbanners = $xoopsDB->getRowsNum($query1);
         if ($qtbanners > 0) {

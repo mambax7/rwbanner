@@ -30,7 +30,7 @@
 // ------------------------------------------------------------------------- //
 
 //index.php
-//define('_MD_RWBANNER_NOPERM1', 'You don\'t have any banners registered at your site therefore you don\'t have permissions to access this area!');
+define('_MD_RWBANNER_NOPERM1', 'You don\'t have any banners registered at your site therefore you don\'t have permissions to access this area!');
 define('_MD_RWBANNER_MSG_INDEX_NOUSER', 'To use the advertising services of %s you need to be a registered user.
    This procedure aims to have a better control of our partners and a better management of our advertising media.<br><br>
    If you are already registered at our site, click <a href=\"%s\">here</a> and login to fill out the banner registration
@@ -94,8 +94,8 @@ define('_MD_RWBANNER_MSG_SUCESS_EMAILSTATS', 'The statistics of your banner were
 define('_MD_RWBANNER_MSG_FAIL_EMAILSTATS', 'There was an error trying to send the statistics to your e-mail. Please, try later again.');
 
 //inser.php
-//define('_MD_RWBANNER_BTN_OP1', 'Add');
-//define('_MD_RWBANNER_BTN_OP2', 'Edit');
+define('_MD_RWBANNER_BTN_OP1', 'Add');
+define('_MD_RWBANNER_BTN_OP2', 'Edit');
 define('_MD_RWBANNER_BTN_OP3', 'Unlimited');
 
 define('_MD_RWBANNER_TITLE24', 'Display number:');
@@ -126,3 +126,5 @@ define('_MD_RWBANNER_SORT_CLICKS', 'Clicks');
 define('_MD_RWBANNER_SORT_ID', 'ID');
 define('_MD_RWBANNER_SORT_DATE', 'Registration');
 define('_MD_RWBANNER_SORT_IMPRESSIONS', 'Impressions');
+
+define('_MD_RWBANNER_YES', 'Yes');

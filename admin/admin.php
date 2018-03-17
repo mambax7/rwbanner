@@ -33,6 +33,8 @@
  *
  */
 
+use  XoopsModules\Rwbanner;
+
 $admin_mydirname = basename(dirname(__DIR__));
 
 $fct = empty($_POST['fct']) ? '' : trim($_POST['fct']);
@@ -65,16 +67,9 @@ $error = false;
 if (0 != $admintest) {
     if (isset($fct) && '' != $fct) {
         if (file_exists(XOOPS_ROOT_PATH . '/modules/system/admin/' . $fct . '/xoops_version.php')) {
-            if (file_exists(XOOPS_ROOT_PATH . '/modules/system/language/' . $xoopsConfig['language'] . '/admin.php')) {
-                include XOOPS_ROOT_PATH . '/modules/system/language/' . $xoopsConfig['language'] . '/admin.php';
-            } else {
-                include XOOPS_ROOT_PATH . '/modules/system/language/english/admin.php';
-            }
-            if (file_exists(XOOPS_ROOT_PATH . '/modules/system/language/' . $xoopsConfig['language'] . '/admin/' . $fct . '.php')) {
-                include XOOPS_ROOT_PATH . '/modules/system/language/' . $xoopsConfig['language'] . '/admin/' . $fct . '.php';
-            } elseif (file_exists(XOOPS_ROOT_PATH . '/modules/system/language/english/admin/' . $fct . '.php')) {
-                include XOOPS_ROOT_PATH . '/modules/system/language/english/admin/' . $fct . '.php';
-            }
+            xoops_loadLanguage('admin', 'system');
+            xoops_loadLanguage('admin/' . $fct, 'system');
+
             include XOOPS_ROOT_PATH . '/modules/system/admin/' . $fct . '/xoops_version.php';
             $syspermHandler = xoops_getHandler('groupperm');
             $category       = !empty($modversion['category']) ? (int)$modversion['category'] : 0;
@@ -85,8 +80,8 @@ if (0 != $admintest) {
                     || false !== $syspermHandler->checkRight('system_admin', $category, $groups, $xoopsModule->getVar('mid'))) {
                     //                  if (file_exists(XOOPS_ROOT_PATH."/modules/system/admin/".$fct."/main.php")) {
                     //                      require_once XOOPS_ROOT_PATH."/modules/system/admin/".$fct."/main.php"; GIJ
-                    if (file_exists("../include/{$fct}.inc.php")) {
-                        require_once "../include/{$fct}.inc.php";
+                    if (file_exists(__DIR__ . "/../include/{$fct}.inc.php")) {
+                        require_once __DIR__ . "/../include/{$fct}.inc.php";
                     } else {
                         $error = true;
                     }

@@ -30,11 +30,12 @@
 // ------------------------------------------------------------------------- //
 
 /**
- * $Id: blocksadmin.inc.php,v 1.2 2004/11/29 22:13:18 malanciault Exp $
  * Module: SmartPartner
  * Author: The SmartFactory <www.smartfactory.ca>
  * Licence: GNU
  */
+
+use XoopsModules\Rwbanner;
 
 if (!is_object($xoopsUser) || !is_object($xoopsModule) || !$xoopsUser->isAdmin($xoopsModule->mid())) {
     exit('Access Denied');
@@ -114,19 +115,19 @@ if (isset($_POST['previewblock'])) {
 
     xoops_cp_header();
     require_once XOOPS_ROOT_PATH . '/class/template.php';
-    $xoopsTpl          = new XoopsTpl();
+    $xoopsTpl          = new \XoopsTpl();
     $xoopsTpl->caching = 0;
     $block['bid']      = $bid;
     if ('clone_ok' === $op) {
         $block['form_title']    = _AM_CLONEBLOCK;
         $block['submit_button'] = _CLONE;
-        $myblock                = new XoopsBlock();
+        $myblock                = new \XoopsBlock();
         $myblock->setVar('block_type', 'C');
     } else {
         $op                     = 'update';
         $block['form_title']    = _AM_EDITBLOCK;
         $block['submit_button'] = _SUBMIT;
-        $myblock                = new XoopsBlock($bid);
+        $myblock                = new \XoopsBlock($bid);
         $block['name']          = $myblock->getVar('name');
     }
 
@@ -410,7 +411,7 @@ if ('delete_ok' === $op) {
 
     // delete_block_ok($bid); GIJ imported from blocksadmin.php
 
-    $myblock = new XoopsBlock($bid);
+    $myblock = new \XoopsBlock($bid);
 
     if ('D' !== $myblock->getVar('block_type') && 'C' !== $myblock->getVar('block_type')) {
         redirect_header('myblocksadmin.php', 4, 'Invalid block');
@@ -438,7 +439,7 @@ if ('delete' === $op) {
 
     // delete_block($bid); GIJ imported from blocksadmin.php
 
-    $myblock = new XoopsBlock($bid);
+    $myblock = new \XoopsBlock($bid);
 
     if ('S' === $myblock->getVar('block_type')) {
         $message = _AM_SYSTEMCANT;
@@ -464,9 +465,9 @@ if ('edit' === $op) {
 
     // edit_block($bid); GIJ imported from blocksadmin.php
 
-    $myblock = new XoopsBlock($bid);
+    $myblock = new \XoopsBlock($bid);
 
-    $db = XoopsDatabaseFactory::getDatabaseConnection();
+    $db = \XoopsDatabaseFactory::getDatabaseConnection();
 
     $sql = 'SELECT module_id FROM ' . $db->prefix('block_module_link') . ' WHERE block_id=' . (int)$bid;
 
@@ -474,7 +475,7 @@ if ('edit' === $op) {
 
     $modules = [];
 
-    while ($row = $db->fetchArray($result)) {
+    while (false !== ($row = $db->fetchArray($result))) {
         $modules[] = (int)$row['module_id'];
     }
 
@@ -518,9 +519,9 @@ if ('edit' === $op) {
 if ('clone' === $op) {
     xoops_cp_header();
 
-    $myblock = new XoopsBlock($bid);
+    $myblock = new \XoopsBlock($bid);
 
-    $db = XoopsDatabaseFactory::getDatabaseConnection();
+    $db = \XoopsDatabaseFactory::getDatabaseConnection();
 
     $sql = 'SELECT module_id FROM ' . $db->prefix('block_module_link') . ' WHERE block_id=' . (int)$bid;
 
@@ -528,7 +529,7 @@ if ('clone' === $op) {
 
     $modules = [];
 
-    while ($row = $db->fetchArray($result)) {
+    while (false !== ($row = $db->fetchArray($result))) {
         $modules[] = (int)$row['module_id'];
     }
 
@@ -575,7 +576,7 @@ if ('clone_ok' === $op) {
         redirect_header(XOOPS_URL . '/', 3, $GLOBALS['xoopsSecurity']->getErrors());
     }
 
-    $block = new XoopsBlock($bid);
+    $block = new \XoopsBlock($bid);
 
     // block type check
 
@@ -597,7 +598,7 @@ if ('clone_ok' === $op) {
 
     // $cblock =& $block->clone(); or $cblock =& $block->xoopsClone();
 
-    $cblock = new XoopsBlock();
+    $cblock = new \XoopsBlock();
 
     foreach ($block->vars as $k => $v) {
         $cblock->assignVar($k, $v['value']);
@@ -665,7 +666,7 @@ if ('clone_ok' === $op) {
 
         } */
 
-    $db = XoopsDatabaseFactory::getDatabaseConnection();
+    $db = \XoopsDatabaseFactory::getDatabaseConnection();
 
     $bmodule = (isset($_POST['bmodule']) && is_array($_POST['bmodule'])) ? $_POST['bmodule'] : [-1]; // GIJ +
 
@@ -695,7 +696,7 @@ if ('clone_ok' === $op) {
 
     $result = $db->query($sql);
 
-    while (list($gid) = $db->fetchRow($result)) {
+    while (false !== (list($gid) = $db->fetchRow($result))) {
         $sql = 'INSERT INTO ' . $db->prefix('group_permission') . " (gperm_groupid, gperm_itemid, gperm_modid, gperm_name) VALUES ($gid, $newid, 1, 'block_read')";
 
         $db->query($sql);
@@ -745,7 +746,7 @@ function myblocksadmin_update_block(
 
     } */
 
-    $myblock = new XoopsBlock($bid);
+    $myblock = new \XoopsBlock($bid);
 
     // $myblock->setVar('side', $bside); GIJ -
 
@@ -797,7 +798,7 @@ function myblocksadmin_update_block(
     $msg = _AM_DBUPDATED;
 
     if (false !== $myblock->store()) {
-        $db = XoopsDatabaseFactory::getDatabaseConnection();
+        $db = \XoopsDatabaseFactory::getDatabaseConnection();
 
         $sql = sprintf('DELETE FROM %s WHERE block_id = %u', $db->prefix('block_module_link'), $bid);
 
@@ -811,7 +812,7 @@ function myblocksadmin_update_block(
 
         require_once XOOPS_ROOT_PATH . '/class/template.php';
 
-        $xoopsTpl = new XoopsTpl();
+        $xoopsTpl = new \XoopsTpl();
 
         $xoopsTpl->caching = 2;
 

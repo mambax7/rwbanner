@@ -1,4 +1,5 @@
-<?php
+<?php namespace XoopsModules\Rwbanner;
+
 //  ------------------------------------------------------------------------ //
 //                                  RW-Banner                                //
 //                    Copyright (c) 2006 Web Applications                    //
@@ -51,7 +52,7 @@ class Categoria
     public function __construct($dados = null, $id = null)
     {
         if (null == $dados && null != $id) {
-            $this->db = XoopsDatabaseFactory::getDatabaseConnection();
+            $this->db = \XoopsDatabaseFactory::getDatabaseConnection();
             $sql      = 'SELECT * FROM ' . $this->db->prefix('rwbanner_categorias') . ' WHERE cod=' . $id;
             $query    = $this->db->query($sql);
             $row      = $this->db->fetchArray($query);
@@ -61,10 +62,10 @@ class Categoria
             $this->larg   = $row['larg'];
             $this->alt    = $row['alt'];
         } elseif (null != $dados) {
-            $this->cod    = (!empty($dados['cod'])) ? $dados['cod'] : '';
-            $this->titulo = (!empty($dados['titulo'])) ? $dados['titulo'] : '';
-            $this->larg   = (!empty($dados['larg'])) ? $dados['larg'] : '';
-            $this->alt    = (!empty($dados['alt'])) ? $dados['alt'] : '';
+            $this->cod    = !empty($dados['cod']) ? $dados['cod'] : '';
+            $this->titulo = !empty($dados['titulo']) ? $dados['titulo'] : '';
+            $this->larg   = !empty($dados['larg']) ? $dados['larg'] : '';
+            $this->alt    = !empty($dados['alt']) ? $dados['alt'] : '';
         } else {
             $this->cod    = '';
             $this->titulo = '';
@@ -166,7 +167,7 @@ class Categoria
      */
     public function grava()
     {
-        $this->db = XoopsDatabaseFactory::getDatabaseConnection();
+        $this->db = \XoopsDatabaseFactory::getDatabaseConnection();
         $sql      = 'INSERT INTO ' . $this->db->prefix('rwbanner_categorias') . ' (titulo, larg, alt) VALUES ("' . $this->titulo . '", "' . $this->larg . '", "' . $this->alt . '")';
         if ($query = $this->db->queryF($sql)) {
             return true;
@@ -184,7 +185,7 @@ class Categoria
      */
     public function edita()
     {
-        $this->db = XoopsDatabaseFactory::getDatabaseConnection();
+        $this->db = \XoopsDatabaseFactory::getDatabaseConnection();
         $sql      = 'UPDATE ' . $this->db->prefix('rwbanner_categorias') . ' SET titulo="' . $this->titulo . '", larg="' . $this->larg . '", alt="' . $this->alt . '" WHERE cod= ' . $this->cod;
         if ($query = $this->db->queryF($sql)) {
             return true;
@@ -202,10 +203,10 @@ class Categoria
      */
     public function exclui()
     {
-        $this->db = XoopsDatabaseFactory::getDatabaseConnection();
+        $this->db = \XoopsDatabaseFactory::getDatabaseConnection();
         $sql      = 'SELECT codigo FROM ' . $this->db->prefix('rwbanner_banner') . ' WHERE categoria=' . $this->cod;
         $query    = $this->db->query($sql);
-        while (list($idbanner) = $this->db->fetchRow($query)) {
+        while (false !== (list($idbanner) = $this->db->fetchRow($query))) {
             $this->db->queryF('DELETE FROM ' . $this->db->prefix('rwbanner_banner') . ' WHERE codigo= ' . $idbanner);
         }
         $sql = 'DELETE FROM ' . $this->db->prefix('rwbanner_categorias') . ' WHERE cod= ' . $this->cod;
@@ -226,12 +227,12 @@ class Categoria
      */
     public function getCategorias($order)
     {
-        $this->db = XoopsDatabaseFactory::getDatabaseConnection();
+        $this->db = \XoopsDatabaseFactory::getDatabaseConnection();
         $extra    = (null != $order) ? ' ' . $order : '';
         $sql      = 'SELECT cod FROM ' . $this->db->prefix('rwbanner_categorias') . $extra;
         $query    = $this->db->query($sql);
         $categs   = [];
-        while (list($id) = $this->db->fetchRow($query)) {
+        while (false !== (list($id) = $this->db->fetchRow($query))) {
             $categ = new Categoria(null, $id);
             unset($categ->db, $categ->errormsg);
             $categs[] =& $categ;

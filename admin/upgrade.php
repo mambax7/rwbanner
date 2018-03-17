@@ -33,6 +33,8 @@
  *
  */
 
+use  XoopsModules\Rwbanner;
+
 require_once __DIR__ . '/../../../include/cp_header.php';
 xoops_cp_header();
 require_once __DIR__ . '/../include/functions.php';

@@ -36,8 +36,8 @@
 
 function exibe_banner($options)
 {
-    require_once __DIR__ . '/../class/class.categoria.php';
-    require_once __DIR__ . '/../class/class.banner.php';
+    // require_once __DIR__ . '/../class/class.categoria.php';
+    // require_once __DIR__ . '/../class/class.banner.php';
     //    require_once (dirname(__DIR__) .'/admin/admin_header.php');
 
     global $xoopsTpl;
@@ -57,7 +57,7 @@ function exibe_banner($options)
     $block['larg'] = $categ->getLarg();
     $block['alt']  = $categ->getAlt();
 
-    $banner = new RWbanners();
+    $banner = new Banner();
     $arr    = $banner->getBanners(false, 'ORDER BY RAND()', $options[0], $options[1]);
 
     $arr2 = [];
@@ -70,11 +70,11 @@ function exibe_banner($options)
         $arr3[] = $arr2;
     }
     for ($i = 0; $i <= count($arr3) - 1; ++$i) {
-        if (stristr($arr3[$i]['grafico'], '.swf')) {
+        if (false !== stripos($arr3[$i]['grafico'], '.swf')) {
             $arr3[$i]['swf'] = 1;
             $arq             = explode('/', $arr3[$i]['grafico']);
             $grafico1        = _RWBANNER_DIRIMAGES . '/' . $arq[count($arq) - 1];
-            require_once __DIR__ . '/../class/FlashHeader.php';
+            // require_once __DIR__ . '/../class/FlashHeader.php';
             $f               = new FlashHeader($grafico1);
             $result          = $f->getimagesize();
             $arr3[$i]['fps'] = $result['frameRate'];
@@ -95,7 +95,7 @@ function edita_banner($options)
     $query    = 'SELECT cod,titulo FROM ' . $xoopsDB->prefix('rwbanner_categorias');
     $consulta = $xoopsDB->queryF($query);
     $categ    = _MB_RWBANNER_OPTION1 . "&nbsp;<select options[0] name=\"options[0]\" onchange='javascript:options0.value = this.value;'>";
-    while (list($cod, $titulo) = $xoopsDB->fetchRow($consulta)) {
+    while (false !== (list($cod, $titulo) = $xoopsDB->fetchRow($consulta))) {
         if ($options[0] == $cod) {
             $sel = 'selected';
         } else {

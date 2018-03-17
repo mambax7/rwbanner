@@ -1,4 +1,5 @@
-<?php
+<?php namespace XoopsModules\Rwbanner;
+
 /*
                                   RW-Banner
                           Copyright (c) 2006 BrInfo
@@ -31,9 +32,16 @@
  * @package  ::    rwbanner
  *
  */
-// defined('XOOPS_ROOT_PATH') || exit('Restricted access.');
 
-class RwbannerAbout
+use XoopsModules\Rwbanner;
+
+// defined('XOOPS_ROOT_PATH') || die('Restricted access');
+
+/**
+ * Class About
+ * @package XoopsModules\Rwbanner
+ */
+class About
 {
     public $lang_aboutTitle;
     public $lang_author_info;
@@ -63,12 +71,11 @@ class RwbannerAbout
     public function __construct($aboutTitle = 'About')
     {
         global $xoopsModule, $xoopsConfig;
-        $fileName = XOOPS_ROOT_PATH . '/modules/' . $GLOBALS['xoopsModule']->getVar('dirname') . '/language/' . $xoopsConfig['language'] . '/modinfo.php';
-        if (file_exists($fileName)) {
-            require_once $fileName;
-        } else {
-            require_once XOOPS_ROOT_PATH . '/modules/' . $GLOBALS['xoopsModule']->getVar('dirname') . '/language/english/modinfo.php';
-        }
+
+        /** @var Rwbanner\Helper $helper */
+        $helper = Rwbanner\Helper::getInstance();
+        $helper->loadLanguage('modinfo');
+
         $this->_aboutTitle                = $aboutTitle;
         $this->lang_author_info           = _MI_RWBANNER_AUTHOR_INFO;
         $this->lang_developer_lead        = _MI_RWBANNER_DEVELOPER_LEAD;
@@ -101,7 +108,7 @@ class RwbannerAbout
         // rwbanner_adminMenu('',_AM_RWBANNER_ABOUT);
         /** @var XoopsModuleHandler $moduleHandler */
         $moduleHandler = xoops_getHandler('module');
-        $versioninfo   =& $moduleHandler->get($GLOBALS['xoopsModule']->getVar('mid'));
+        $versioninfo   = $moduleHandler->get($GLOBALS['xoopsModule']->getVar('mid'));
 
         $adminObject = $versioninfo->getInfo('adminMenu');
 

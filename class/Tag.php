@@ -1,4 +1,5 @@
-<?php
+<?php namespace XoopsModules\Rwbanner;
+
 //  ------------------------------------------------------------------------ //
 //                                  RW-Banner                                //
 //                    Copyright (c) 2006 BrInfo                              //
@@ -34,7 +35,7 @@
 /**
  * Class RWTag
  */
-class RWTag
+class Tag
 {
     public $db;
     public $id;
@@ -60,7 +61,7 @@ class RWTag
     public function __construct($dados = null, $id = null)
     {
         if (null == $dados && null != $id) {
-            $this->db = XoopsDatabaseFactory::getDatabaseConnection();
+            $this->db = \XoopsDatabaseFactory::getDatabaseConnection();
             $sql      = 'SELECT * FROM ' . $this->db->prefix('rwbanner_tags') . ' WHERE id=' . $id;
             $query    = $this->db->query($sql);
             $row      = $this->db->fetchArray($query);
@@ -77,16 +78,16 @@ class RWTag
             $this->status    = $row['status'];
             $this->isRandom  = (0 == $this->getCodbanner() || '' == $this->getCodbanner());
         } elseif (null != $dados) {
-            $this->id        = (!empty($dados['id'])) ? $dados['id'] : '';
-            $this->title     = (!empty($dados['title'])) ? $dados['title'] : '';
-            $this->name      = (!empty($dados['name'])) ? $dados['name'] : '';
-            $this->codbanner = (!empty($dados['codbanner'])) ? $dados['codbanner'] : '';
-            $this->categ     = (!empty($dados['categ'])) ? $dados['categ'] : '';
-            $this->qtde      = (!empty($dados['qtde'])) ? $dados['qtde'] : '';
-            $this->cols      = (!empty($dados['cols'])) ? $dados['cols'] : '';
-            $this->modid     = (!empty($dados['modid'])) ? $dados['modid'] : '';
-            $this->obs       = (!empty($dados['obs'])) ? $dados['obs'] : '';
-            $this->status    = (!empty($dados['status'])) ? $dados['status'] : '';
+            $this->id        = !empty($dados['id']) ? $dados['id'] : '';
+            $this->title     = !empty($dados['title']) ? $dados['title'] : '';
+            $this->name      = !empty($dados['name']) ? $dados['name'] : '';
+            $this->codbanner = !empty($dados['codbanner']) ? $dados['codbanner'] : '';
+            $this->categ     = !empty($dados['categ']) ? $dados['categ'] : '';
+            $this->qtde      = !empty($dados['qtde']) ? $dados['qtde'] : '';
+            $this->cols      = !empty($dados['cols']) ? $dados['cols'] : '';
+            $this->modid     = !empty($dados['modid']) ? $dados['modid'] : '';
+            $this->obs       = !empty($dados['obs']) ? $dados['obs'] : '';
+            $this->status    = !empty($dados['status']) ? $dados['status'] : '';
             $this->isRandom  = (0 == $this->getCodbanner() || '' == $this->getCodbanner());
         } else {
             $this->id        = '';
@@ -292,7 +293,7 @@ class RWTag
      */
     public function grava($flag = null)
     {
-        $this->db = XoopsDatabaseFactory::getDatabaseConnection();
+        $this->db = \XoopsDatabaseFactory::getDatabaseConnection();
         $sts      = (null != $flag) ? $flag : 1;
         $sql      = 'INSERT INTO '
                     . $this->db->prefix('rwbanner_tags')
@@ -331,7 +332,7 @@ class RWTag
      */
     public function edita()
     {
-        $this->db = XoopsDatabaseFactory::getDatabaseConnection();
+        $this->db = \XoopsDatabaseFactory::getDatabaseConnection();
         $sql      = 'UPDATE ' . $this->db->prefix('rwbanner_tags') . '';
         $sql      .= " SET title='" . $this->title . "', ";
         $sql      .= "name='" . $this->name . "', ";
@@ -359,7 +360,7 @@ class RWTag
      */
     public function exclui()
     {
-        $this->db = XoopsDatabaseFactory::getDatabaseConnection();
+        $this->db = \XoopsDatabaseFactory::getDatabaseConnection();
         $sql      = 'DELETE FROM ' . $this->db->prefix('rwbanner_tags') . ' WHERE id= ' . $this->id;
         if ($query = $this->db->queryF($sql)) {
             return true;
@@ -379,13 +380,13 @@ class RWTag
      */
     public function getTags($order, $inArray = false)
     {
-        $this->db = XoopsDatabaseFactory::getDatabaseConnection();
+        $this->db = \XoopsDatabaseFactory::getDatabaseConnection();
         $extra    = (null != $order) ? ' ' . $order : '';
         $sql      = 'SELECT id FROM ' . $this->db->prefix('rwbanner_tags') . $extra;
         $query    = $this->db->query($sql);
         $tags     = [];
-        while (list($id) = $this->db->fetchRow($query)) {
-            $tag = new RWTag(null, $id);
+        while (false !== (list($id) = $this->db->fetchRow($query))) {
+            $tag = new Tag(null, $id);
             unset($tag->db, $tag->errormsg);
             $tags[] =& $tag;
             unset($tag);
@@ -421,7 +422,7 @@ class RWTag
      */
     public function getTagCategName()
     {
-        $this->db = XoopsDatabaseFactory::getDatabaseConnection();
+        $this->db = \XoopsDatabaseFactory::getDatabaseConnection();
         $sql      = 'SELECT titulo FROM ' . $this->db->prefix('rwbanner_categorias') . ' WHERE cod=' . $this->categ;
         $query    = $this->db->query($sql);
         list($nome) = $this->db->fetchRow($query);
