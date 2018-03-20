@@ -33,6 +33,8 @@
  * @return array
  */
 
+use XoopsModules\Rwbanner;
+
 function exibe_ajaxbanner($options)
 {
     // require_once __DIR__ . '/../class/class.categoria.php';
@@ -52,8 +54,8 @@ function exibe_ajaxbanner($options)
     $block['id_div']      = mt_rand(1, 2000);
     $block['lang_carreg'] = _MB_RWBANNER_OPTION15;
 
-    $categ                    = new Categoria(null, $options[0]);
-    $banner                   = new Banner();
+    $categ                    = new Rwbanner\Categoria(null, $options[0]);
+    $banner                   = new Rwbanner\Banner();
     $block['qtde_encontrado'] = count($banner->getBanners(false, 'ORDER BY RAND()', $options[0], $options[1]));
     $block['alt']             = ($block['qtde'] > 1 && 1 == $block['cols']) ? (($categ->getAlt() * $block['qtde_encontrado']) + (15 * $block['qtde_encontrado'])) : ($categ->getAlt() + 20);
 

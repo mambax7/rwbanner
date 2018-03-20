@@ -34,6 +34,8 @@
  * @return array
  */
 
+use XoopsModules\Rwbanner;
+
 function exibe_banner($options)
 {
     // require_once __DIR__ . '/../class/class.categoria.php';
@@ -53,11 +55,11 @@ function exibe_banner($options)
     $block['redim'] = $options[3];
     $block['title'] = _MI_RWBANNER_BLOCK1_NAME;
 
-    $categ         = new Categoria(null, $options[0]);
+    $categ         = new Rwbanner\Categoria(null, $options[0]);
     $block['larg'] = $categ->getLarg();
     $block['alt']  = $categ->getAlt();
 
-    $banner = new Banner();
+    $banner = new Rwbanner\Banner();
     $arr    = $banner->getBanners(false, 'ORDER BY RAND()', $options[0], $options[1]);
 
     $arr2 = [];
@@ -75,7 +77,7 @@ function exibe_banner($options)
             $arq             = explode('/', $arr3[$i]['grafico']);
             $grafico1        = _RWBANNER_DIRIMAGES . '/' . $arq[count($arq) - 1];
             // require_once __DIR__ . '/../class/FlashHeader.php';
-            $f               = new FlashHeader($grafico1);
+            $f               = new Rwbanner\FlashHeader($grafico1);
             $result          = $f->getimagesize();
             $arr3[$i]['fps'] = $result['frameRate'];
         }

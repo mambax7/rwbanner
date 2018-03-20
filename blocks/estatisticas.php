@@ -33,6 +33,8 @@
  * @return array
  */
 
+use XoopsModules\Rwbanner;
+
 function estatisticas_banner($options)
 {
     global $xoopsUser, $xoopsConfig;
@@ -79,7 +81,7 @@ function estatisticas_banner($options)
         }
         $block['select1'] .= '</select>';
 
-        $banner = new Banner();
+        $banner = new Rwbanner\Banner();
         $arr    = $banner->getAllByClient($uid, $ord, null, $limit, $start);
         $total  = $banner->getRowNum(null, $uid);
 
