@@ -30,6 +30,8 @@
 // ------------------------------------------------------------------------- //
 use Xmf\Request;
 use XoopsModules\Rwbanner;
+/** @var Rwbanner\Helper $helper */
+$helper = Rwbanner\Helper::getInstance();
 
 $path = dirname(dirname(__DIR__));
 require_once $path . '/mainfile.php';
@@ -80,14 +82,17 @@ switch ($op) {
  */
 function lista_banners($uid, $order = null, $seq = '', $limit = 10, $start = 0)
 {
-    global $xoopsModule, $xoopsModuleConfig;
+    global $xoopsModule ;
+    /** @var Rwbanner\Helper $helper */
+    $helper = Rwbanner\Helper::getInstance();
+
     $pathIcon16 = \Xmf\Module\Admin::iconUrl('', 16);
 
     $banner = new Rwbanner\Banner();
     $total  = $banner->getRowNum(null, $uid);
 
     if ($total > 0) {
-        echo (1 == $xoopsModuleConfig['show_cad_form']) ? '<p style="text-align:justify;">' . _MD_RWBANNER_MSG_INDEX_CADBANNER . '</p><p style="text-align:justify;">' . _MD_RWBANNER_MSG_NEWBANNER . '</p>' : '<p style="text-align:justify;">' . _MD_RWBANNER_MSG_INDEX_NOBANNER1 . '</p>';
+        echo (1 == $helper->getConfig('show_cad_form')) ? '<p style="text-align:justify;">' . _MD_RWBANNER_MSG_INDEX_CADBANNER . '</p><p style="text-align:justify;">' . _MD_RWBANNER_MSG_NEWBANNER . '</p>' : '<p style="text-align:justify;">' . _MD_RWBANNER_MSG_INDEX_NOBANNER1 . '</p>';
         $ord = ('' != $order) ? 'ORDER BY ' . $order . ' ' . $seq : null;
 
         $sel1 = ('clicks' === $order) ? ' selected' : '';
@@ -233,7 +238,7 @@ function lista_banners($uid, $order = null, $seq = '', $limit = 10, $start = 0)
                  . '</td>';
             echo '
           <td align="center" width="10%">';
-            echo (1 == $xoopsModuleConfig['perm_client']) ? '<a href="inser.php?id=' . $lista_banners[$i]->getCodigo() . '&op=editar"><img src=' . $pathIcon16 . '/edit.png' . ' width="16" height="16" border="0" alt="' . _AM_RWBANNER_VALUE_BTN3 . '" title="' . _AM_RWBANNER_VALUE_BTN3 . '"></a>' : '';
+            echo (1 == $helper->getConfig('perm_client')) ? '<a href="inser.php?id=' . $lista_banners[$i]->getCodigo() . '&op=editar"><img src=' . $pathIcon16 . '/edit.png' . ' width="16" height="16" border="0" alt="' . _AM_RWBANNER_VALUE_BTN3 . '" title="' . _AM_RWBANNER_VALUE_BTN3 . '"></a>' : '';
             echo '<a href="index.php?id=' . $lista_banners[$i]->getCodigo() . '&op=sendemail"><img src=' . $pathIcon16 . '/mail_forward.png' . ' width="16" height="16" border="0" alt="' . _MD_EMAIL_STATS . '" title="' . _MD_EMAIL_STATS . '"></a>
           </td>
         </tr>';
@@ -256,6 +261,6 @@ function lista_banners($uid, $order = null, $seq = '', $limit = 10, $start = 0)
         echo '  </tr>';
         echo '</table>';
     } else {
-        echo (1 == $xoopsModuleConfig['show_cad_form']) ? '<p style="text-align:justify;">' . _MD_RWBANNER_MSG_INDEX_NOBANNER . '</p>' : '<p style="text-align:justify;">' . _MD_RWBANNER_MSG_INDEX_NOBANNER1 . '</p>';
+        echo (1 == $helper->getConfig('show_cad_form')) ? '<p style="text-align:justify;">' . _MD_RWBANNER_MSG_INDEX_NOBANNER . '</p>' : '<p style="text-align:justify;">' . _MD_RWBANNER_MSG_INDEX_NOBANNER1 . '</p>';
     }
 }

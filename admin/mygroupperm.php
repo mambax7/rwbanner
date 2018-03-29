@@ -38,7 +38,7 @@
 
 use  XoopsModules\Rwbanner;
 
-defined('XOOPS_ROOT_PATH') || die('Restricted access');
+//defined('XOOPS_ROOT_PATH') || die('Restricted access');
 
 /**
  * @param       $db

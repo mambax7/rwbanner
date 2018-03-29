@@ -31,6 +31,7 @@
 
 use Xmf\Request;
 use  XoopsModules\Rwbanner;
+use  XoopsModules\Rwbanner\Constants;
 
 require_once __DIR__ . '/admin_header.php';
 
@@ -49,7 +50,7 @@ global $xoopsDB;
 switch ($op) {
     case 'grava':
         if (_AM_RWBANNER_BTN_OP1 == $_POST['post']) {
-            $form['modid'] = serialize($form['modid']);
+            $form[Constants::MODIN] = serialize($form[Constants::MODIN]);
             $tag           = new Rwbanner\Tag($form);
             if ($tag->grava()) {
                 redirect_header('index.php', 1, _AM_RWBANNER_MSG22);
@@ -57,7 +58,7 @@ switch ($op) {
                 redirect_header('index.php', 1, _AM_RWBANNER_MSG23);
             }
         } elseif (_AM_RWBANNER_BTN_OP2 == $_POST['post']) {
-            $form['modid'] = serialize($form['modid']);
+            $form[Constants::MODIN] = serialize($form[Constants::MODIN]);
             $tag           = new Rwbanner\Tag($form);
             if ($tag->edita()) {
                 redirect_header('index.php', 1, _AM_RWBANNER_MSG24);
@@ -118,8 +119,11 @@ function monta_form($value)
         $categ->addOption($cod, $titulo);
     }
 
-    $form['modid'] = unserialize((isset($form['modid']) ? $form['modid'] : ''));
-    $mid_selbox    = new \XoopsFormSelect(_AM_RWBANNER_TAG_TITLE16, 'form[modid]', $form['modid'], 5, true);
+    $temp = isset($form[Constants::MODIN]) ? $form[Constants::MODIN] : '';
+    if (!empty($temp)) {
+        $form[Constants::MODIN] = unserialize(($temp));
+    }
+    $mid_selbox    = new \XoopsFormSelect(_AM_RWBANNER_TAG_TITLE16, 'form[modin]', isset($form[Constants::MODIN])?$form[Constants::MODIN]:'', 5, true);
     $mid_selbox->addOption(0, _AM_RWBANNER_TAG_TITLE17);
     $query = $xoopsDB->queryF('SELECT mid,name FROM ' . $xoopsDB->prefix('modules') . ' WHERE (hasmain="1" OR mid="1") AND isactive="1" AND (weight!="0" OR mid="1") ORDER BY name');
     while (false !== (list($mid, $name) = $xoopsDB->fetchRow($query))) {

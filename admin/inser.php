@@ -30,7 +30,9 @@
 // ------------------------------------------------------------------------- //
 
 use Xmf\Request;
-use  XoopsModules\Rwbanner;
+use XoopsModules\Rwbanner;
+/** @var Rwbanner\Helper $helper */
+$helper = Rwbanner\Helper::getInstance();
 
 require_once __DIR__ . '/admin_header.php';
 
@@ -38,7 +40,7 @@ require_once XOOPS_ROOT_PATH . '/include/cp_functions.php';
 
 require_once XOOPS_ROOT_PATH . '/class/uploader.php';
 // require_once __DIR__ . '/../class/class.banner.php';
-$local_folder = $xoopsModuleConfig['dir_images'];
+$local_folder = $helper->getConfig('dir_images');
 
 $op = Request::getCmd('op', '');
 $id = Request::getCmd('id', '');

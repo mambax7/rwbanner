@@ -31,11 +31,13 @@
 
 use Xmf\Request;
 use XoopsModules\Rwbanner;
+/** @var Rwbanner\Helper $helper */
+$helper = Rwbanner\Helper::getInstance();
 
 include __DIR__ . '/../../mainfile.php';
 require_once XOOPS_ROOT_PATH . '/class/uploader.php';
 require_once __DIR__ . '/class/Banner.php';
-$local_folder = $xoopsModuleConfig['dir_images'];
+$local_folder = $helper->getConfig('dir_images');
 
 $op = Request::getCmd('op', '');
 $id = Request::getCmd('id', '');
@@ -109,9 +111,12 @@ switch ($op) {
  */
 function monta_form($value)
 {
-    global $xoopsDB, $form, $file_name, $xoopsUser, $xoopsModuleConfig;
+    global $xoopsDB, $form, $file_name, $xoopsUser;
+    /** @var Rwbanner\Helper $helper */
+    $helper = Rwbanner\Helper::getInstance();
+
     require_once XOOPS_ROOT_PATH . '/class/xoopsformloader.php';
-    $arr_perm = $xoopsModuleConfig['campos_perm'];
+    $arr_perm = $helper->getConfig('campos_perm');
     echo '
   <script>
     function vai()

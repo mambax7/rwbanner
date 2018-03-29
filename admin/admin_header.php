@@ -15,21 +15,24 @@
 
 use XoopsModules\Rwbanner;
 
+require_once __DIR__ . '/../../../include/cp_header.php';
+
 $path = dirname(dirname(dirname(__DIR__)));
-require_once $path . '/mainfile.php';
-
-require_once $path . '/header.php';
-require_once $path . '/include/cp_functions.php';
-require_once $path . '/include/cp_header.php';
-
-require_once $path . '/kernel/module.php';
-require_once $path . '/class/xoopstree.php';
-require_once $path . '/class/xoopslists.php';
-require_once $path . '/class/xoopsformloader.php';
+//require_once $path . '/mainfile.php';
+//
+//require_once $path . '/header.php';
+//require_once $path . '/include/cp_functions.php';
+//require_once $path . '/include/cp_header.php';
+//
+//require_once $path . '/kernel/module.php';
+//require_once $path . '/class/xoopstree.php';
+//require_once $path . '/class/xoopslists.php';
+//require_once $path . '/class/xoopsformloader.php';
 require_once $path . '/class/pagenav.php';
 
 // require_once __DIR__ . '/../class/Utility.php';
 require_once __DIR__ . '/../include/functions.php';
+require_once __DIR__ . '/../include/common.php';
 
 $moduleDirName = basename(dirname(__DIR__));
 $helper = Rwbanner\Helper::getInstance();
@@ -53,9 +56,11 @@ $helper->loadLanguage('admin');
 $helper->loadLanguage('modinfo');
 $helper->loadLanguage('main');
 
-$myts = \MyTextSanitizer::getInstance();
+//$myts = \MyTextSanitizer::getInstance();
+//
+//if (!isset($GLOBALS['xoopsTpl']) || !($GLOBALS['xoopsTpl'] instanceof XoopsTpl)) {
+//    require_once $GLOBALS['xoops']->path('class/template.php');
+//    $xoopsTpl = new \XoopsTpl();
+//}
 
-if (!isset($GLOBALS['xoopsTpl']) || !($GLOBALS['xoopsTpl'] instanceof XoopsTpl)) {
-    require_once $GLOBALS['xoops']->path('class/template.php');
-    $xoopsTpl = new \XoopsTpl();
-}
+//xoops_cp_header();

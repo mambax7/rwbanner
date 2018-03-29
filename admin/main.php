@@ -32,17 +32,19 @@
  *
  */
 
-use  XoopsModules\Rwbanner;
+use XoopsModules\Rwbanner;
+/** @var Rwbanner\Helper $helper */
+$helper = Rwbanner\Helper::getInstance();
 
 require_once __DIR__ . '/admin_header.php';
 
-require_once XOOPS_ROOT_PATH . '/include/cp_functions.php';
+//require_once XOOPS_ROOT_PATH . '/include/cp_functions.php';
 // require_once __DIR__ . '/../class/class.banner.php';
 // require_once __DIR__ . '/../class/class.categoria.php';
 // require_once __DIR__ . '/../class/class.tags.php';
 
-$dir   = $xoopsModuleConfig['dir_images'];
-$limit = $xoopsModuleConfig['total_reg_index'];
+$dir   = $helper->getConfig('dir_images');
+$limit = $helper->getConfig('total_reg_index');
 
 $op = isset($_GET['op']) ? $_GET['op'] : (isset($_POST['op']) ? $_POST['op'] : 'lista');
 

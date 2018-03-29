@@ -31,17 +31,15 @@ use XoopsModules\Rwbanner;
 function xoops_module_pre_install_rwbanner(\XoopsModule $module)
 {
     $moduleDirName = basename(dirname(__DIR__));
-    $utilityClass     = ucfirst($moduleDirName) . 'Utility';
-    if (!class_exists($utilityClass)) {
-        xoops_load('utility', $moduleDirName);
-    }
+    /** @var Rwbanner\Utility $utility */
+    $utility     = new Rwbanner\Utility();
     //check for minimum XOOPS version
-    if (!$utilityClass::checkVerXoops($module)) {
+    if (!$utility::checkVerXoops($module)) {
         return false;
     }
 
     // check for minimum PHP version
-    if (!$utilityClass::checkVerPhp($module)) {
+    if (!$utility::checkVerPhp($module)) {
         return false;
     }
 
@@ -72,11 +70,9 @@ function xoops_module_install_rwbanner(\XoopsModule $module)
     $helper->loadLanguage('admin');
     $helper->loadLanguage('modinfo');
 
-    $configurator = new XxxxxConfigurator();
-    $utilityClass    = ucfirst($moduleDirName) . 'Utility';
-    if (!class_exists($utilityClass)) {
-        xoops_load('utility', $moduleDirName);
-    }
+    $configurator = new Rwbanner\Common\Configurator();
+    /** @var Rwbanner\Utility $utility */
+    $utility     = new Rwbanner\Utility();
 
     // default Permission Settings ----------------------
     global $xoopsModule;
@@ -94,7 +90,7 @@ function xoops_module_install_rwbanner(\XoopsModule $module)
     if (count($configurator->uploadFolders) > 0) {
         //    foreach (array_keys($GLOBALS['uploadFolders']) as $i) {
         foreach (array_keys($configurator->uploadFolders) as $i) {
-            $utilityClass::createFolder($configurator->uploadFolders[$i]);
+            $utility::createFolder($configurator->uploadFolders[$i]);
         }
     }
 
@@ -103,7 +99,7 @@ function xoops_module_install_rwbanner(\XoopsModule $module)
         $file = __DIR__ . '/../assets/images/blank.png';
         foreach (array_keys($configurator->copyBlankFiles) as $i) {
             $dest = $configurator->copyBlankFiles[$i] . '/blank.png';
-            $utilityClass::copyFile($file, $dest);
+            $utility::copyFile($file, $dest);
         }
     }
     //delete .html entries from the tpl table
