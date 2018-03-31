@@ -51,8 +51,8 @@ $op = isset($_GET['op']) ? $_GET['op'] : (isset($_POST['op']) ? $_POST['op'] : '
 switch ($op) {
     case 'lista':
         $order = isset($_GET['order']) ? $_GET['order'] : 'codigo';
-        $seq   = isset($_GET['seq']) ? $_GET['seq'] : 'ASC';
-        $start = isset($_GET['start']) ? $_GET['start'] : 0;
+        $seq   = \Xmf\Request::getInt('seq', 'ASC', 'GET');
+        $start = \Xmf\Request::getInt('start', 0, GET);
         xoops_cp_header();
         $adminObject = \Xmf\Module\Admin::getInstance();
         $adminObject->displayNavigation(basename(__FILE__));
@@ -74,7 +74,7 @@ switch ($op) {
         xoops_cp_footer();
         break;
     case 'mudastatus':
-        $id     = isset($_GET['id']) ? $_GET['id'] : '';
+        $id     = \Xmf\Request::getString('id', '', 'GET');
         $banner = new Rwbanner\Banner(null, $id);
         if ($banner->mudaStatus()) {
             redirect_header('main.php', 2, _AM_RWBANNER_MSG1);
@@ -83,7 +83,7 @@ switch ($op) {
         }
         break;
     case 'mudastatus_tag':
-        $id  = isset($_GET['id']) ? $_GET['id'] : '';
+        $id  = \Xmf\Request::getString('id', '', 'GET');
         $tag = new Rwbanner\Tag(null, $id);
         if ($tag->mudaStatus()) {
             redirect_header('main.php', 2, _AM_RWBANNER_MSG1);
@@ -92,13 +92,13 @@ switch ($op) {
         }
         break;
     case 'deletar':
-        $id = isset($_GET['id']) ? $_GET['id'] : '';
+        $id = \Xmf\Request::getString('id', '', 'GET');
         xoops_cp_header();
         xoops_confirm(['id' => $id, 'op' => 'deletar_ok'], 'main.php', _AM_RWBANNER_MSG19);
         xoops_cp_footer();
         break;
     case 'deletar_ok':
-        $id     = isset($_POST['id']) ? $_POST['id'] : '';
+        $id     = \Xmf\Request::getString('id', '', 'POST');
         $banner = new Rwbanner\Banner(null, $id);
         if ($banner->exclui()) {
             redirect_header('main.php', 2, _AM_RWBANNER_MSG101);
@@ -107,13 +107,13 @@ switch ($op) {
         }
         break;
     case 'deletar_categ':
-        $id = isset($_GET['id']) ? $_GET['id'] : '';
+        $id = \Xmf\Request::getString('id', '', 'GET');
         xoops_cp_header();
         xoops_confirm(['id' => $id, 'op' => 'deletar_categ_ok'], 'main.php', _AM_RWBANNER_MSG3);
         xoops_cp_footer();
         break;
     case 'deletar_categ_ok':
-        $id    = isset($_POST['id']) ? $_POST['id'] : '';
+        $id    = \Xmf\Request::getString('id', '', 'POST');
         $categ = new Rwbanner\Categoria(null, $id);
         if ($categ->exclui()) {
             redirect_header('main.php', 2, _AM_RWBANNER_MSG102);
@@ -122,13 +122,13 @@ switch ($op) {
         }
         break;
     case 'deletar_tag':
-        $id = isset($_GET['id']) ? $_GET['id'] : '';
+        $id = \Xmf\Request::getString('id', '', 'GET');
         xoops_cp_header();
         xoops_confirm(['id' => $id, 'op' => 'deletar_tag_ok'], 'main.php', _AM_RWBANNER_MSG20);
         xoops_cp_footer();
         break;
     case 'deletar_tag_ok':
-        $id  = isset($_POST['id']) ? $_POST['id'] : '';
+        $id  = \Xmf\Request::getString('id', '', 'POST');
         $tag = new Rwbanner\Tag(null, $id);
         if ($tag->exclui()) {
             redirect_header('main.php', 2, _AM_RWBANNER_MSG21);

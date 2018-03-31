@@ -30,12 +30,12 @@
 // ------------------------------------------------------------------------- //
 
 use XoopsModules\Rwbanner;
+require_once __DIR__ . '/preloads/autoloader.php';
+
 /** @var Rwbanner\Helper $helper */
 $helper = Rwbanner\Helper::getInstance();
 
 // some bug fixes by luciorota <lucio.rota@gmail.com>
-
-require_once __DIR__ . '/preloads/autoloader.php';
 
 $moduleDirName = basename(__DIR__);
 

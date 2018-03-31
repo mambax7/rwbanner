@@ -44,7 +44,7 @@ $id = Request::getCmd('id', '');
 if (isset($_POST['post'])) {
     $op = 'grava';
 }
-$form = isset($_POST['form']) ? $_POST['form'] : '';
+$form = \Xmf\Request::getString('form', '', 'POST');
 
 global $xoopsDB;
 switch ($op) {

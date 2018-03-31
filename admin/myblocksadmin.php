@@ -31,7 +31,7 @@
 
 /**
  * $Id: myblocksadmin.php,v 1.4 2005/03/15 20:09:34 malanciault Exp $
- * Module: SmartPartner
+ * Module: Rwbanner
  * Author: The SmartFactory <www.smartfactory.ca>
  * Licence: GNU
  */

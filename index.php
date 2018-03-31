@@ -52,7 +52,7 @@ switch ($op) {
     case 'lista':
         $order = isset($_GET['order']) ? $_GET['order'] : 'codigo';
         $seq   = isset($_GET['seq']) ? $_GET['seq'] : 'ASC';
-        $start = isset($_GET['start']) ? $_GET['start'] : 0;
+        $start = \Xmf\Request::getInt('start', 0, GET);
         $limit = isset($_GET['limit']) ? $_GET['limit'] : 10;
         require_once XOOPS_ROOT_PATH . '/header.php';
         if (0 != $uid) {

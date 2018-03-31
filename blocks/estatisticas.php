@@ -49,7 +49,7 @@ function estatisticas_banner($options)
 
         $order = isset($_GET['order']) ? $_GET['order'] : 'codigo';
         $seq   = isset($_GET['seq']) ? $_GET['seq'] : 'ASC';
-        $start = isset($_GET['start']) ? $_GET['start'] : 0;
+        $start = \Xmf\Request::getInt('start', 0, GET);
         $limit = isset($_GET['limit']) ? $_GET['limit'] : 10;
 
         $ord = ('' != $order) ? 'ORDER BY ' . $order . ' ' . $seq : null;
