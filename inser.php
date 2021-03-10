@@ -54,7 +54,7 @@ switch ($op) {
         if ('' == $form['grafico']) {
             //Inicio da rotina de upload de arquivo
             $maxfilesize = 500000;
-            $uploader    = new \XoopsMediaUploader($local_folder, require_once dirname(__DIR__) . '/include/mimetypes.php', $maxfilesize);
+            $uploader    = new \XoopsMediaUploader($local_folder, require dirname(__DIR__) . '/include/mimetypes.php', $maxfilesize);
             for ($i = 0, $iMax = count($_POST['xoops_upload_file']); $i <= $iMax; ++$i) {
                 if ($uploader->fetchMedia($_POST['xoops_upload_file'][$i])) {
                     if ($uploader->upload()) {
