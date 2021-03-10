@@ -80,7 +80,7 @@ class FlashHeader
         $this->buffer = $buffer;
         $fp           = @fopen($this->buffer, 'rb');
         $head         = @fread($fp, 3);
-        if ($head === 'CWS') {
+        if ('CWS' === $head) {
             /* zlib */
             fseek($fp, 0);
             $data              = fread($fp, 8);
@@ -89,7 +89,7 @@ class FlashHeader
             $this->data        = $data;
             $this->compression = 1;
             $this->isValid     = 1;
-        } elseif ($head === 'FWS') {
+        } elseif ('FWS' === $head) {
             fseek($fp, 0);
             $this->data    = fread($fp, filesize($buffer));
             $this->isValid = 1;

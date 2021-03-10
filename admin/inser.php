@@ -57,7 +57,7 @@ global $xoopsDB, $XoopsModule;
 switch ($op) {
     case 'grava':
         $data = date('y:m:d h:i:s');
-        if ($form['grafico'] == '') {
+        if ('' == $form['grafico']) {
             //Inicio da rotina de upload de arquivo
             $maxfilesize = 500000;
             $uploader    = new \XoopsMediaUploader($local_folder, require_once XOOPS_ROOT_PATH . '/modules/' . $xoopsModule->dirname() . '/include/mimetypes.php', $maxfilesize);
@@ -72,7 +72,7 @@ switch ($op) {
             }
             //Fim da rotina de upload de arquivo
             $upfolder        = substr($local_folder, strlen(XOOPS_ROOT_PATH) + 1, strlen($local_folder));
-            $form['grafico'] = ($form['usarhtml'] != 1) ? XOOPS_URL . '/' . $upfolder . '/' . $file_name : '';
+            $form['grafico'] = (1 != $form['usarhtml']) ? XOOPS_URL . '/' . $upfolder . '/' . $file_name : '';
         }
 
         $form['usarhtml'] = $form['usarhtml'] ?? 0;
@@ -83,14 +83,14 @@ switch ($op) {
 
         $banner = new Banner($form);
 
-        if ($_POST['post'] == _AM_RWBANNER_BTN_OP1) {
+        if (_AM_RWBANNER_BTN_OP1 == $_POST['post']) {
             if ($banner->grava()) {
                 redirect_header('index.php', 1, _AM_RWBANNER_MSG8);
             } else {
                 redirect_header('index.php', 1, _AM_RWBANNER_MSG10);
             }
-        } elseif ($_POST['post'] == _AM_RWBANNER_BTN_OP2) {
-            if ($banner->getStatus() == 2 && $banner->getCategoria() != 0) {
+        } elseif (_AM_RWBANNER_BTN_OP2 == $_POST['post']) {
+            if (2 == $banner->getStatus() && 0 != $banner->getCategoria()) {
                 $banner->setStatus(1);
             }
             if ($banner->edita()) {
@@ -166,7 +166,7 @@ function monta_form($value)
         $categ_selbox->addOption($cod, $titulo);
     }
 
-    if ($form['maxexib'] == 0) {
+    if (0 == $form['maxexib']) {
         $exibe = _AM_RWBANNER_BANNER_EXIBREST;
         $check = 'checked';
         $disa  = 'disabled';
@@ -196,7 +196,7 @@ function monta_form($value)
     $ilimitado = new \XoopsFormCheckBox('', _AM_RWBANNER_BTN_OP3);
     $ilimitado->setExtra('onClick="javascript:checa();" ' . $check);
     $ilimitado->addOption(1, _AM_RWBANNER_BTN_OP3);
-    if ($form['maxclick'] == 0) {
+    if (0 == $form['maxclick']) {
         $exibe1 = _AM_RWBANNER_BANNER_EXIBREST;
         $check1 = 'checked';
         $disa1  = 'disabled';
@@ -226,7 +226,7 @@ function monta_form($value)
     $ilimitado1 = new \XoopsFormCheckBox('', _AM_RWBANNER_BTN_OP3);
     $ilimitado1->setExtra('onClick="javascript:checa1();" ' . $check1);
     $ilimitado1->addOption(1, _AM_RWBANNER_BTN_OP3);
-    if ($form['periodo'] == 0) {
+    if (0 == $form['periodo']) {
         $exibe2 = _AM_RWBANNER_BANNER_EXIBREST;
         $check2 = 'checked';
         $disa2  = 'disabled';
@@ -291,7 +291,7 @@ function monta_form($value)
     $usarhtml->setExtra('onClick="javascript:checar();"');
     $usarhtml->addOption(1, _MI_RWBANNER_YES);
     $htmlcode = new \XoopsFormTextArea(_AM_RWBANNER_TITLE28, 'form[htmlcode]', $form['htmlcode']);
-    if ($form['usarhtml'] != 1) {
+    if (1 != $form['usarhtml']) {
         $htmlcode->setExtra('disabled');
     }
     $target_selbox = new \XoopsFormSelect(_AM_RWBANNER_TITLE29, 'form[target]', $form['target']);
@@ -300,12 +300,12 @@ function monta_form($value)
     $target_selbox->addOption('_parent', '_parent');
     $target_selbox->addOption('_top', '_top');
     $button_tray = new \XoopsFormElementTray('', '');
-    if ($value == _AM_RWBANNER_BTN_OP2) {
+    if (_AM_RWBANNER_BTN_OP2 == $value) {
         $id     = new \XoopsFormHidden('form[codigo]', $form['codigo']);
         $status = new \XoopsFormHidden('form[status]', $form['status']);
     }
     $submit_btn = new \XoopsFormButton('', 'post', $value, 'submit');
-    if ($value == _AM_RWBANNER_BTN_OP2 && $form['status'] == 2) {
+    if (_AM_RWBANNER_BTN_OP2 == $value && 2 == $form['status']) {
         $obs = new \XoopsFormTextArea(_AM_RWBANNER_TITLE5000, 'form[obs]', $form['obs']);
         $obs->setDescription(_AM_RWBANNER_TITLE5000_DESC);
     }
@@ -332,7 +332,7 @@ function monta_form($value)
     $banner_form->addElement($usarhtml);
     $banner_form->addElement($htmlcode);
     $banner_form->addElement($target_selbox);
-    if ($value == _AM_RWBANNER_BTN_OP2 && $form['status'] == 2) {
+    if (_AM_RWBANNER_BTN_OP2 == $value && 2 == $form['status']) {
         $banner_form->addElement($obs);
     }
     $button_tray->addElement($submit_btn);

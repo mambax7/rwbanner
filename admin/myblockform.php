@@ -83,7 +83,7 @@ if ($block['is_custom']) {
 
     $notice_for_tags = '<span style="font-size:x-small;font-weight:bold;">' . _AM_USEFULTAGS . '</span><br><span style="font-size:x-small;font-weight:normal;">' . sprintf(_AM_BLOCKTAG1, '{X_SITEURL}', XOOPS_URL . '/') . '</span>';
 
-    $current_op = @$_GET['op'] === 'clone' ? 'clone' : 'edit';
+    $current_op = 'clone' === @$_GET['op'] ? 'clone' : 'edit';
 
     $uri_to_myself = XOOPS_URL . "/modules/blocksadmin/admin/admin.php?fct=blocksadmin&amp;op=$current_op&amp;bid={$block['bid']}";
 
@@ -125,7 +125,7 @@ if ($block['is_custom']) {
 
     $form->addElement($ctype_select);
 } else {
-    if ($block['template'] != '' && !defined('XOOPS_ORETEKI')) {
+    if ('' != $block['template'] && !defined('XOOPS_ORETEKI')) {
         /** @var \XoopsTplfileHandler $tplfileHandler */
         $tplfileHandler = xoops_getHandler('tplfile');
 
@@ -142,7 +142,7 @@ if ($block['is_custom']) {
         }
     }
 
-    if ($block['edit_form'] !== false) {
+    if (false !== $block['edit_form']) {
         $form->addElement(new \XoopsFormLabel(_AM_OPTIONS, $block['edit_form']));
     }
 }

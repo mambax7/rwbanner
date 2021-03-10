@@ -118,7 +118,7 @@ function edita_banner($options)
     $qtde = _MB_RWBANNER_OPTION3 . "&nbsp;<input type='text' name='options[]' value='" . $options[2] . "' onchange='javascript:options2.value = this.value;'>";
     $form .= '<br>' . $qtde;
     //Redimensionar imagens?
-    if ($options[3] == 1) {
+    if (1 == $options[3]) {
         $check = 'checked';
     } else {
         $check = '';

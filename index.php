@@ -52,7 +52,7 @@ switch ($op) {
         $start = $_GET['start'] ?? 0;
         $limit = $_GET['limit'] ?? 10;
         require_once XOOPS_ROOT_PATH . '/header.php';
-        if ($uid != 0) {
+        if (0 != $uid) {
             echo '<p style="text-align:justify;">' . sprintf(_MD_RWBANNER_MSG_INDEX_OLAUSER, $xoopsUser->getVar('uname'), $xoopsConfig['sitename']) . '</p>';
             lista_banners($uid, $order, $seq, $limit, $start);
         } else {
@@ -86,15 +86,15 @@ function lista_banners($uid, $order = null, $seq = '', $limit = 10, $start = 0)
     $total  = $banner->getRowNum(null, $uid);
 
     if ($total > 0) {
-        echo ($xoopsModuleConfig['show_cad_form'] == 1) ? '<p style="text-align:justify;">' . _MD_RWBANNER_MSG_INDEX_CADBANNER . '</p><p style="text-align:justify;">' . _MD_RWBANNER_MSG_NEWBANNER . '</p>' : '<p style="text-align:justify;">' . _MD_RWBANNER_MSG_INDEX_NOBANNER1 . '</p>';
-        $ord = ($order != '') ? 'ORDER BY ' . $order . ' ' . $seq : null;
+        echo (1 == $xoopsModuleConfig['show_cad_form']) ? '<p style="text-align:justify;">' . _MD_RWBANNER_MSG_INDEX_CADBANNER . '</p><p style="text-align:justify;">' . _MD_RWBANNER_MSG_NEWBANNER . '</p>' : '<p style="text-align:justify;">' . _MD_RWBANNER_MSG_INDEX_NOBANNER1 . '</p>';
+        $ord = ('' != $order) ? 'ORDER BY ' . $order . ' ' . $seq : null;
 
-        $sel1 = ($order === 'clicks') ? ' selected="selected"' : '';
-        $sel2 = ($order === 'codigo') ? ' selected="selected"' : '';
-        $sel3 = ($order === 'data') ? ' selected="selected"' : '';
-        $sel4 = ($order === 'exibicoes') ? ' selected="selected"' : '';
-        $sel5 = ($seq === 'ASC') ? ' selected="selected"' : '';
-        $sel6 = ($seq === 'DESC') ? ' selected="selected"' : '';
+        $sel1 = ('clicks' === $order) ? ' selected="selected"' : '';
+        $sel2 = ('codigo' === $order) ? ' selected="selected"' : '';
+        $sel3 = ('data' === $order) ? ' selected="selected"' : '';
+        $sel4 = ('exibicoes' === $order) ? ' selected="selected"' : '';
+        $sel5 = ('ASC' === $seq) ? ' selected="selected"' : '';
+        $sel6 = ('DESC' === $seq) ? ' selected="selected"' : '';
 
         echo '<div align="center" style="width:100%; display:inline; margin:0; padding:0;" nowrap>
     <p>
@@ -128,8 +128,8 @@ function lista_banners($uid, $order = null, $seq = '', $limit = 10, $start = 0)
 
         $lista_banners = $banner->getAllByClient($uid, $ord, null, $limit, $start);
 
-        $extra_sel = ($start != 0) ? '&start=' . $start : '';
-        $seq       = ($seq === 'ASC') ? 'DESC' : 'ASC';
+        $extra_sel = (0 != $start) ? '&start=' . $start : '';
+        $seq       = ('ASC' === $seq) ? 'DESC' : 'ASC';
 
         echo '
     <table style="font-size:10px;" width="100%" class="outer">
@@ -151,26 +151,26 @@ function lista_banners($uid, $order = null, $seq = '', $limit = 10, $start = 0)
       </tr>';
         $class = 'even';
         for ($i = 0; $i <= count($lista_banners) - 1; ++$i) {
-            if ($lista_banners[$i]->getStatus() != 0) {
+            if (0 != $lista_banners[$i]->getStatus()) {
                 $status = '<img src=' . $pathIcon16 . '/green.gif' . ' width="16" height="16" border="0" alt="' . _AM_RWBANNER_BANNER_STATUS1 . '" title="' . _AM_RWBANNER_BANNER_STATUS1 . '">';
                 $estilo = '';
             } else {
                 $status = '<img src=' . $pathIcon16 . '/red.gif' . ' width="16" height="16" border="0" alt="' . _AM_RWBANNER_BANNER_STATUS2 . '" title="' . _AM_RWBANNER_BANNER_STATUS2 . '">';
                 $estilo = 'style="color:red;"';
             }
-            $class = ($class === 'even') ? 'odd' : 'even';
+            $class = ('even' === $class) ? 'odd' : 'even';
 
-            if ($lista_banners[$i]->getMaxexib() == 0) {
+            if (0 == $lista_banners[$i]->getMaxexib()) {
                 $exibrest = _AM_RWBANNER_BANNER_EXIBREST;
             } else {
                 $exibrest = round($lista_banners[$i]->getMaxexib() - $lista_banners[$i]->getExibicoes());
             }
-            if ($lista_banners[$i]->getMaxclick() == 0) {
+            if (0 == $lista_banners[$i]->getMaxclick()) {
                 $exibrestclick = _AM_RWBANNER_BANNER_EXIBREST;
             } else {
                 $exibrestclick = round($lista_banners[$i]->getMaxclick() - $lista_banners[$i]->getClicks());
             }
-            if ($lista_banners[$i]->getClicks() != 0 && $lista_banners[$i]->getExibicoes() != 0) {
+            if (0 != $lista_banners[$i]->getClicks() && 0 != $lista_banners[$i]->getExibicoes()) {
                 $perc = round(($lista_banners[$i]->getClicks() / $lista_banners[$i]->getExibicoes()) * 100, 2);
             } else {
                 $perc = '0';
@@ -178,7 +178,7 @@ function lista_banners($uid, $order = null, $seq = '', $limit = 10, $start = 0)
             $data    = $lista_banners[$i]->getData();
             $periodo = $lista_banners[$i]->getPeriodo();
             $maxdata = somaData($data, $periodo);
-            if ($periodo == 0) {
+            if (0 == $periodo) {
                 $periodo = _AM_RWBANNER_BANNER_EXIBREST;
             } else {
                 $periodo = converte($maxdata, 'BR', 0);
@@ -232,14 +232,14 @@ function lista_banners($uid, $order = null, $seq = '', $limit = 10, $start = 0)
                  . '</td>';
             echo '
           <td align="center" width="10%">';
-            echo ($xoopsModuleConfig['perm_client'] == 1) ? '<a href="inser.php?id=' . $lista_banners[$i]->getCodigo() . '&op=editar"><img src=' . $pathIcon16 . '/edit.png' . ' width="16" height="16" border="0" alt="' . _AM_RWBANNER_VALUE_BTN3 . '" title="' . _AM_RWBANNER_VALUE_BTN3 . '"></a>' : '';
+            echo (1 == $xoopsModuleConfig['perm_client']) ? '<a href="inser.php?id=' . $lista_banners[$i]->getCodigo() . '&op=editar"><img src=' . $pathIcon16 . '/edit.png' . ' width="16" height="16" border="0" alt="' . _AM_RWBANNER_VALUE_BTN3 . '" title="' . _AM_RWBANNER_VALUE_BTN3 . '"></a>' : '';
             echo '<a href="index.php?id=' . $lista_banners[$i]->getCodigo() . '&op=sendemail"><img src=' . $pathIcon16 . '/mail_forward.png' . ' width="16" height="16" border="0" alt="' . _MD_EMAIL_STATS . '" title="' . _MD_EMAIL_STATS . '"></a>
           </td>
         </tr>';
         }
-        if (substr($_SERVER['QUERY_STRING'], 0, 5) !== 'start') {
+        if ('start' !== substr($_SERVER['QUERY_STRING'], 0, 5)) {
             $arr_qs    = explode('&', $_SERVER['QUERY_STRING']);
-            $n         = (substr($arr_qs[count($arr_qs) - 1], 0, 5) !== 'start') ? $n = 1 : $n = 2;
+            $n         = ('start' !== substr($arr_qs[count($arr_qs) - 1], 0, 5)) ? $n = 1 : $n = 2;
             $extra_pag = '';
             for ($i = 0; $i <= count($arr_qs) - $n; ++$i) {
                 $extra_pag .= $arr_qs[$i] . '&';
@@ -255,6 +255,6 @@ function lista_banners($uid, $order = null, $seq = '', $limit = 10, $start = 0)
         echo '  </tr>';
         echo '</table>';
     } else {
-        echo ($xoopsModuleConfig['show_cad_form'] == 1) ? '<p style="text-align:justify;">' . _MD_RWBANNER_MSG_INDEX_NOBANNER . '</p>' : '<p style="text-align:justify;">' . _MD_RWBANNER_MSG_INDEX_NOBANNER1 . '</p>';
+        echo (1 == $xoopsModuleConfig['show_cad_form']) ? '<p style="text-align:justify;">' . _MD_RWBANNER_MSG_INDEX_NOBANNER . '</p>' : '<p style="text-align:justify;">' . _MD_RWBANNER_MSG_INDEX_NOBANNER1 . '</p>';
     }
 }

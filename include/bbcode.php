@@ -41,7 +41,7 @@ $tag          = new Tag();
 $lista_tags   = $tag->getTags('ORDER BY id ASC');
 $valid_tags   = $tag->getTags('ORDER BY id ASC', true);
 if (preg_match_all('/\[RW align=(.*)\](.*)\[\/RW\]/sU', $text, $texto)) {
-    if (count($texto) == 3) {
+    if (3 == count($texto)) {
         for ($i = 0; $i <= count($texto[0]) - 1; ++$i) {
             $arr[$i]['tag']   = $texto[2][$i];
             $arr[$i]['algin'] = $texto[1][$i];
@@ -50,7 +50,7 @@ if (preg_match_all('/\[RW align=(.*)\](.*)\[\/RW\]/sU', $text, $texto)) {
         for ($i = 0; $i <= count($arr) - 1; ++$i) {
             if (in_array($arr[$i]['tag'], $valid_tags)) {
                 foreach ($lista_tags as $tag) {
-                    if ($arr[$i]['tag'] == $tag->getName() && $tag->getStatus() == 1) {
+                    if ($arr[$i]['tag'] == $tag->getName() && 1 == $tag->getStatus()) {
                         if (in_array($arr[$i]['algin'], $valid_aligns)) {
                             $banner     = new Banner();
                             $patterns[] = '/\[RW align=' . $arr[$i]['algin'] . ']' . $tag->getName() . '\[\/RW\]/sU';

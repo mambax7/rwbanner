@@ -50,7 +50,7 @@ $lista_tags = $tag->getTags('ORDER BY id ASC');
 
 for ($i = 0; $i <= count($lista_tags) - 1; ++$i) {
     $mods = unserialize($lista_tags[$i]->modid);
-    if ($lista_tags[$i]->getStatus() == 1) {
+    if (1 == $lista_tags[$i]->getStatus()) {
         if (in_array(0, $mods)) {
             $rwbanner = new Banner();
             $xoopsTpl->assign($lista_tags[$i]->getName(), $rwbanner->showBanner($lista_tags[$i]->getCateg(), $lista_tags[$i]->getQtde(), $lista_tags[$i]->getCols()));

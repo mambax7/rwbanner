@@ -55,14 +55,14 @@ function estatisticas_banner($options)
         $start = $_GET['start'] ?? 0;
         $limit = $_GET['limit'] ?? 10;
 
-        $ord = ($order != '') ? 'ORDER BY ' . $order . ' ' . $seq : null;
+        $ord = ('' != $order) ? 'ORDER BY ' . $order . ' ' . $seq : null;
 
-        $sel1            = ($order === 'clicks') ? ' selected="selected"' : '';
-        $sel2            = ($order === 'codigo') ? ' selected="selected"' : '';
-        $sel3            = ($order === 'data') ? ' selected="selected"' : '';
-        $sel4            = ($order === 'exibicoes') ? ' selected="selected"' : '';
-        $sel5            = ($seq === 'ASC') ? ' selected="selected"' : '';
-        $sel6            = ($seq === 'DESC') ? ' selected="selected"' : '';
+        $sel1            = ('clicks' === $order) ? ' selected="selected"' : '';
+        $sel2            = ('codigo' === $order) ? ' selected="selected"' : '';
+        $sel3            = ('data' === $order) ? ' selected="selected"' : '';
+        $sel4            = ('exibicoes' === $order) ? ' selected="selected"' : '';
+        $sel5            = ('ASC' === $seq) ? ' selected="selected"' : '';
+        $sel6            = ('DESC' === $seq) ? ' selected="selected"' : '';
         $block['select'] = '
 
       <select name="order">
@@ -97,9 +97,9 @@ function estatisticas_banner($options)
             $arr3[] = $arr2;
         }
         for ($i = 0; $i <= count($arr3) - 1; ++$i) {
-            $arr3[$i]['exibrest'] = ($arr3[$i]['maxexib'] == 0) ? _MB_RWBANNER_EXIBREST : round($arr3[$i]['maxexib'] - $arr3[$i]['exibicoes']);
-            $arr3[$i]['perc']     = ($arr3[$i]['clicks'] != 0 && $arr3[$i]['exibicoes'] != 0) ? round(($arr3[$i]['clicks'] / $arr3[$i]['exibicoes']) * 100, 2) : 0;
-            $arr3[$i]['class']    = ($arr3[$i]['status'] == 0) ? 'desativ' : 'ativ';
+            $arr3[$i]['exibrest'] = (0 == $arr3[$i]['maxexib']) ? _MB_RWBANNER_EXIBREST : round($arr3[$i]['maxexib'] - $arr3[$i]['exibicoes']);
+            $arr3[$i]['perc']     = (0 != $arr3[$i]['clicks'] && 0 != $arr3[$i]['exibicoes']) ? round(($arr3[$i]['clicks'] / $arr3[$i]['exibicoes']) * 100, 2) : 0;
+            $arr3[$i]['class']    = (0 == $arr3[$i]['status']) ? 'desativ' : 'ativ';
             $arr3[$i]['link']     = '<a class="'
                                     . $arr3[$i]['class']
                                     . '" href="javascript:void(0);" onclick="javascript: window.open(\''
@@ -116,7 +116,7 @@ function estatisticas_banner($options)
             $data                 = $arr3[$i]['data'];
             $periodo              = $arr3[$i]['periodo'];
             $maxdata              = somaData($data, $periodo);
-            if ($periodo == 0) {
+            if (0 == $periodo) {
                 $arr3[$i]['periodo'] = _MB_RWBANNER_EXIBREST;
             } else {
                 $arr3[$i]['periodo'] = converte($maxdata, 'BR', 0);
@@ -125,9 +125,9 @@ function estatisticas_banner($options)
         }
         $block['rows'] = $arr3;
 
-        if (substr($_SERVER['QUERY_STRING'], 0, 5) !== 'start') {
+        if ('start' !== substr($_SERVER['QUERY_STRING'], 0, 5)) {
             $arr_qs    = explode('&', $_SERVER['QUERY_STRING']);
-            $n         = (substr($arr_qs[count($arr_qs) - 1], 0, 5) !== 'start') ? $n = 1 : $n = 2;
+            $n         = ('start' !== substr($arr_qs[count($arr_qs) - 1], 0, 5)) ? $n = 1 : $n = 2;
             $extra_pag = '';
             for ($i = 0; $i <= count($arr_qs) - $n; ++$i) {
                 $extra_pag .= $arr_qs[$i] . '&';

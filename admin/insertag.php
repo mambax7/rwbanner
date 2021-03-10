@@ -49,7 +49,7 @@ $form = $_POST['form'] ?? [];
 global $xoopsDB;
 switch ($op) {
     case 'grava':
-        if ($_POST['post'] == _AM_RWBANNER_BTN_OP1) {
+        if (_AM_RWBANNER_BTN_OP1 == $_POST['post']) {
             $form['modid'] = serialize($form['modid']);
             $tag           = new Tag($form);
             if ($tag->grava()) {
@@ -57,7 +57,7 @@ switch ($op) {
             } else {
                 redirect_header('index.php', 1, _AM_RWBANNER_MSG23);
             }
-        } elseif ($_POST['post'] == _AM_RWBANNER_BTN_OP2) {
+        } elseif (_AM_RWBANNER_BTN_OP2 == $_POST['post']) {
             $form['modid'] = serialize($form['modid']);
             $tag           = new Tag($form);
             if ($tag->edita()) {
@@ -140,7 +140,7 @@ function monta_form($value)
     $status->addOption(0, _AM_RWBANNER_TAG_STATUS2);
 
     $button_tray = new \XoopsFormElementTray('', '');
-    if ($value == _AM_RWBANNER_BTN_OP4) {
+    if (_AM_RWBANNER_BTN_OP4 == $value) {
         // bug fix - luciorota
 
         $id = new \XoopsFormHidden('form[id]', $form['id']);

@@ -326,11 +326,11 @@ if (!function_exists('admin_refcheck')) {
 
         $cr = XOOPS_URL;
 
-        if ($chkref != '') {
+        if ('' != $chkref) {
             $cr .= $chkref;
         }
 
-        if (strpos($ref, $cr) !== 0) {
+        if (0 !== strpos($ref, $cr)) {
             return false;
         }
 

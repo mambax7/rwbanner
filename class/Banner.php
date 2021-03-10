@@ -83,7 +83,7 @@ class Banner
      */
     public function __construct($dados = null, $id = null)
     {
-        if ($dados === null && $id != null) {
+        if (null === $dados && null != $id) {
             $this->db = \XoopsDatabaseFactory::getDatabaseConnection();
             $sql      = 'SELECT * FROM ' . $this->db->prefix('rwbanner_banner') . ' WHERE codigo=' . $id;
             $query    = $this->db->query($sql);
@@ -110,7 +110,7 @@ class Banner
             $this->larg      = $this->setLargura();
             $this->alt       = $this->setAltura();
             $this->obs       = $row['obs'];
-        } elseif ($dados != null) {
+        } elseif (null != $dados) {
             $this->codigo    = $dados['codigo'] ?? '';
             $this->categoria = $dados['categoria'] ?? '';
             $this->titulo    = $dados['titulo'] ?? '';
@@ -492,7 +492,7 @@ class Banner
     public function grava($flag = null)
     {
         $this->db = \XoopsDatabaseFactory::getDatabaseConnection();
-        $sts      = ($flag != null) ? $flag : 1;
+        $sts      = (null != $flag) ? $flag : 1;
         $sql      = 'INSERT INTO '
                     . $this->db->prefix('rwbanner_banner')
                     . ' (codigo, categoria, titulo, texto, url, grafico, usarhtml, htmlcode, showimg, exibicoes, maxexib, clicks, maxclick, data, periodo, status, target, idcliente, obs) VALUES ("'
@@ -628,10 +628,10 @@ class Banner
     public function getBanners($admin = false, $order = null, $categ = null, $limit = null, $start = 0)
     {
         $this->db = \XoopsDatabaseFactory::getDatabaseConnection();
-        $extra    = ($categ != null) ? ' WHERE categoria=' . $categ : '';
-        $extra    .= (!$admin && $categ != null) ? ' and status=1' : ((!$admin && $categ === null) ? ' WHERE status=1' : '');
-        $extra    .= ($order != null) ? ' ' . $order : '';
-        $extra    .= ($limit != null) ? ' LIMIT ' . $start . ',' . $limit : '';
+        $extra    = (null != $categ) ? ' WHERE categoria=' . $categ : '';
+        $extra    .= (!$admin && null != $categ) ? ' and status=1' : ((!$admin && null === $categ) ? ' WHERE status=1' : '');
+        $extra    .= (null != $order) ? ' ' . $order : '';
+        $extra    .= (null != $limit) ? ' LIMIT ' . $start . ',' . $limit : '';
         $sql      = 'SELECT codigo FROM ' . $this->db->prefix('rwbanner_banner') . $extra;
         $query    = $this->db->query($sql);
         $banners  = [];
@@ -686,8 +686,8 @@ class Banner
     public function getRowNum($categ = null, $id = null)
     {
         $this->db = \XoopsDatabaseFactory::getDatabaseConnection();
-        $extra    = ($categ != null) ? ' and categoria=' . $categ : '';
-        $extra    .= ($id != null) ? ' and status!=2 and idcliente=' . $id : '';
+        $extra    = (null != $categ) ? ' and categoria=' . $categ : '';
+        $extra    .= (null != $id) ? ' and status!=2 and idcliente=' . $id : '';
         $sql      = 'SELECT codigo FROM ' . $this->db->prefix('rwbanner_banner') . ' WHERE 1=1 ' . $extra;
         $query    = $this->db->query($sql);
         $total    = $this->db->getRowsNum($query);
@@ -748,20 +748,20 @@ class Banner
      */
     public function showBanner($categ = 0, $qtde = 1, $cols = 1, $align = 'center')
     {
-        $cat     = ($categ != 0) ? $categ : null;
+        $cat     = (0 != $categ) ? $categ : null;
         $arr     = $this->getBanners(false, 'ORDER BY RAND()', $cat, $qtde);
         $cont    = 0;
         $showban = '<table border="0" cellpadding="0" cellspacing="5"><tr>';
         for ($i = 0; $i <= count($arr) - 1; ++$i) {
             $arr[$i]->incHits();
             ++$cont;
-            if ($arr[$i]->getUsarhtml() == 1) {
+            if (1 == $arr[$i]->getUsarhtml()) {
                 $bannerobject = '<div align="' . $align . '">';
                 $bannerobject .= $arr[$i]->getHtmlCode();
                 $bannerobject .= '</div>';
                 $bannerobject .= (count($arr) > 1 && $cols <= 1) ? '<br>' : '';
             } else {
-                if ($arr[$i]->getUrl() == '' || $arr[$i]->getUrl() === '#') {
+                if ('' == $arr[$i]->getUrl() || '#' === $arr[$i]->getUrl()) {
                     $bannerobject = '<div align="' . $align . '">';
                 } else {
                     $bannerobject = '<div align="' . $align . '"><a href="' . $xoopsModule->dirname() . '/conta_click.php?id=' . $arr[$i]->getCodigo() . '" target="' . $arr[$i]->getTarget() . '">';
@@ -820,7 +820,7 @@ class Banner
                                      . '">'
                                      . '</embed>'
                                      . '</object></div>';
-                } elseif ($arr[$i]->getShowimg() == 1) {
+                } elseif (1 == $arr[$i]->getShowimg()) {
                         $bannerobject .= '<img style="border:0;" src="' . $arr[$i]->getGrafico() . '" alt="" width="' . $arr[$i]->getLargura() . '" height="' . $arr[$i]->getAltura() . '" border="0">';
                     } else {
                         $bannerobject .= '<p style="font-weight:normal; text-align:justify;"><span style="text-align:center; font-weight:bold;"<center>' . $arr[$i]->getTitulo() . '</center></span><br>' . $arr[$i]->gettexto() . '</p>';
@@ -853,12 +853,12 @@ class Banner
     {
         $ban     = new Banner(null, $id);
         $showban = '<table border="0" cellpadding="0" cellspacing="5"><tr>';
-        if ($ban->getUsarhtml() == 1) {
+        if (1 == $ban->getUsarhtml()) {
             $bannerobject = '<div align="' . $align . '">';
             $bannerobject .= $ban->getHtmlCode();
             $bannerobject .= '</div>';
         } else {
-            if ($ban->getUrl() == '' || $ban->getUrl() === '#') {
+            if ('' == $ban->getUrl() || '#' === $ban->getUrl()) {
                 $bannerobject = '<div align="' . $align . '">';
             } else {
                 $bannerobject = '<div align="' . $align . '"><a href="' . $xoopsModule->dirname() . '/conta_click.php?id=' . $ban->getCodigo() . '" target="' . $ban->getTarget() . '">';
@@ -917,7 +917,7 @@ class Banner
                                  . '">'
                                  . '</embed>'
                                  . '</object>';
-            } elseif ($ban->getShowimg() == 1) {
+            } elseif (1 == $ban->getShowimg()) {
                     $bannerobject .= '<img style="border:0;" src="' . $ban->getGrafico() . '" alt="" width="' . $ban->getLargura() . '" height="' . $ban->getAltura() . '">';
                 } else {
                     $bannerobject .= '<p style="font-weight:normal; text-align:justify;"><span style="text-align:center; font-weight:bold;"<center>' . $ban->getTitulo() . '</center></span><br>' . $ban->getTexTo() . '</p>';
@@ -939,7 +939,7 @@ class Banner
         $data    = $this->getData();
         $periodo = $this->getPeriodo();
         $maxdata = somaData($data, $periodo);
-        if (($this->getMaxexib() == 0 || $hits < $this->getMaxexib()) && ($this->getMaxclick() == 0 || $this->getClicks() < $this->getMaxclick()) && ($this->getPeriodo() == 0 || date('Y-m-d') <= $maxdata)) {
+        if ((0 == $this->getMaxexib() || $hits < $this->getMaxexib()) && (0 == $this->getMaxclick() || $this->getClicks() < $this->getMaxclick()) && (0 == $this->getPeriodo() || date('Y-m-d') <= $maxdata)) {
             $this->setExibicoes($hits);
         } elseif ($hits >= $this->getMaxexib()) {
             $this->setStatus(0);
@@ -956,7 +956,7 @@ class Banner
     {
         $clicks = $this->getClicks();
         ++$clicks;
-        if ($this->getMaxclick() == 0 || $this->getClicks() < $this->getMaxclick()) {
+        if (0 == $this->getMaxclick() || $this->getClicks() < $this->getMaxclick()) {
             $this->setClicks($clicks);
         } elseif ($this->getClicks() >= $this->getMaxclick()) {
             $this->setStatus(0);
@@ -972,7 +972,7 @@ class Banner
      */
     public function mudaStatus($sts = null)
     {
-        $this->status = $sts ?? (($this->status == 1) ? 0 : 1);
+        $this->status = $sts ?? ((1 == $this->status) ? 0 : 1);
 
         return $this->edita();
     }
@@ -990,9 +990,9 @@ class Banner
     public function getAllByClient($uid, $order = null, $categ = null, $limit = null, $start = 0)
     {
         $this->db = \XoopsDatabaseFactory::getDatabaseConnection();
-        $extra    = ($categ != null) ? ' and categoria=' . $categ : '';
-        $extra    .= ($order != null) ? ' ' . $order : '';
-        $extra    .= ($limit != null) ? ' LIMIT ' . $start . ',' . $limit : '';
+        $extra    = (null != $categ) ? ' and categoria=' . $categ : '';
+        $extra    .= (null != $order) ? ' ' . $order : '';
+        $extra    .= (null != $limit) ? ' LIMIT ' . $start . ',' . $limit : '';
         $sql      = 'SELECT codigo FROM ' . $this->db->prefix('rwbanner_banner') . ' WHERE idcliente=' . $uid . ' and status!=2' . $extra;
         $query    = $this->db->query($sql);
         $banners  = [];

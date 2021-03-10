@@ -102,7 +102,7 @@ class About
 
         $adminMenu = $versioninfo->getInfo('adminMenu');
 
-        if (false !== $adminMenu && trim($adminMenu) != '') {
+        if (false !== $adminMenu && '' != trim($adminMenu)) {
             if (function_exists($adminMenu)) {
                 $func = $adminMenu;
                 if (!$func(-1, $this->_aboutTitle . ' ' . $versioninfo->getInfo('name'))) {
@@ -113,7 +113,7 @@ class About
         // Left headings...
         echo "<img src='" . XOOPS_URL . '/modules/' . $xoopsModule->getVar('dirname') . '/' . $versioninfo->getInfo('image') . "' alt='' hspace='0' vspace='0' align='left' style='margin-right: 10px;'></a>";
         echo "<div style='margin-top: 10px; color: #33538e; margin-bottom: 4px; font-size: 18px; line-height: 18px; font-weight: bold; display: block;'>" . $versioninfo->getInfo('name') . ' version ' . $versioninfo->getInfo('version') . ' (' . $versioninfo->getInfo('status_version') . ')</div>';
-        if ($versioninfo->getInfo('author_realname') != '') {
+        if ('' != $versioninfo->getInfo('author_realname')) {
             $author_name = $versioninfo->getInfo('author') . ' (' . $versioninfo->getInfo('author_realname') . ')';
         } else {
             $author_name = $versioninfo->getInfo('author');
@@ -129,25 +129,25 @@ class About
         echo "<td colspan='2' class='bg3' align='left'><b>" . $this->lang_author_info . '</b></td>';
         echo '</tr>';
 
-        if ($versioninfo->getInfo('developer_lead') != '') {
+        if ('' != $versioninfo->getInfo('developer_lead')) {
             echo '<tr>';
             echo "<td class='head' width = '150px' align='left'>" . $this->lang_developer_lead . '</td>';
             echo "<td class='even' align='left'>" . $versioninfo->getInfo('developer_lead') . '</td>';
             echo '</tr>';
         }
-        if ($versioninfo->getInfo('developer_contributor') != '') {
+        if ('' != $versioninfo->getInfo('developer_contributor')) {
             echo '<tr>';
             echo "<td class='head' width = '150px' align='left'>" . $this->lang_developer_contributor . '</td>';
             echo "<td class='even' align='left'>" . $versioninfo->getInfo('developer_contributor') . '</td>';
             echo '</tr>';
         }
-        if ($versioninfo->getInfo('developer_website_url') != '') {
+        if ('' != $versioninfo->getInfo('developer_website_url')) {
             echo '<tr>';
             echo "<td class='head' width = '150px' align='left'>" . $this->lang_developer_website . '</td>';
             echo "<td class='even' align='left'><a href='" . $versioninfo->getInfo('developer_website_url') . "' target='blank'>" . $versioninfo->getInfo('developer_website_name') . '</a></td>';
             echo '</tr>';
         }
-        if ($versioninfo->getInfo('developer_email') != '') {
+        if ('' != $versioninfo->getInfo('developer_email')) {
             echo '<tr>';
             echo "<td class='head' width = '150px' align='left'>" . $this->lang_developer_email . '</td>';
             echo "<td class='even' align='left'><a href='mailto:" . $versioninfo->getInfo('developer_email') . "'>" . $versioninfo->getInfo('developer_email') . '</a></td>';
@@ -162,41 +162,41 @@ class About
         echo "<td colspan='2' class='bg3' align='left'><b>" . $this->lang_module_info . '</b></td>';
         echo '</tr>';
 
-        if ($versioninfo->getInfo('date') != '') {
+        if ('' != $versioninfo->getInfo('date')) {
             echo '<tr>';
             echo "<td class='head' width = '200' align='left'>" . $this->lang_module_release_date . '</td>';
             echo "<td class='even' align='left'>" . $versioninfo->getInfo('date') . '</td>';
             echo '</tr>';
         }
 
-        if ($versioninfo->getInfo('status') != '') {
+        if ('' != $versioninfo->getInfo('status')) {
             echo '<tr>';
             echo "<td class='head' width = '200' align='left'>" . $this->lang_module_status . '</td>';
             echo "<td class='even' align='left'>" . $versioninfo->getInfo('status') . '</td>';
             echo '</tr>';
         }
 
-        if ($versioninfo->getInfo('demo_site_url') != '') {
+        if ('' != $versioninfo->getInfo('demo_site_url')) {
             echo '<tr>';
             echo "<td class='head' align='left'>" . $this->lang_module_demo . '</td>';
             echo "<td class='even' align='left'><a href='" . $versioninfo->getInfo('demo_site_url') . "' target='blank'>" . $versioninfo->getInfo('demo_site_name') . '</a></td>';
             echo '</tr>';
         }
 
-        if ($versioninfo->getInfo('support_site_url') != '') {
+        if ('' != $versioninfo->getInfo('support_site_url')) {
             echo '<tr>';
             echo "<td class='head' align='left'>" . $this->lang_module_support . '</td>';
             echo "<td class='even' align='left'><a href='" . $versioninfo->getInfo('support_site_url') . "' target='blank'>" . $versioninfo->getInfo('support_site_name') . '</a></td>';
             echo '</tr>';
         }
 
-        if ($versioninfo->getInfo('submit_bug') != '') {
+        if ('' != $versioninfo->getInfo('submit_bug')) {
             echo '<tr>';
             echo "<td class='head' align='left'>" . $this->lang_module_bug . '</td>';
             echo "<td class='even' align='left'><a href='" . $versioninfo->getInfo('submit_bug') . "' target='blank'>" . $this->lang_module_submit_bug . '</a></td>';
             echo '</tr>';
         }
-        if ($versioninfo->getInfo('submit_feature') != '') {
+        if ('' != $versioninfo->getInfo('submit_feature')) {
             echo '<tr>';
             echo "<td class='head' align='left'>" . $this->lang_module_feature . '</td>';
             echo "<td class='even' align='left'><a href='" . $versioninfo->getInfo('submit_feature') . "' target='blank'>" . $this->lang_module_submit_feature . '</a></td>';
@@ -205,7 +205,7 @@ class About
 
         echo '</table>';
         // Warning
-        if ($versioninfo->getInfo('warning') != '') {
+        if ('' != $versioninfo->getInfo('warning')) {
             echo "<br>\n";
             echo "<table width='100%' cellspacing=1 cellpadding=3 border=0 class = outer>";
             echo '<tr>';
@@ -219,7 +219,7 @@ class About
             echo '</table>';
         }
         // Author's note
-        if ($versioninfo->getInfo('author_word') != '') {
+        if ('' != $versioninfo->getInfo('author_word')) {
             echo "<br>\n";
             echo "<table width='100%' cellspacing=1 cellpadding=3 border=0 class = outer>";
             echo '<tr>';
@@ -234,7 +234,7 @@ class About
         }
 
         // Version History
-        if ($versioninfo->getInfo('version_history') != '') {
+        if ('' != $versioninfo->getInfo('version_history')) {
             echo "<br>\n";
             echo "<table width='100%' cellspacing=1 cellpadding=3 border=0 class = outer>";
             echo '<tr>';
@@ -252,7 +252,7 @@ class About
 
         $modFooter = $versioninfo->getInfo('modFooter');
 
-        if (false !== $adminMenu && trim($modFooter) != '') {
+        if (false !== $adminMenu && '' != trim($modFooter)) {
             if (function_exists($modFooter)) {
                 $func = $modFooter;
                 echo "<div align='center'>" . $func() . '</div>';

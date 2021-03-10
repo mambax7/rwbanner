@@ -224,14 +224,14 @@ function escreveData($data)
 function converte($data_ori, $tipo = 'BR', $hora = 'true')
 {
     $data = explode(' ', $data_ori);
-    if ($tipo === 'BR') {
+    if ('BR' === $tipo) {
         $resul = explode('-', $data[0]);
         $resul = $resul[2] . '/' . $resul[1] . '/' . $resul[0];
-    } elseif ($tipo === 'EN') {
+    } elseif ('EN' === $tipo) {
             $resul = explode('/', $data[0]);
             $resul = $resul[2] . '-' . $resul[1] . '-' . $resul[0];
         } else {
-            if ($tipo === 'FB') {
+            if ('FB' === $tipo) {
                 $resul = explode('/', $data[0]);
                 $resul = $resul[0] . '.' . $resul[1] . '.' . $resul[2];
             }
@@ -253,29 +253,29 @@ function EmailStats($bid)
 
     $uid   = $xoopsUser->getVar('uid');
     $email = $xoopsUser->getVar('email');
-    $name  = ($xoopsUser->getVar('name') == '') ? $xoopsUser->getVar('uname') : $xoopsUser->getVar('name');
+    $name  = ('' == $xoopsUser->getVar('name')) ? $xoopsUser->getVar('uname') : $xoopsUser->getVar('name');
 
     $result = $xoopsDB->query('select * from ' . $xoopsDB->prefix('rwbanner_banner') . " where codigo=$bid and idcliente=$uid");
     $row    = $xoopsDB->fetchArray($result);
 
-    if ($row['exibicoes'] == 0) {
+    if (0 == $row['exibicoes']) {
         $percent = 0;
     } else {
         $percent = substr(100 * $row['clicks'] / $row['exibicoes'], 0, 5);
     }
-    if ($row['maxexib'] == 0) {
+    if (0 == $row['maxexib']) {
         $left           = _MD_RWBANNER_EXIBREST;
         $row['maxexib'] = _MD_RWBANNER_EXIBREST;
     } else {
         $left = $row['maxexib'] - $row['exibicoes'];
     }
-    if ($row['maxclick'] == 0) {
+    if (0 == $row['maxclick']) {
         $left_clicks     = _MD_RWBANNER_EXIBREST;
         $row['maxclick'] = _MD_RWBANNER_EXIBREST;
     } else {
         $left_clicks = $row['maxclick'] - $row['clicks'];
     }
-    if ($row['periodo'] == 0) {
+    if (0 == $row['periodo']) {
         $left_periodo   = _MD_RWBANNER_EXIBREST;
         $row['periodo'] = _MD_RWBANNER_EXIBREST;
     } else {

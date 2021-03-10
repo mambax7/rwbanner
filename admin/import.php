@@ -103,7 +103,7 @@ function BannersAdmin()
     $myts   = \MyTextSanitizer::getInstance();
     $class  = '';
     while (list($bid, $cid) = $xoopsDB->fetchRow($result)) {
-        if ($class === 'even') {
+        if ('even' === $class) {
             $class = 'odd';
         } else {
             $class = 'even';
@@ -111,12 +111,12 @@ function BannersAdmin()
         $result2 = $xoopsDB->query('SELECT cid, name FROM ' . $xoopsDB->prefix('bannerclient') . " WHERE cid=$cid");
         [$cid, $name] = $xoopsDB->fetchRow($result2);
         $name = htmlspecialchars($name);
-        if ($impmade == 0) {
+        if (0 == $impmade) {
             $percent = 0;
         } else {
             $percent = substr(100 * $clicks / $impmade, 0, 5);
         }
-        if ($imptotal == 0) {
+        if (0 == $imptotal) {
             $left = '' . _AM_RWBANNER_UNLIMIT . '';
         } else {
             $left = $imptotal - $impmade;

@@ -62,7 +62,7 @@ function exibe_adbanner($options)
 
     $categ         = new Category(null, $options[0]);
     $block['larg'] = ($block['qtde'] > 1 && $block['cols'] > 1) ? (($categ->getLarg() * $block['qtde']) + 20) : $categ->getLarg();
-    $block['alt']  = ($block['qtde'] > 1 && $block['cols'] == 1) ? (($categ->getAlt() * $block['qtde']) + 20) : $categ->getAlt();
+    $block['alt']  = ($block['qtde'] > 1 && 1 == $block['cols']) ? (($categ->getAlt() * $block['qtde']) + 20) : $categ->getAlt();
 
     $banner = new Banner();
     $arr    = $banner->getBanners(false, 'ORDER BY RAND()', $options[0], $options[1]);
@@ -133,12 +133,12 @@ function edita_adbanner($options)
     $qtde    = _MB_RWBANNER_OPTION8 . "&nbsp;<input type='text' name='options[]' value='" . $options[7] . "' onchange='javascript:options7.value = this.value;' >";
     $form    .= '<br >' . $qtde;
     $mostrar = '<br >' . _MB_RWBANNER_OPTION9 . "&nbsp;<select options[8] name=\"options[8]\" onchange='javascript:options8.value = this.value;'>";
-    if ($options[8] == 1) {
+    if (1 == $options[8]) {
         $mostrar .= '<option value="1" selected>' . _MB_RWBANNER_TEXT2 . '</option>';
     } else {
         $mostrar .= '<option value="1">' . _MB_RWBANNER_TEXT2 . '</option>';
     }
-    if ($options[8] == 0) {
+    if (0 == $options[8]) {
         $mostrar .= '<option value="0" selected>' . _MB_RWBANNER_TEXT3 . '</option>';
     } else {
         $mostrar .= '<option value="0">' . _MB_RWBANNER_TEXT3 . '</option>';

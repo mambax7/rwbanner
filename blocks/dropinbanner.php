@@ -77,7 +77,7 @@ function exibe_dropbanner($options)
 
     $categ           = new Category(null, $options[0]);
     $block['width']  = ($block['qtde'] > 1 && $block['cols'] > 1) ? (($categ->getLarg() * $block['qtde']) + 40) : ($categ->getLarg() + 40);
-    $block['height'] = ($block['qtde'] > 1 && $block['cols'] == 1) ? (($categ->getAlt() * $block['qtde']) + 40) : ($categ->getAlt() + 40);
+    $block['height'] = ($block['qtde'] > 1 && 1 == $block['cols']) ? (($categ->getAlt() * $block['qtde']) + 40) : ($categ->getAlt() + 40);
     $block['larg']   = $categ->getLarg();
     $block['alt']    = $categ->getAlt();
 

@@ -52,7 +52,7 @@ class Category
      */
     public function __construct($dados = null, $id = null)
     {
-        if ($dados === null && $id != null) {
+        if (null === $dados && null != $id) {
             $this->db = \XoopsDatabaseFactory::getDatabaseConnection();
             $sql      = 'SELECT * FROM ' . $this->db->prefix('rwbanner_categorias') . ' WHERE cod=' . $id;
             $query    = $this->db->query($sql);
@@ -62,7 +62,7 @@ class Category
             $this->titulo = $row['titulo'];
             $this->larg   = $row['larg'];
             $this->alt    = $row['alt'];
-        } elseif ($dados != null) {
+        } elseif (null != $dados) {
             $this->cod    = (!empty($dados['cod'])) ? $dados['cod'] : '';
             $this->titulo = (!empty($dados['titulo'])) ? $dados['titulo'] : '';
             $this->larg   = (!empty($dados['larg'])) ? $dados['larg'] : '';
@@ -229,7 +229,7 @@ class Category
     public function getCategories($order)
     {
         $this->db = \XoopsDatabaseFactory::getDatabaseConnection();
-        $extra    = ($order != null) ? ' ' . $order : '';
+        $extra    = (null != $order) ? ' ' . $order : '';
         $sql      = 'SELECT cod FROM ' . $this->db->prefix('rwbanner_categorias') . $extra;
         $query    = $this->db->query($sql);
         $categs   = [];

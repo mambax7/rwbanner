@@ -61,7 +61,7 @@ function exibe_ajaxbanner($options)
     $categ                    = new Category(null, $options[0]);
     $banner                   = new Banner();
     $block['qtde_encontrado'] = count($banner->getBanners(false, 'ORDER BY RAND()', $options[0], $options[1]));
-    $block['alt']             = ($block['qtde'] > 1 && $block['cols'] == 1) ? (($categ->getAlt() * $block['qtde_encontrado']) + (15 * $block['qtde_encontrado'])) : ($categ->getAlt() + 20);
+    $block['alt']             = ($block['qtde'] > 1 && 1 == $block['cols']) ? (($categ->getAlt() * $block['qtde_encontrado']) + (15 * $block['qtde_encontrado'])) : ($categ->getAlt() + 20);
 
     return $block;
 }

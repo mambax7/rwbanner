@@ -61,7 +61,7 @@ class Tag
      */
     public function __construct($dados = null, $id = null)
     {
-        if ($dados === null && $id != null) {
+        if (null === $dados && null != $id) {
             $this->db = \XoopsDatabaseFactory::getDatabaseConnection();
             $sql      = 'SELECT * FROM ' . $this->db->prefix('rwbanner_tags') . ' WHERE id=' . $id;
             $query    = $this->db->query($sql);
@@ -77,8 +77,8 @@ class Tag
             $this->modid     = $row['modid'];
             $this->obs       = $row['obs'];
             $this->status    = $row['status'];
-            $this->isRandom  = ($this->getCodbanner() == 0 || $this->getCodbanner() == '') ? true : false;
-        } elseif ($dados != null) {
+            $this->isRandom  = (0 == $this->getCodbanner() || '' == $this->getCodbanner()) ? true : false;
+        } elseif (null != $dados) {
             $this->id        = (!empty($dados['id'])) ? $dados['id'] : '';
             $this->title     = (!empty($dados['title'])) ? $dados['title'] : '';
             $this->name      = (!empty($dados['name'])) ? $dados['name'] : '';
@@ -89,7 +89,7 @@ class Tag
             $this->modid     = (!empty($dados['modid'])) ? $dados['modid'] : '';
             $this->obs       = (!empty($dados['obs'])) ? $dados['obs'] : '';
             $this->status    = (!empty($dados['status'])) ? $dados['status'] : '';
-            $this->isRandom  = ($this->getCodbanner() == 0 || $this->getCodbanner() == '') ? true : false;
+            $this->isRandom  = (0 == $this->getCodbanner() || '' == $this->getCodbanner()) ? true : false;
         } else {
             $this->id        = '';
             $this->title     = '';
@@ -295,7 +295,7 @@ class Tag
     public function grava($flag = null)
     {
         $this->db = \XoopsDatabaseFactory::getDatabaseConnection();
-        $sts      = ($flag != null) ? $flag : 1;
+        $sts      = (null != $flag) ? $flag : 1;
         $sql      = 'INSERT INTO '
                     . $this->db->prefix('rwbanner_tags')
                     . ' (title, name, codbanner, categ, qtde, cols, modid, obs, status) VALUES ("'
@@ -382,7 +382,7 @@ class Tag
     public function getTags($order, $inArray = false)
     {
         $this->db = \XoopsDatabaseFactory::getDatabaseConnection();
-        $extra    = ($order != null) ? ' ' . $order : '';
+        $extra    = (null != $order) ? ' ' . $order : '';
         $sql      = 'SELECT id FROM ' . $this->db->prefix('rwbanner_tags') . $extra;
         $query    = $this->db->query($sql);
         $tags     = [];
@@ -411,7 +411,7 @@ class Tag
      */
     public function mudaStatus($sts = null)
     {
-        $this->status = $sts ?? (($this->status == 1) ? 0 : 1);
+        $this->status = $sts ?? ((1 == $this->status) ? 0 : 1);
 
         return $this->edita();
     }
@@ -439,7 +439,7 @@ class Tag
     public function getModuleName()
     {
         $mids = unserialize($this->getModid());
-        if (count($mids) == 1 && $mids[0] == 0) {
+        if (1 == count($mids) && 0 == $mids[0]) {
             return false;
         } else {
             $mods = '';

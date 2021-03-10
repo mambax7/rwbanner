@@ -162,18 +162,18 @@ function lista_banners($order = null, $seq = '', $limit = 10, $start = 0)
     $ord       = $order;
     $order     = 'ORDER BY ' . $order;
     $order     .= ' ' . $seq;
-    $img       = ($seq === 'ASC') ? '<img src="../assets/images/asc.gif">' : '<img src="../assets/images/desc.gif">';
-    $img_cod   = ($ord === 'codigo') ? $img : '';
-    $img_cli   = ($ord === 'idcliente') ? $img : '';
-    $img_cat   = ($ord === 'categoria') ? $img : '';
-    $img_exib  = ($ord === 'exibicoes') ? $img : '';
-    $img_click = ($ord === 'clicks') ? $img : '';
-    $img_dat   = ($ord === 'data') ? $img : '';
-    $img_sts   = ($ord === 'status') ? $img : '';
+    $img       = ('ASC' === $seq) ? '<img src="../assets/images/asc.gif">' : '<img src="../assets/images/desc.gif">';
+    $img_cod   = ('codigo' === $ord) ? $img : '';
+    $img_cli   = ('idcliente' === $ord) ? $img : '';
+    $img_cat   = ('categoria' === $ord) ? $img : '';
+    $img_exib  = ('exibicoes' === $ord) ? $img : '';
+    $img_click = ('clicks' === $ord) ? $img : '';
+    $img_dat   = ('data' === $ord) ? $img : '';
+    $img_sts   = ('status' === $ord) ? $img : '';
 
     $lista_banners = $banner->getBanners(true, $order, null, $limit, $start);
-    $extra_sel     = ($start != 0) ? '&start=' . $start : '';
-    $seq           = ($seq === 'ASC') ? 'DESC' : 'ASC';
+    $extra_sel     = (0 != $start) ? '&start=' . $start : '';
+    $seq           = ('ASC' === $seq) ? 'DESC' : 'ASC';
 
     rwbanner_collapsableBar('banners', 'bannersicon');
     echo "<img id='bannersicon' name='bannersicon' src=" . XOOPS_URL . '/modules/' . $xoopsModule->dirname() . "/assets/images/icon/close12.gif alt=''></a>&nbsp;" . _AM_RWBANNER_LIST_BANNER . '</h3>';
@@ -199,32 +199,32 @@ function lista_banners($order = null, $seq = '', $limit = 10, $start = 0)
   ';
     $class = 'even';
     for ($i = 0; $i <= count($lista_banners) - 1; ++$i) {
-        if ($lista_banners[$i]->getStatus() == 1) {
+        if (1 == $lista_banners[$i]->getStatus()) {
             $status = '<img src=' . $pathIcon16 . '/green.gif' . ' width="16" height="16" border="0" alt="' . _AM_RWBANNER_BANNER_STATUS1 . '" title="' . _AM_RWBANNER_BANNER_STATUS1 . '">';
             $estilo = '';
-        } elseif ($lista_banners[$i]->getStatus() == 2) {
+        } elseif (2 == $lista_banners[$i]->getStatus()) {
             $status = '<img src="../assets/images/wait.gif" width="20" height="20" border="0" alt="' . _AM_RWBANNER_BANNER_STATUS3 . '" title="' . _AM_RWBANNER_BANNER_STATUS3 . '">';
             $estilo = '';
         } else {
             $status = '<img src=' . $pathIcon16 . '/red.gif' . ' width="16" height="16" border="0" alt="' . _AM_RWBANNER_BANNER_STATUS2 . '" title="' . _AM_RWBANNER_BANNER_STATUS2 . '">';
             $estilo = 'style="color:red;"';
         }
-        if ($class === 'even') {
+        if ('even' === $class) {
             $class = 'odd';
         } else {
             $class = 'even';
         }
-        if ($lista_banners[$i]->getMaxexib() == 0) {
+        if (0 == $lista_banners[$i]->getMaxexib()) {
             $exibrest = _AM_RWBANNER_BANNER_EXIBREST;
         } else {
             $exibrest = round($lista_banners[$i]->getMaxexib() - $lista_banners[$i]->getExibicoes());
         }
-        if ($lista_banners[$i]->getMaxclick() == 0) {
+        if (0 == $lista_banners[$i]->getMaxclick()) {
             $exibrestclick = _AM_RWBANNER_BANNER_EXIBREST;
         } else {
             $exibrestclick = round($lista_banners[$i]->getMaxclick() - $lista_banners[$i]->getClicks());
         }
-        if ($lista_banners[$i]->getClicks() != 0 && $lista_banners[$i]->getExibicoes() != 0) {
+        if (0 != $lista_banners[$i]->getClicks() && 0 != $lista_banners[$i]->getExibicoes()) {
             $perc = round(($lista_banners[$i]->getClicks() / $lista_banners[$i]->getExibicoes()) * 100, 2);
         } else {
             $perc = '0';
@@ -232,12 +232,12 @@ function lista_banners($order = null, $seq = '', $limit = 10, $start = 0)
         $data    = $lista_banners[$i]->getData();
         $periodo = $lista_banners[$i]->getPeriodo();
         $maxdata = somaData($data, $periodo);
-        if ($periodo == 0) {
+        if (0 == $periodo) {
             $periodo = _AM_RWBANNER_BANNER_EXIBREST;
         } else {
             $periodo = converte($maxdata, 'BR', 0);
         }
-        $titulo  = ($lista_banners[$i]->getBannnerCategName() != '') ? $lista_banners[$i]->getBannnerCategName() : _AM_RWBANNER_NO_CATEG;
+        $titulo  = ('' != $lista_banners[$i]->getBannnerCategName()) ? $lista_banners[$i]->getBannnerCategName() : _AM_RWBANNER_NO_CATEG;
         $cliente = $lista_banners[$i]->getBannnerClientName();
         $lista_banners[$i]->clearDb();
         $data_cad = converte($lista_banners[$i]->getData(), 'BR', 0);
@@ -293,9 +293,9 @@ function lista_banners($order = null, $seq = '', $limit = 10, $start = 0)
         </td>
       </tr>';
     }
-    if (substr($_SERVER['QUERY_STRING'], 0, 5) !== 'start') {
+    if ('start' !== substr($_SERVER['QUERY_STRING'], 0, 5)) {
         $arr_qs    = explode('&', $_SERVER['QUERY_STRING']);
-        $n         = (substr($arr_qs[count($arr_qs) - 1], 0, 5) !== 'start') ? $n = 1 : $n = 2;
+        $n         = ('start' !== substr($arr_qs[count($arr_qs) - 1], 0, 5)) ? $n = 1 : $n = 2;
         $extra_pag = '';
         for ($i = 0; $i <= count($arr_qs) - $n; ++$i) {
             $extra_pag .= $arr_qs[$i] . '&';
@@ -337,7 +337,7 @@ function lista_categs()
   ';
     $class = 'even';
     for ($i = 0; $i <= count($lista_categs) - 1; ++$i) {
-        if ($class === 'even') {
+        if ('even' === $class) {
             $class = 'odd';
         } else {
             $class = 'even';
@@ -390,19 +390,19 @@ function lista_tags()
   ';
     $class = 'even';
     for ($i = 0; $i <= count($lista_tags) - 1; ++$i) {
-        if ($class === 'even') {
+        if ('even' === $class) {
             $class = 'odd';
         } else {
             $class = 'even';
         }
-        if ($lista_tags[$i]->getStatus() == 1) {
+        if (1 == $lista_tags[$i]->getStatus()) {
             $status = '<img src=' . $pathIcon16 . '/green.gif' . ' width="16" height="16" border="0" alt="' . _AM_RWBANNER_TAG_STATUS1 . '" title="' . _AM_RWBANNER_TAG_STATUS1 . '">';
             $estilo = '';
         } else {
             $status = '<img src=' . $pathIcon16 . '/red.gif' . ' width="16" height="16" border="0" alt="' . _AM_RWBANNER_TAG_STATUS2 . '" title="' . _AM_RWBANNER_TAG_STATUS2 . '">';
             $estilo = 'style="color:red;"';
         }
-        $categ = ($lista_tags[$i]->getCateg() != 0) ? $lista_tags[$i]->getTagCategName() : _AM_RWBANNER_TAG_TITLE13;
+        $categ = (0 != $lista_tags[$i]->getCateg()) ? $lista_tags[$i]->getTagCategName() : _AM_RWBANNER_TAG_TITLE13;
         $mods  = $lista_tags[$i]->getModuleName() ?: _AM_RWBANNER_TAG_TITLE17;
         echo '
       <tr class="' . $class . '" ' . $estilo . '>
@@ -454,12 +454,12 @@ function lista_users()
         $query1    = $xoopsDB->queryF('SELECT * FROM ' . $xoopsDB->prefix('rwbanner_banner') . ' WHERE idcliente=' . $uid);
         $qtbanners = $xoopsDB->getRowsNum($query1);
         if ($qtbanners > 0) {
-            if ($class === 'even') {
+            if ('even' === $class) {
                 $class = 'odd';
             } else {
                 $class = 'even';
             }
-            $name = ($name != '') ? $name : $uname;
+            $name = ('' != $name) ? $name : $uname;
             echo '
         <tr class="' . $class . '">
           <td align="center">' . $uid . '</td>
