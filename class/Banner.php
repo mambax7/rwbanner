@@ -748,6 +748,7 @@ class Banner
      */
     public function showBanner($categ = 0, $qtde = 1, $cols = 1, $align = 'center')
     {
+        $helper = Helper::getInstance();
         $cat     = (0 != $categ) ? $categ : null;
         $arr     = $this->getBanners(false, 'ORDER BY RAND()', $cat, $qtde);
         $cont    = 0;
@@ -764,7 +765,7 @@ class Banner
                 if ('' == $arr[$i]->getUrl() || '#' === $arr[$i]->getUrl()) {
                     $bannerobject = '<div align="' . $align . '">';
                 } else {
-                    $bannerobject = '<div align="' . $align . '"><a href="' . $xoopsModule->dirname() . '/conta_click.php?id=' . $arr[$i]->getCodigo() . '" target="' . $arr[$i]->getTarget() . '">';
+                    $bannerobject = '<div align="' . $align . '"><a href="' . $helper->getDirname() . '/conta_click.php?id=' . $arr[$i]->getCodigo() . '" target="' . $arr[$i]->getTarget() . '">';
                 }
                 if (false !== stripos($arr[$i]->getGrafico(), '.swf')) {
                     $arq      = explode('/', $arr[$i]->getGrafico());
@@ -851,6 +852,7 @@ class Banner
      */
     public function show1Banner($id = 0, $align = 'center')
     {
+        $helper = Helper::getInstance();
         $ban     = new Banner(null, $id);
         $showban = '<table border="0" cellpadding="0" cellspacing="5"><tr>';
         if (1 == $ban->getUsarhtml()) {
@@ -861,7 +863,7 @@ class Banner
             if ('' == $ban->getUrl() || '#' === $ban->getUrl()) {
                 $bannerobject = '<div align="' . $align . '">';
             } else {
-                $bannerobject = '<div align="' . $align . '"><a href="' . $xoopsModule->dirname() . '/conta_click.php?id=' . $ban->getCodigo() . '" target="' . $ban->getTarget() . '">';
+                $bannerobject = '<div align="' . $align . '"><a href="' . $helper->getDirname() . '/conta_click.php?id=' . $ban->getCodigo() . '" target="' . $ban->getTarget() . '">';
             }
             if (false !== stripos($ban->getGrafico(), '.swf')) {
                 $arq      = explode('/', $ban->getGrafico());
