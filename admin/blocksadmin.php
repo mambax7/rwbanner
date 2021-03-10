@@ -100,26 +100,26 @@ if ($xoopsUser->isAdmin($xoopsModule->mid())) {
             }
             $sel0 = $sel1 = $ssel0 = $ssel1 = $ssel2 = $ssel3 = $ssel4 = $ssel5 = $ssel6 = $ssel7 = '';
             if ($i->getVar('visible') == 1) {
-                $sel1 = " checked";
+                $sel1 = ' checked';
             } else {
-                $sel0 = " checked";
+                $sel0 = ' checked';
             }
             if ($i->getVar('side') == XOOPS_SIDEBLOCK_LEFT) {
-                $ssel0 = " checked";
+                $ssel0 = ' checked';
             } elseif ($i->getVar('side') == XOOPS_SIDEBLOCK_RIGHT) {
-                $ssel1 = " checked";
+                $ssel1 = ' checked';
             } elseif ($i->getVar('side') == XOOPS_CENTERBLOCK_LEFT) {
-                $ssel2 = " checked";
+                $ssel2 = ' checked';
             } elseif ($i->getVar('side') == XOOPS_CENTERBLOCK_RIGHT) {
-                $ssel4 = " checked";
+                $ssel4 = ' checked';
             } elseif ($i->getVar('side') == XOOPS_CENTERBLOCK_CENTER) {
-                $ssel3 = " checked";
+                $ssel3 = ' checked';
             } elseif ($i->getVar('side') == XOOPS_CENTERBLOCK_BOTTOMLEFT) {
-                $ssel5 = " checked";
+                $ssel5 = ' checked';
             } elseif ($i->getVar('side') == XOOPS_CENTERBLOCK_BOTTOMRIGHT) {
-                $ssel6 = " checked";
+                $ssel6 = ' checked';
             } elseif ($i->getVar('side') == XOOPS_CENTERBLOCK_BOTTOM) {
-                $ssel7 = " checked";
+                $ssel7 = ' checked';
             }
             if ($i->getVar('title') == '') {
                 $title = '&nbsp;';

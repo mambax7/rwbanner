@@ -145,41 +145,41 @@ function list_blocks()
 
         // visible and side
         if ($block_arr[$i]->getVar('visible') != 1) {
-            $sseln = " checked";
+            $sseln = ' checked';
             $scoln = '#FF0000';
         } else {
             switch ($block_arr[$i]->getVar('side')) {
                 default:
                 case XOOPS_SIDEBLOCK_LEFT:
-                    $ssel0 = " checked";
+                    $ssel0 = ' checked';
                     $scol0 = '#00FF00';
                     break;
                 case XOOPS_SIDEBLOCK_RIGHT:
-                    $ssel1 = " checked";
+                    $ssel1 = ' checked';
                     $scol1 = '#00FF00';
                     break;
                 case XOOPS_CENTERBLOCK_LEFT:
-                    $ssel2 = " checked";
+                    $ssel2 = ' checked';
                     $scol2 = '#00FF00';
                     break;
                 case XOOPS_CENTERBLOCK_RIGHT:
-                    $ssel4 = " checked";
+                    $ssel4 = ' checked';
                     $scol4 = '#00FF00';
                     break;
                 case XOOPS_CENTERBLOCK_CENTER:
-                    $ssel3 = " checked";
+                    $ssel3 = ' checked';
                     $scol3 = '#00FF00';
                     break;
                 case XOOPS_CENTERBLOCK_BOTTOMLEFT:
-                    $ssel7 = " checked";
+                    $ssel7 = ' checked';
                     $scol7 = '#00FF00';
                     break;
                 case XOOPS_CENTERBLOCK_BOTTOMRIGHT:
-                    $ssel8 = " checked";
+                    $ssel8 = ' checked';
                     $scol8 = '#00FF00';
                     break;
                 case XOOPS_CENTERBLOCK_BOTTOM:
-                    $ssel9 = " checked";
+                    $ssel9 = ' checked';
                     $scol9 = '#00FF00';
                     break;
             }

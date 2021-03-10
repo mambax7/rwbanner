@@ -53,7 +53,7 @@ if (preg_match_all('/\[RW align=(.*)\](.*)\[\/RW\]/sU', $text, $texto)) {
                     if ($arr[$i]['tag'] == $tag->getName() && $tag->getStatus() == 1) {
                         if (in_array($arr[$i]['algin'], $valid_aligns)) {
                             $banner     = new Banner();
-                            $patterns[] = "/\[RW align=" . $arr[$i]['algin'] . ']' . $tag->getName() . "\[\/RW\]/sU";
+                            $patterns[] = '/\[RW align=' . $arr[$i]['algin'] . ']' . $tag->getName() . '\[\/RW\]/sU';
                             if ($tag->isRandom) {
                                 $replacements[] = $banner->showBanner($tag->getCateg(), $tag->getQtde(), $tag->getCols(), $arr[$i]['algin']);
                             } else {
@@ -61,13 +61,13 @@ if (preg_match_all('/\[RW align=(.*)\](.*)\[\/RW\]/sU', $text, $texto)) {
                             }
                             unset($banner);
                         } else {
-                            $patterns[]     = "/\[RW align=" . $arr[$i]['algin'] . ']' . $tag->getName() . "\[\/RW\]/sU";
+                            $patterns[]     = '/\[RW align=' . $arr[$i]['algin'] . ']' . $tag->getName() . '\[\/RW\]/sU';
                             $replacements[] = sprintf(_MD_RWBANNER_TAG_ERROR, $arr[$i]['tag']);
                         }
                     }
                 }
             } else {
-                $patterns[]     = "/\[RW align=" . $arr[$i]['algin'] . ']' . $arr[$i]['tag'] . "\[\/RW\]/sU";
+                $patterns[]     = '/\[RW align=' . $arr[$i]['algin'] . ']' . $arr[$i]['tag'] . '\[\/RW\]/sU';
                 $replacements[] = sprintf(_MD_RWBANNER_TAG_ERROR1, $arr[$i]['tag']);
             }
         }
