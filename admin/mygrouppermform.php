@@ -384,7 +384,7 @@ class MyXoopsGroupFormCheckBox extends XoopsFormElement
      */
     public function _renderOptionTree(&$tree, $option, $prefix, $parentIds = [])
     {
-        $tree .= $prefix . "<input type=\"checkbox\" name=\"" . $this->getName() . '[groups][' . $this->_groupId . '][' . $option['id'] . "]\" id=\"" . $this->getName() . '[groups][' . $this->_groupId . '][' . $option['id'] . "]\" onclick=\"";
+        $tree .= $prefix . '<input type="checkbox" name="' . $this->getName() . '[groups][' . $this->_groupId . '][' . $option['id'] . ']" id="' . $this->getName() . '[groups][' . $this->_groupId . '][' . $option['id'] . ']" onclick="';
         // If there are parent elements, add javascript that will
         // make them selecteded when this element is checked to make
         // sure permissions to parent items are added as well.
@@ -404,7 +404,7 @@ class MyXoopsGroupFormCheckBox extends XoopsFormElement
         if (isset($this->_value) && in_array($option['id'], $this->_value)) {
             $tree .= ' checked';
         }
-        $tree .= '>' . $option['name'] . "<input type=\"hidden\" name=\"" . $this->getName() . '[parents][' . $option['id'] . "]\" value=\"" . implode(':', $parentIds) . "\"><input type=\"hidden\" name=\"" . $this->getName() . '[itemname][' . $option['id'] . "]\" value=\"" . htmlspecialchars(
+        $tree .= '>' . $option['name'] . '<input type="hidden" name="' . $this->getName() . '[parents][' . $option['id'] . ']" value="' . implode(':', $parentIds) . '"><input type="hidden" name="' . $this->getName() . '[itemname][' . $option['id'] . ']" value="' . htmlspecialchars(
                 $option['name']
             ) . "\"><br>\n";
         if (isset($option['children'])) {

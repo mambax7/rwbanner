@@ -136,7 +136,7 @@ function edita_dropbanner($options)
     $form .= '<br>' . $qtde;
     //Tipo de exibição do box.
     $arr  = ['1' => _MB_RWBANNER_OPTION16_1, '2' => _MB_RWBANNER_OPTION16_2, '3' => _MB_RWBANNER_OPTION16_3];
-    $qtde = _MB_RWBANNER_OPTION16 . "&nbsp;<select options[3] name=\"options[3]\">";
+    $qtde = _MB_RWBANNER_OPTION16 . '&nbsp;<select options[3] name="options[3]">';
     foreach ($arr as $key => $value) {
         $sel  = ($key == $options[3]) ? 'selected' : '';
         $qtde .= '<option value="' . $key . '" ' . $sel . '>' . $value . '</option>';

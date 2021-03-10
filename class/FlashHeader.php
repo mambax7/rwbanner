@@ -85,7 +85,7 @@ class FlashHeader
             fseek($fp, 0);
             $data              = fread($fp, 8);
             $_data             = gzuncompress(fread($fp, filesize($buffer)));
-            $data              = $data . $_data;
+            $data              .= $_data;
             $this->data        = $data;
             $this->compression = 1;
             $this->isValid     = 1;

@@ -117,7 +117,7 @@ function list_blocks()
     rwbanner_collapsableBar('toptable', 'toptableicon');
     echo "<img id='toptableicon' src=" . XOOPS_URL . '/modules/' . $xoopsModule->dirname() . "/assets/images/icon/close12.gif alt=''></a>&nbsp;" . _AM_RWBANNER_BLOCKS . '</h3>';
     echo "<div id='toptable'>";
-    echo "<span style=\"color: #567; margin: 3px 0 12px 0; font-size: small; display: block; \">" . _AM_RWBANNER_BLOCKSINFO . '</span>';
+    echo '<span style="color: #567; margin: 3px 0 12px 0; font-size: small; display: block; ">' . _AM_RWBANNER_BLOCKSINFO . '</span>';
     echo "
     <form action='admin.php' name='blockadmin' method='post'>
         <table width='100%' class='outer' cellpadding='4' cellspacing='1'>

@@ -111,7 +111,7 @@ function edita_lightboxbanner($options)
     $form  = $categ;
     //Tipo de exibição do box.
     $arr  = ['1' => _MB_RWBANNER_OPTION16_1, '2' => _MB_RWBANNER_OPTION16_2, '3' => _MB_RWBANNER_OPTION16_3];
-    $qtde = _MB_RWBANNER_OPTION16 . "&nbsp;<select options[1] name=\"options[1]\">";
+    $qtde = _MB_RWBANNER_OPTION16 . '&nbsp;<select options[1] name="options[1]">';
     foreach ($arr as $key => $value) {
         $sel  = ($key == $options[1]) ? 'selected' : '';
         $qtde .= '<option value="' . $key . '" ' . $sel . '>' . $value . '</option>';

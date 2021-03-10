@@ -176,7 +176,7 @@ function lista_banners($order = null, $seq = '', $limit = 10, $start = 0)
 
     rwbanner_collapsableBar('banners', 'bannersicon');
     echo "<img id='bannersicon' name='bannersicon' src=" . XOOPS_URL . '/modules/' . $xoopsModule->dirname() . "/assets/images/icon/close12.gif alt=''></a>&nbsp;" . _AM_RWBANNER_LIST_BANNER . '</h3>';
-    echo "<span style=\"color: #567; margin: 3px 0 12px 0; font-size: small; display: block; text-align:justify; \">" . _AM_RWBANNER_LIST_BANNER_DESC . '</span>';
+    echo '<span style="color: #567; margin: 3px 0 12px 0; font-size: small; display: block; text-align:justify; ">' . _AM_RWBANNER_LIST_BANNER_DESC . '</span>';
     echo "<div id='banners'>";
 
     echo '
@@ -322,7 +322,7 @@ function lista_categs()
 
     rwbanner_collapsableBar('categs', 'categsicon');
     echo "<img id='categssicon' name='categsicon' src=" . XOOPS_URL . '/modules/' . $xoopsModule->dirname() . "/assets/images/icon/close12.gif alt=''></a>&nbsp;" . _AM_RWBANNER_LIST_CATEG . '</h3>';
-    echo "<span style=\"color: #567; margin: 3px 0 12px 0; font-size: small; display: block; text-align:justify; \">" . _AM_RWBANNER_LIST_CATEG_DESC . '</span>';
+    echo '<span style="color: #567; margin: 3px 0 12px 0; font-size: small; display: block; text-align:justify; ">' . _AM_RWBANNER_LIST_CATEG_DESC . '</span>';
     echo "<div id='categs'>";
 
     echo '
@@ -370,7 +370,7 @@ function lista_tags()
 
     rwbanner_collapsableBar('tags', 'tagsicon');
     echo "<img id='tagsicon' name='tagsicon' src=" . XOOPS_URL . '/modules/' . $xoopsModule->dirname() . "/assets/images/icon/close12.gif alt=''></a>&nbsp;" . _AM_RWBANNER_LIST_TAG . '</h3>';
-    echo "<span style=\"color: #567; margin: 3px 0 12px 0; font-size: small; display: block; text-align:justify; \">" . _AM_RWBANNER_LIST_TAG_DESC . '</span>';
+    echo '<span style="color: #567; margin: 3px 0 12px 0; font-size: small; display: block; text-align:justify; ">' . _AM_RWBANNER_LIST_TAG_DESC . '</span>';
     echo "<div id='tags'>";
 
     echo '
@@ -433,7 +433,7 @@ function lista_users()
 
     rwbanner_collapsableBar('users', 'usersicon');
     echo "<img id='userssicon' name='usersicon' src=" . XOOPS_URL . '/modules/' . $xoopsModule->dirname() . "/assets/images/icon/close12.gif alt=''></a>&nbsp;" . _AM_RWBANNER_LIST_USERS . '</h3>';
-    echo "<span style=\"color: #567; margin: 3px 0 12px 0; font-size: small; display: block; text-align:justify; \">" . _AM_RWBANNER_LIST_USERS_DESC . '</span>';
+    echo '<span style="color: #567; margin: 3px 0 12px 0; font-size: small; display: block; text-align:justify; ">' . _AM_RWBANNER_LIST_USERS_DESC . '</span>';
     echo "<div id='users'>";
 
     echo '
