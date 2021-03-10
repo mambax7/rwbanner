@@ -73,7 +73,7 @@ class FlashHeader
      * @type constructor
      *
      * @param string file
-     * @return FlashHeader
+     * @return void
      */
     public function __construct($buffer)
     {

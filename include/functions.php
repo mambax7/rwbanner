@@ -219,7 +219,7 @@ function escreveData($data)
  * @param        $data_ori
  * @param string $tipo
  * @param string $hora
- * @return array|string
+ * @return string
  */
 function converte($data_ori, $tipo = 'BR', $hora = 'true')
 {
@@ -432,7 +432,7 @@ function rwFieldExists($fieldname, $table)
  *
  * @param $field
  * @param $table
- * @return
+ * @return bool|\mysqli_result
  * @package       News
  * @author        Hervé Thouzard (www.herve-thouzard.com)
  * @copyright (c) XOOPS Project (https://xoops.org)
@@ -450,7 +450,7 @@ function rwAddField($field, $table)
  *
  * @param $field
  * @param $table
- * @return
+ * @return bool|\mysqli_result
  * @author  Rodrigo Pereira Lima aka RpLima (http://www.brinfo.com.br)
  * @package RW-Banner
  */
