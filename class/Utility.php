@@ -22,9 +22,6 @@ namespace XoopsModules\Rwbanner;
  * @author       Mamba <mambax7@gmail.com>
  */
 
-use XoopsModules\Rwbanner\{Common,
-    Helper
-};
 
 /**
  * Class Utility

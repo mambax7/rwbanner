@@ -361,8 +361,8 @@ function &rwbanner_getModuleInfo()
         if (isset($xoopsModule) && is_object($xoopsModule) && $xoopsModule->getVar('dirname') == $dirname) {
             $rwModule =& $xoopsModule;
         } else {
-            $hModule  = xoops_getHandler('module');
-            $rwModule = $hModule->getByDirname($dirname);
+            $moduleHandler  = xoops_getHandler('module');
+            $rwModule = $moduleHandler->getByDirname($dirname);
         }
     }
 

@@ -58,9 +58,9 @@ if (!file_exists("$xoops_system_path/language/$language/admin/blocksadmin.php"))
 
 // to prevent from notice that constants already defined
 $error_reporting_level = error_reporting(0);
-include_once "$xoops_system_path/constants.php";
-include_once "$xoops_system_path/language/$language/admin.php";
-include_once "$xoops_system_path/language/$language/admin/blocksadmin.php";
+require_once "$xoops_system_path/constants.php";
+require_once "$xoops_system_path/language/$language/admin.php";
+require_once "$xoops_system_path/language/$language/admin/blocksadmin.php";
 $dirname = \basename(\dirname(__DIR__));
 require_once dirname(__DIR__) . "/language/$language/modinfo.php";
 
