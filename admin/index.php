@@ -17,6 +17,7 @@ use Xmf\Module\Admin;
 use Xmf\Request;
 use Xmf\Yaml;
 use XoopsModules\Rwbanner\{Common,
+    Common\Configurator,
     Common\TestdataButtons,
     Helper,
     Utility
@@ -32,6 +33,13 @@ xoops_cp_header();
 
 $adminObject = Admin::getInstance();
 $helper      = Helper::getInstance();
+
+//check for upload folders, create if needed
+$configurator = new Configurator();
+foreach (array_keys($configurator->uploadFolders) as $i) {
+    $utility::createFolder($configurator->uploadFolders[$i]);
+    $adminObject->addConfigBoxLine($configurator->uploadFolders[$i], 'folder');
+}
 
 $adminObject->displayNavigation('index.php');
 //------------- Test Data Buttons ----------------------------
@@ -51,5 +59,7 @@ switch ($op) {
 //------------- End Test Data Buttons ----------------------------
 
 $adminObject->displayIndex();
+
+echo $utility::getServerStats();
 
 require_once __DIR__ . '/admin_footer.php';
