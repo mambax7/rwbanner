@@ -5,7 +5,7 @@ namespace XoopsModules\Rwbanner;
 /**
  * Class MyalbumUtil
  */
-class RwBannerUtility extends XoopsObject
+class RwBannerUtility extends \XoopsObject
 {
     /**
      * Function responsible for checking if a directory exists, we can also write in and create an index.html file
@@ -34,7 +34,7 @@ class RwBannerUtility extends XoopsObject
                     file_put_contents($folder . '/index.html', '<script>history.go(-1);</script>');
                 }
             }
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             echo 'Caught exception: ', $e->getMessage(), "\n", '<br>';
         }
     }
@@ -92,7 +92,7 @@ class RwBannerUtility extends XoopsObject
     {
         $moduleDirName = \basename(\dirname(__DIR__));
         if (null === $module) {
-            $module = XoopsModule::getByDirname($moduleDirName);
+            $module = \XoopsModule::getByDirname($moduleDirName);
         }
         xoops_loadLanguage('admin', $moduleDirName);
         //check for minimum XOOPS version
