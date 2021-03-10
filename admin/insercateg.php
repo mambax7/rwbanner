@@ -38,13 +38,13 @@ require_once __DIR__ . '/admin_header.php';
 
 require_once XOOPS_ROOT_PATH . '/include/cp_functions.php';
 
-$op = isset($_GET['op']) ? $_GET['op'] : (isset($_POST['op']) ? $_POST['op'] : '');
-$id = isset($_GET['id']) ? $_GET['id'] : (isset($_POST['id']) ? $_POST['id'] : '');
+$op = $_GET['op'] ?? ($_POST['op'] ?? '');
+$id = $_GET['id'] ?? ($_POST['id'] ?? '');
 
 if (isset($_POST['post'])) {
     $op = 'grava';
 }
-$form = isset($_POST['form']) ? $_POST['form'] : '';
+$form = $_POST['form'] ?? '';
 
 global $xoopsDB;
 switch ($op) {
@@ -101,9 +101,9 @@ function monta_form($value)
 
     $banner_form = new \XoopsThemeForm(_AM_RWBANNER_TITLE38, 'form', 'insercateg.php', 'post', false);
     $banner_form->setExtra('enctype="multipart/form-data"');
-    $titulo  = new \XoopsFormText(_AM_RWBANNER_TITLE31, 'form[titulo]', 50, 255, (isset($form['titulo']) ? $form['titulo'] : ''));
-    $largura = new \XoopsFormText(_AM_RWBANNER_TITLE32, 'form[larg]', 10, 255, (isset($form['larg']) ? $form['larg'] : ''));
-    $altura  = new \XoopsFormText(_AM_RWBANNER_TITLE33, 'form[alt]', 10, 255, (isset($form['alt']) ? $form['alt'] : ''));
+    $titulo  = new \XoopsFormText(_AM_RWBANNER_TITLE31, 'form[titulo]', 50, 255, ($form['titulo'] ?? ''));
+    $largura = new \XoopsFormText(_AM_RWBANNER_TITLE32, 'form[larg]', 10, 255, ($form['larg'] ?? ''));
+    $altura  = new \XoopsFormText(_AM_RWBANNER_TITLE33, 'form[alt]', 10, 255, ($form['alt'] ?? ''));
 
     $button_tray = new \XoopsFormElementTray('', '');
     if ($value == _AM_RWBANNER_BTN_OP2) {

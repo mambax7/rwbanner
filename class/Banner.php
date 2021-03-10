@@ -111,27 +111,27 @@ class Banner
             $this->alt       = $this->setAltura();
             $this->obs       = $row['obs'];
         } elseif ($dados != null) {
-            $this->codigo    = isset($dados['codigo']) ? $dados['codigo'] : '';
-            $this->categoria = isset($dados['categoria']) ? $dados['categoria'] : '';
-            $this->titulo    = isset($dados['titulo']) ? $dados['titulo'] : '';
-            $this->texto     = isset($dados['texto']) ? $dados['texto'] : '';
-            $this->url       = isset($dados['url']) ? $dados['url'] : '';
-            $this->grafico   = isset($dados['grafico']) ? $dados['grafico'] : '';
-            $this->usarhtml  = isset($dados['usarhtml']) ? $dados['usarhtml'] : '';
-            $this->htmlcode  = isset($dados['htmlcode']) ? $dados['htmlcode'] : '';
-            $this->showimg   = isset($dados['showimg']) ? $dados['showimg'] : '';
-            $this->exibicoes = isset($dados['exibicoes']) ? $dados['exibicoes'] : '';
-            $this->maxexib   = isset($dados['maxexib']) ? $dados['maxexib'] : '';
-            $this->clicks    = isset($dados['clicks']) ? $dados['clicks'] : '';
-            $this->maxclick  = isset($dados['maxclick']) ? $dados['maxclick'] : '';
-            $this->data      = isset($dados['data']) ? $dados['data'] : '';
-            $this->periodo   = isset($dados['periodo']) ? $dados['periodo'] : '';
-            $this->status    = isset($dados['status']) ? $dados['status'] : $this->status;
-            $this->target    = isset($dados['target']) ? $dados['target'] : '';
-            $this->idcliente = isset($dados['idcliente']) ? $dados['idcliente'] : '';
-            $this->larg      = isset($dados['larg']) ? $dados['larg'] : '';
-            $this->alt       = isset($dados['alt']) ? $dados['alt'] : '';
-            $this->obs       = isset($dados['obs']) ? $dados['obs'] : '';
+            $this->codigo    = $dados['codigo'] ?? '';
+            $this->categoria = $dados['categoria'] ?? '';
+            $this->titulo    = $dados['titulo'] ?? '';
+            $this->texto     = $dados['texto'] ?? '';
+            $this->url       = $dados['url'] ?? '';
+            $this->grafico   = $dados['grafico'] ?? '';
+            $this->usarhtml  = $dados['usarhtml'] ?? '';
+            $this->htmlcode  = $dados['htmlcode'] ?? '';
+            $this->showimg   = $dados['showimg'] ?? '';
+            $this->exibicoes = $dados['exibicoes'] ?? '';
+            $this->maxexib   = $dados['maxexib'] ?? '';
+            $this->clicks    = $dados['clicks'] ?? '';
+            $this->maxclick  = $dados['maxclick'] ?? '';
+            $this->data      = $dados['data'] ?? '';
+            $this->periodo   = $dados['periodo'] ?? '';
+            $this->status    = $dados['status'] ?? $this->status;
+            $this->target    = $dados['target'] ?? '';
+            $this->idcliente = $dados['idcliente'] ?? '';
+            $this->larg      = $dados['larg'] ?? '';
+            $this->alt       = $dados['alt'] ?? '';
+            $this->obs       = $dados['obs'] ?? '';
         } else {
             $this->codigo    = '';
             $this->categoria = '';
@@ -972,7 +972,7 @@ class Banner
      */
     public function mudaStatus($sts = null)
     {
-        $this->status = isset($sts) ? $sts : (($this->status == 1) ? 0 : 1);
+        $this->status = $sts ?? (($this->status == 1) ? 0 : 1);
 
         return $this->edita();
     }

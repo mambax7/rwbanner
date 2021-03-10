@@ -47,13 +47,13 @@ require_once XOOPS_ROOT_PATH . '/include/cp_functions.php';
 $dir   = $xoopsModuleConfig['dir_images'];
 $limit = $xoopsModuleConfig['total_reg_index'];
 
-$op = isset($_GET['op']) ? $_GET['op'] : (isset($_POST['op']) ? $_POST['op'] : 'lista');
+$op = $_GET['op'] ?? ($_POST['op'] ?? 'lista');
 
 switch ($op) {
     case 'lista':
-        $order = isset($_GET['order']) ? $_GET['order'] : 'codigo';
-        $seq   = isset($_GET['seq']) ? $_GET['seq'] : 'ASC';
-        $start = isset($_GET['start']) ? $_GET['start'] : 0;
+        $order = $_GET['order'] ?? 'codigo';
+        $seq   = $_GET['seq'] ?? 'ASC';
+        $start = $_GET['start'] ?? 0;
         xoops_cp_header();
         $adminObject = Admin::getInstance();
         $adminObject->displayNavigation('main.php');
@@ -75,7 +75,7 @@ switch ($op) {
         xoops_cp_footer();
         break;
     case 'mudastatus':
-        $id     = isset($_GET['id']) ? $_GET['id'] : '';
+        $id     = $_GET['id'] ?? '';
         $banner = new Banner(null, $id);
         if ($banner->mudaStatus()) {
             redirect_header('main.php', 2, _AM_RWBANNER_MSG1);
@@ -84,7 +84,7 @@ switch ($op) {
         }
         break;
     case 'mudastatus_tag':
-        $id  = isset($_GET['id']) ? $_GET['id'] : '';
+        $id  = $_GET['id'] ?? '';
         $tag = new Tag(null, $id);
         if ($tag->mudaStatus()) {
             redirect_header('main.php', 2, _AM_RWBANNER_MSG1);
@@ -93,13 +93,13 @@ switch ($op) {
         }
         break;
     case 'deletar':
-        $id = isset($_GET['id']) ? $_GET['id'] : '';
+        $id = $_GET['id'] ?? '';
         xoops_cp_header();
         xoops_confirm(['id' => $id, 'op' => 'deletar_ok'], 'main.php', _AM_RWBANNER_MSG19);
         xoops_cp_footer();
         break;
     case 'deletar_ok':
-        $id     = isset($_POST['id']) ? $_POST['id'] : '';
+        $id     = $_POST['id'] ?? '';
         $banner = new Banner(null, $id);
         if ($banner->exclui()) {
             redirect_header('main.php', 2, _AM_RWBANNER_MSG101);
@@ -108,13 +108,13 @@ switch ($op) {
         }
         break;
     case 'deletar_categ':
-        $id = isset($_GET['id']) ? $_GET['id'] : '';
+        $id = $_GET['id'] ?? '';
         xoops_cp_header();
         xoops_confirm(['id' => $id, 'op' => 'deletar_categ_ok'], 'main.php', _AM_RWBANNER_MSG3);
         xoops_cp_footer();
         break;
     case 'deletar_categ_ok':
-        $id    = isset($_POST['id']) ? $_POST['id'] : '';
+        $id    = $_POST['id'] ?? '';
         $categ = new Category(null, $id);
         if ($categ->exclui()) {
             redirect_header('main.php', 2, _AM_RWBANNER_MSG102);
@@ -123,13 +123,13 @@ switch ($op) {
         }
         break;
     case 'deletar_tag':
-        $id = isset($_GET['id']) ? $_GET['id'] : '';
+        $id = $_GET['id'] ?? '';
         xoops_cp_header();
         xoops_confirm(['id' => $id, 'op' => 'deletar_tag_ok'], 'main.php', _AM_RWBANNER_MSG20);
         xoops_cp_footer();
         break;
     case 'deletar_tag_ok':
-        $id  = isset($_POST['id']) ? $_POST['id'] : '';
+        $id  = $_POST['id'] ?? '';
         $tag = new Tag(null, $id);
         if ($tag->exclui()) {
             redirect_header('main.php', 2, _AM_RWBANNER_MSG21);

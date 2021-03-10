@@ -163,7 +163,7 @@ if (isset($_POST['previewblock'])) {
 
     $block['modules'] =& $bmodule;
 
-    $block['ctype'] = isset($bctype) ? $bctype : $myblock->getVar('c_type');
+    $block['ctype'] = $bctype ?? $myblock->getVar('c_type');
 
     $block['is_custom'] = true;
 
@@ -379,11 +379,11 @@ if ($op === 'update') {
 
     $bcachetime = isset($_POST['bcachetime']) ? (int)$_POST['bcachetime'] : 0;
 
-    $options = isset($_POST['options']) ? $_POST['options'] : [];
+    $options = $_POST['options'] ?? [];
 
-    $bcontent = isset($_POST['bcontent']) ? $_POST['bcontent'] : '';
+    $bcontent = $_POST['bcontent'] ?? '';
 
-    $bctype = isset($_POST['bctype']) ? $_POST['bctype'] : '';
+    $bctype = $_POST['bctype'] ?? '';
 
     $bmodule = (isset($_POST['bmodule']) && is_array($_POST['bmodule'])) ? $_POST['bmodule'] : [-1]; // GIJ +
 

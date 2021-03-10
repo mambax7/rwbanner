@@ -411,7 +411,7 @@ class Tag
      */
     public function mudaStatus($sts = null)
     {
-        $this->status = isset($sts) ? $sts : (($this->status == 1) ? 0 : 1);
+        $this->status = $sts ?? (($this->status == 1) ? 0 : 1);
 
         return $this->edita();
     }

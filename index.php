@@ -44,13 +44,13 @@ $cod = (isset($_GET['cod']))?$_GET['cod']:((isset($_POST['cod']))?$_POST['cod']:
 $url = (isset($_GET['url']))?$_GET['url']:((isset($_POST['url']))?$_POST['url']:'');
 */
 $uid = $xoopsUser ? $xoopsUser->getVar('uid') : 0;
-$op  = isset($_GET['op']) ? $_GET['op'] : (isset($_POST['op']) ? $_POST['op'] : 'lista');
+$op  = $_GET['op'] ?? ($_POST['op'] ?? 'lista');
 switch ($op) {
     case 'lista':
-        $order = isset($_GET['order']) ? $_GET['order'] : 'codigo';
-        $seq   = isset($_GET['seq']) ? $_GET['seq'] : 'ASC';
-        $start = isset($_GET['start']) ? $_GET['start'] : 0;
-        $limit = isset($_GET['limit']) ? $_GET['limit'] : 10;
+        $order = $_GET['order'] ?? 'codigo';
+        $seq   = $_GET['seq'] ?? 'ASC';
+        $start = $_GET['start'] ?? 0;
+        $limit = $_GET['limit'] ?? 10;
         require_once XOOPS_ROOT_PATH . '/header.php';
         if ($uid != 0) {
             echo '<p style="text-align:justify;">' . sprintf(_MD_RWBANNER_MSG_INDEX_OLAUSER, $xoopsUser->getVar('uname'), $xoopsConfig['sitename']) . '</p>';
@@ -61,7 +61,7 @@ switch ($op) {
         require_once XOOPS_ROOT_PATH . '/footer.php';
         break;
     case 'sendemail':
-        $id = isset($_GET['id']) ? $_GET['id'] : (isset($_POST['id']) ? $_POST['id'] : '');
+        $id = $_GET['id'] ?? ($_POST['id'] ?? '');
         if (EmailStats($id)) {
             redirect_header('index.php', 3, _MD_RWBANNER_MSG_SUCESS_EMAILSTATS);
         } else {

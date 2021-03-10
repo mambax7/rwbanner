@@ -50,10 +50,10 @@ function estatisticas_banner($options)
 
         $uid = $xoopsUser->getVar('uid');
 
-        $order = isset($_GET['order']) ? $_GET['order'] : 'codigo';
-        $seq   = isset($_GET['seq']) ? $_GET['seq'] : 'ASC';
-        $start = isset($_GET['start']) ? $_GET['start'] : 0;
-        $limit = isset($_GET['limit']) ? $_GET['limit'] : 10;
+        $order = $_GET['order'] ?? 'codigo';
+        $seq   = $_GET['seq'] ?? 'ASC';
+        $start = $_GET['start'] ?? 0;
+        $limit = $_GET['limit'] ?? 10;
 
         $ord = ($order != '') ? 'ORDER BY ' . $order . ' ' . $seq : null;
 

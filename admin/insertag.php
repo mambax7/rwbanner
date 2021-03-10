@@ -38,13 +38,13 @@ require_once __DIR__ . '/admin_header.php';
 
 require_once XOOPS_ROOT_PATH . '/include/cp_functions.php';
 
-$op = isset($_GET['op']) ? $_GET['op'] : (isset($_POST['op']) ? $_POST['op'] : '');
-$id = isset($_GET['id']) ? $_GET['id'] : (isset($_POST['id']) ? $_POST['id'] : '');
+$op = $_GET['op'] ?? ($_POST['op'] ?? '');
+$id = $_GET['id'] ?? ($_POST['id'] ?? '');
 
 if (isset($_POST['post'])) {
     $op = 'grava';
 }
-$form = isset($_POST['form']) ? $_POST['form'] : [];
+$form = $_POST['form'] ?? [];
 
 global $xoopsDB;
 switch ($op) {
@@ -101,12 +101,12 @@ function monta_form($value)
 
     $banner_form = new \XoopsThemeForm(_AM_RWBANNER_TAG_TITLE08, 'form', 'insertag.php', 'post', false);
 
-    $title = new \XoopsFormText(_AM_RWBANNER_TAG_TITLE09, 'form[title]', 50, 255, (isset($form['title']) ? $form['title'] : ''));
-    $name1 = new \XoopsFormText(_AM_RWBANNER_TAG_TITLE14, 'form[name]', 50, 255, (isset($form['name']) ? $form['name'] : ''));
+    $title = new \XoopsFormText(_AM_RWBANNER_TAG_TITLE09, 'form[title]', 50, 255, ($form['title'] ?? ''));
+    $name1 = new \XoopsFormText(_AM_RWBANNER_TAG_TITLE14, 'form[name]', 50, 255, ($form['name'] ?? ''));
     $name1->setDescription(_AM_RWBANNER_TAG_TITLE15);
-    $codbanner = new \XoopsFormText(_AM_RWBANNER_TAG_TITLE22, 'form[codbanner]', 10, 255, (isset($form['codbanner']) ? $form['codbanner'] : ''));
+    $codbanner = new \XoopsFormText(_AM_RWBANNER_TAG_TITLE22, 'form[codbanner]', 10, 255, ($form['codbanner'] ?? ''));
     $codbanner->setDescription(_AM_RWBANNER_TAG_TITLE23);
-    $categ = new \XoopsFormSelect(_AM_RWBANNER_TAG_TITLE10, 'form[categ]', (isset($form['categ']) ? $form['categ'] : ''));
+    $categ = new \XoopsFormSelect(_AM_RWBANNER_TAG_TITLE10, 'form[categ]', ($form['categ'] ?? ''));
     $categ->addOption(0, _AM_RWBANNER_TAG_TITLE13);
     //mb ---------------------------
     $db = \XoopsDatabaseFactory::getDatabaseConnection();
@@ -119,7 +119,7 @@ function monta_form($value)
         $categ->addOption($cod, $titulo);
     }
 
-    $form['modid'] = unserialize((isset($form['modid']) ? $form['modid'] : ''));
+    $form['modid'] = unserialize(($form['modid'] ?? ''));
     $mid_selbox    = new \XoopsFormSelect(_AM_RWBANNER_TAG_TITLE16, 'form[modid]', $form['modid'], 5, true);
     $mid_selbox->addOption(0, _AM_RWBANNER_TAG_TITLE17);
     $sql = 'SELECT mid,name FROM ' . $xoopsDB->prefix('modules') . ' WHERE (hasmain="1" or mid="1") and isactive="1" and (weight!="0" or mid="1") ORDER BY name';
@@ -129,13 +129,13 @@ function monta_form($value)
     }
     $mid_selbox->setDescription(_AM_RWBANNER_TITLE37);
 
-    $qtde = new \XoopsFormText(_AM_RWBANNER_TAG_TITLE11, 'form[qtde]', 10, 255, (isset($form['qtde']) ? $form['qtde'] : ''));
-    $cols = new \XoopsFormText(_AM_RWBANNER_TAG_TITLE12, 'form[cols]', 10, 255, (isset($form['cols']) ? $form['cols'] : ''));
+    $qtde = new \XoopsFormText(_AM_RWBANNER_TAG_TITLE11, 'form[qtde]', 10, 255, ($form['qtde'] ?? ''));
+    $cols = new \XoopsFormText(_AM_RWBANNER_TAG_TITLE12, 'form[cols]', 10, 255, ($form['cols'] ?? ''));
 
-    $obs = new \XoopsFormTextArea(_AM_RWBANNER_TAG_TITLE20, 'form[obs]', (isset($form['obs']) ? $form['obs'] : ''));
+    $obs = new \XoopsFormTextArea(_AM_RWBANNER_TAG_TITLE20, 'form[obs]', ($form['obs'] ?? ''));
     $obs->setDescription(_AM_RWBANNER_TAG_TITLE21);
 
-    $status = new \XoopsFormSelect(_AM_RWBANNER_TAG_TITLE18, 'form[status]', (isset($form['status']) ? $form['status'] : ''));
+    $status = new \XoopsFormSelect(_AM_RWBANNER_TAG_TITLE18, 'form[status]', ($form['status'] ?? ''));
     $status->addOption(1, _AM_RWBANNER_TAG_STATUS1);
     $status->addOption(0, _AM_RWBANNER_TAG_STATUS2);
 

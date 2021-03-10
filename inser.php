@@ -37,8 +37,8 @@ require_once \dirname(__DIR__, 2) . '/mainfile.php';
 require_once XOOPS_ROOT_PATH . '/class/uploader.php';
 $local_folder = $xoopsModuleConfig['dir_images'];
 
-$op = isset($_GET['op']) ? $_GET['op'] : (isset($_POST['op']) ? $_POST['op'] : '');
-$id = isset($_GET['id']) ? $_GET['id'] : (isset($_POST['id']) ? $_POST['id'] : '');
+$op = $_GET['op'] ?? ($_POST['op'] ?? '');
+$id = $_GET['id'] ?? ($_POST['id'] ?? '');
 
 if (isset($_POST['post'])) {
     $op = 'grava';
@@ -68,10 +68,10 @@ switch ($op) {
             $form['grafico'] = dirname(__DIR__) . $file_name;
         }
 
-        $form['usarhtml'] = isset($form['usarhtml']) ? $form['usarhtml'] : 0;
-        $form['maxexib']  = isset($form['maxexibe']) ? $form['maxexibe'] : 0;
-        $form['maxclick'] = isset($form['maxclick']) ? $form['maxclick'] : 0;
-        $form['periodo']  = isset($form['periodo']) ? $form['periodo'] : 0;
+        $form['usarhtml'] = $form['usarhtml'] ?? 0;
+        $form['maxexib']  = $form['maxexibe'] ?? 0;
+        $form['maxclick'] = $form['maxclick'] ?? 0;
+        $form['periodo']  = $form['periodo'] ?? 0;
         $form['showimg']  = 1;
 
         $banner = new Banner($form);

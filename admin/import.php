@@ -32,7 +32,7 @@ use XoopsModules\Rwbanner\{
 require_once __DIR__ . '/admin_header.php';
 xoops_cp_header();
 
-$op = isset($_POST['op']) ? $_POST['op'] : 'show';
+$op = $_POST['op'] ?? 'show';
 
 switch ($op) {
     case 'show':
