@@ -51,7 +51,7 @@ function exibe_ajaxbanner($options)
     $block['qtde']        = $options[1];
     $block['cols']        = $options[2];
     $block['tempo']       = $options[3];
-    $block['id_div']      = mt_rand(1, 2000);
+    $block['id_div']      = random_int(1, 2000);
     $block['lang_carreg'] = _MB_RWBANNER_OPTION15;
 
     $categ                    = new Category(null, $options[0]);
