@@ -120,10 +120,10 @@ class LetterChoice
 
         $ret = '';
 
-        if (!$this->caseSensitive) {
-            $this->criteria->setGroupBy('UPPER(LEFT(' . $this->field_name . ',1))');
-        } else {
+        if ($this->caseSensitive) {
             $this->criteria->setGroupBy('LEFT(' . $this->field_name . ',1)');
+        } else {
+            $this->criteria->setGroupBy('UPPER(LEFT(' . $this->field_name . ',1))');
         }
         $countsByLetters = $this->objHandler->getCounts($this->criteria);
         // fill alphabet array

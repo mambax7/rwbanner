@@ -45,7 +45,26 @@ if (is_object($xoopsUser) && $xoopsUser->isAdmin($xoopsModule->mid())) {
     $errors = 0;
 
     //Checa se a tabela ds banners existe, caso n?o exista cria.
-    if (!rwTableExists($xoopsDB->prefix('rwbanner_banner'))) {
+    if (rwTableExists($xoopsDB->prefix('rwbanner_banner'))) {
+        if (!Utility::fieldExists('titulo', $xoopsDB->prefix('rwbanner_banner'))) {
+            rwAddField('titulo varchar(255) default NULL AFTER categoria', $xoopsDB->prefix('rwbanner_banner'));
+        }
+        if (!Utility::fieldExists('texto', $xoopsDB->prefix('rwbanner_banner'))) {
+            rwAddField('texto text AFTER titulo', $xoopsDB->prefix('rwbanner_banner'));
+        }
+        if (!Utility::fieldExists('showimg', $xoopsDB->prefix('rwbanner_banner'))) {
+            rwAddField("showimg int(1) NOT NULL default '1' AFTER htmlcode", $xoopsDB->prefix('rwbanner_banner'));
+        }
+        if (!Utility::fieldExists('periodo', $xoopsDB->prefix('rwbanner_banner'))) {
+            rwAddField("periodo int(5) NOT NULL default '0' AFTER data", $xoopsDB->prefix('rwbanner_banner'));
+        }
+        if (!Utility::fieldExists('obs', $xoopsDB->prefix('rwbanner_banner'))) {
+            rwAddField('obs text AFTER idcliente', $xoopsDB->prefix('rwbanner_banner'));
+        }
+        if (!Utility::fieldExists('maxclick', $xoopsDB->prefix('rwbanner_banner'))) {
+            rwAddField("maxclick int(11) NOT NULL default '0' AFTER clicks", $xoopsDB->prefix('rwbanner_banner'));
+        }
+    } else {
         $sql = '
     CREATE TABLE ' . $xoopsDB->prefix('rwbanner_banner') . " (
       codigo int(11) NOT NULL auto_increment,
@@ -73,25 +92,6 @@ if (is_object($xoopsUser) && $xoopsUser->isAdmin($xoopsModule->mid())) {
         if (!$xoopsDB->queryF($sql)) {
             echo '<br>' . _AM_RWBANNER_UPGRADEFAILED1;
             ++$errors;
-        }
-    } else {
-        if (!Utility::fieldExists('titulo', $xoopsDB->prefix('rwbanner_banner'))) {
-            rwAddField('titulo varchar(255) default NULL AFTER categoria', $xoopsDB->prefix('rwbanner_banner'));
-        }
-        if (!Utility::fieldExists('texto', $xoopsDB->prefix('rwbanner_banner'))) {
-            rwAddField('texto text AFTER titulo', $xoopsDB->prefix('rwbanner_banner'));
-        }
-        if (!Utility::fieldExists('showimg', $xoopsDB->prefix('rwbanner_banner'))) {
-            rwAddField("showimg int(1) NOT NULL default '1' AFTER htmlcode", $xoopsDB->prefix('rwbanner_banner'));
-        }
-        if (!Utility::fieldExists('periodo', $xoopsDB->prefix('rwbanner_banner'))) {
-            rwAddField("periodo int(5) NOT NULL default '0' AFTER data", $xoopsDB->prefix('rwbanner_banner'));
-        }
-        if (!Utility::fieldExists('obs', $xoopsDB->prefix('rwbanner_banner'))) {
-            rwAddField('obs text AFTER idcliente', $xoopsDB->prefix('rwbanner_banner'));
-        }
-        if (!Utility::fieldExists('maxclick', $xoopsDB->prefix('rwbanner_banner'))) {
-            rwAddField("maxclick int(11) NOT NULL default '0' AFTER clicks", $xoopsDB->prefix('rwbanner_banner'));
         }
     }
 

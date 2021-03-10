@@ -63,10 +63,10 @@ switch ($op) {
             $uploader    = new \XoopsMediaUploader($local_folder, require_once XOOPS_ROOT_PATH . '/modules/' . $xoopsModule->dirname() . '/include/mimetypes.php', $maxfilesize);
             for ($i = 0; $i <= count($_POST['xoops_upload_file']); ++$i) {
                 if ($uploader->fetchMedia($_POST['xoops_upload_file'][$i])) {
-                    if (!$uploader->upload()) {
-                        redirect_header('index.php', 2, $uploader->getErrors());
-                    } else {
+                    if ($uploader->upload()) {
                         $file_name = $uploader->getSavedFileName();
+                    } else {
+                        redirect_header('index.php', 2, $uploader->getErrors());
                     }
                 }
             }
