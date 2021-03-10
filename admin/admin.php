@@ -83,8 +83,8 @@ if (0 != $admintest) {
                 if (in_array(XOOPS_GROUP_ADMIN, $groups) || false !== $grouppermHandler->checkRight('system_admin', $category, $groups, $xoopsModule->getVar('mid'))) {
                     //                  if (file_exists(XOOPS_ROOT_PATH."/modules/system/admin/".$fct."/main.php")) {
                     //                      require_once XOOPS_ROOT_PATH."/modules/system/admin/".$fct."/main.php"; GIJ
-                    if (file_exists("../include/{$fct}.inc.php")) {
-                        require_once "../include/{$fct}.inc.php";
+                    if (file_exists("../include/{$fct}.php")) {
+                        require_once "../include/{$fct}.php";
                     } else {
                         $error = true;
                     }
