@@ -138,7 +138,7 @@ switch ($op) {
         }
         break;
     case 'criardir':
-        if (mkdir($dir, 0777)) {
+        if (mkdir($dir, 0777) || is_dir($dir)) {
             $msg = _AM_RWBANNER_MSG17;
         } else {
             $msg = _AM_RWBANNER_MSG18;
