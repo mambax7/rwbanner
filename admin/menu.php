@@ -97,6 +97,12 @@ $adminmenu[] = [
     'icon'  => $pathIcon32 . '/download.png',
 ];
 
+$adminmenu[] = [
+    'title' => _AM_RWBANNER_PERMISSIONS,
+    'link'  => 'admin/permissions.php',
+    'icon'  => $pathIcon32 . '/permissions.png',
+];
+
 // Blocks Admin
 $adminmenu[] = [
     'title' => constant('CO_' . $moduleDirNameUpper . '_' . 'BLOCKS'),
@@ -104,15 +110,19 @@ $adminmenu[] = [
     'icon'  => $pathIcon32 . '/block.png',
 ];
 
-//++$i;
-//$adminmenu[$i]["title"] = _AM_RWBANNER_PERMISSIONS;
-//$adminmenu[$i]["link"] = "admin/permissions.php";
-//$adminmenu[$i]["icon"] = $pathIcon32.'/permissions.png';
 
 //++$i;
 //$adminmenu[$i]["title"] = _MI_RWBANNER_MENU_TITLE6;
 //$adminmenu[$i]["link"] = "admin/about2.php";
 //$adminmenu[$i]["icon"] = $pathIcon32.'/about.png';
+
+if (is_object($helper->getModule()) && $helper->getConfig('displayDeveloperTools')) {
+    $adminmenu[] = [
+        'title' => constant('CO_' . $moduleDirNameUpper . '_' . 'ADMENU_MIGRATE'),
+        'link' => 'admin/migrate.php',
+        'icon' => $pathIcon32 . '/database_go.png',
+    ];
+}
 
 $adminmenu[] = [
     'title' => _MI_RWBANNER_MENU_TITLE6,

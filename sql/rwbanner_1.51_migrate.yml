@@ -1,0 +1,120 @@
+rwbanner_banner:
+    options: 'ENGINE=MyISAM DEFAULT CHARSET=utf8'
+    columns:
+        -
+            name: codigo
+            attributes: ' int(11)  NOT NULL auto_increment'
+        -
+            name: categoria
+            attributes: ' int(11) '
+        -
+            name: titulo
+            attributes: ' varchar(255) '
+        -
+            name: texto
+            attributes: ' text '
+        -
+            name: url
+            attributes: ' varchar(255) '
+        -
+            name: grafico
+            attributes: ' varchar(255) '
+        -
+            name: usarhtml
+            attributes: ' int(1) '
+        -
+            name: htmlcode
+            attributes: ' text '
+        -
+            name: showimg
+            attributes: ' int(1)  NOT NULL  DEFAULT ''1'' '
+        -
+            name: exibicoes
+            attributes: ' int(11) '
+        -
+            name: maxexib
+            attributes: ' int(11)  NOT NULL  DEFAULT ''0'' '
+        -
+            name: clicks
+            attributes: ' int(11) '
+        -
+            name: maxclick
+            attributes: ' int(11)  NOT NULL  DEFAULT ''0'' '
+        -
+            name: data
+            attributes: ' datetime '
+        -
+            name: periodo
+            attributes: ' int(5)  NOT NULL  DEFAULT ''0'' '
+        -
+            name: status
+            attributes: ' int(1) unsigned  NOT NULL  DEFAULT ''1'' '
+        -
+            name: target
+            attributes: ' varchar(50)  DEFAULT ''_blank'' '
+        -
+            name: idcliente
+            attributes: ' int(11) '
+        -
+            name: obs
+            attributes: ' text '
+    keys:
+        PRIMARY:
+            columns: codigo
+            unique: true
+rwbanner_categorias:
+    options: 'ENGINE=MyISAM DEFAULT CHARSET=utf8'
+    columns:
+        -
+            name: cod
+            attributes: ' int(11) unsigned  NOT NULL auto_increment'
+        -
+            name: titulo
+            attributes: ' varchar(50) '
+        -
+            name: larg
+            attributes: ' int(11) unsigned  NOT NULL  DEFAULT ''0'' '
+        -
+            name: alt
+            attributes: ' int(11) unsigned  NOT NULL  DEFAULT ''0'' '
+    keys:
+        PRIMARY:
+            columns: cod
+            unique: true
+rwbanner_tags:
+    options: 'ENGINE=MyISAM DEFAULT CHARSET=utf8'
+    columns:
+        -
+            name: id
+            attributes: ' int(11)  NOT NULL auto_increment'
+        -
+            name: title
+            attributes: ' varchar(255) '
+        -
+            name: name
+            attributes: ' varchar(255)  NOT NULL  DEFAULT ''rwbanner'' '
+        -
+            name: codbanner
+            attributes: ' int(5) '
+        -
+            name: categ
+            attributes: ' int(5)  NOT NULL  DEFAULT ''1'' '
+        -
+            name: qtde
+            attributes: ' int(5)  NOT NULL  DEFAULT ''1'' '
+        -
+            name: cols
+            attributes: ' int(5)  NOT NULL  DEFAULT ''1'' '
+        -
+            name: modid
+            attributes: ' text '
+        -
+            name: obs
+            attributes: ' text '
+        -
+            name: status
+            attributes: ' int(1)  NOT NULL  DEFAULT ''1'' '
+    keys:
+        PRIMARY:
+            columns: id
+            unique: true
