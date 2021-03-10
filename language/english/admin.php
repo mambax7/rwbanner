@@ -256,7 +256,7 @@ define('_AM_RWBANNER_SUCCESS_IMPORT', 'Import successful. Please edit the import
 define('_AM_RWBANNER_FAIL_IMPORT', 'There were problems during the Import process! Please review it.');
 
 // 1.51 & 1.52
-//define('_AM_RWBANNER_PERMISSIONS', 'Permissions');
+define('_AM_RWBANNER_PERMISSIONS', 'Permissions');
 
 //define('_AM_RWBANNER_ACTIVERIGHTS', 'Admin Rights');
 //define('_AM_RWBANNER_ACCESSRIGHTS', 'Access Rights');
