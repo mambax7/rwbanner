@@ -16,11 +16,11 @@
 use Xmf\Database\TableLoad;
 use Xmf\Request;
 use Xmf\Yaml;
-use XoopsModules\Rwbanner\{
-    Helper,
+use XoopsModules\Rwbanner\{Helper,
     Common\Configurator,
     Utility
 };
+
 /** @var Helper $helper */
 /** @var Utility $utility */
 /** @var Configurator $configurator */
@@ -202,7 +202,8 @@ function loadTableFromArrayWithReplace($table, $data, $search, $replace)
     return $count;
 }
 
-function clearSampleData(){
+function clearSampleData()
+{
     $moduleDirName      = \basename(\dirname(__DIR__));
     $moduleDirNameUpper = mb_strtoupper($moduleDirName);
     $helper             = Helper::getInstance();

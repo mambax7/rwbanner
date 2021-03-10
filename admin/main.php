@@ -34,8 +34,7 @@
  */
 
 use Xmf\Module\Admin;
-use XoopsModules\Rwbanner\{
-    Banner,
+use XoopsModules\Rwbanner\{Banner,
     Category,
     Tag
 };

@@ -29,8 +29,10 @@
 // Descrição: Sistema de gerenciamento de mídias publicitárias               //
 // ------------------------------------------------------------------------- //
 
-require dirname(__DIR__, 3) . '/mainfile.php';
+use XoopsModules\Rwbanner\{Banner
+};
 
+require dirname(__DIR__, 3) . '/mainfile.php';
 
 //Desabilitando a exibição do debug dentro do bloco
 error_reporting(0);

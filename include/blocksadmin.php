@@ -167,7 +167,7 @@ if (isset($_POST['previewblock'])) {
 
     $block['is_custom'] = true;
 
-    $block['cachetime'] = (int)$bcachetime;
+    $block['cachetime'] = $bcachetime;
 
     echo '<a href="myblocksadmin.php">' . _AM_BADMIN . '</a>&nbsp;<span style="font-weight:bold;">&raquo;&raquo;</span>&nbsp;' . $block['form_title'] . '<br><br>';
 
@@ -806,9 +806,9 @@ function myblocksadmin_update_block($bid, $bside, $bweight, $bvisible, $btitle, 
                 }
             }
         } elseif ($xoopsTpl->is_cached('db:system_dummy.html', 'block' . $bid)) {
-                if (!$xoopsTpl->clear_cache('db:system_dummy.html', 'block' . $bid)) {
-                    $msg = 'Unable to clear cache for block ID' . $bid;
-                }
+            if (!$xoopsTpl->clear_cache('db:system_dummy.html', 'block' . $bid)) {
+                $msg = 'Unable to clear cache for block ID' . $bid;
+            }
         }
     } else {
         $msg = 'Failed update of block. ID:' . $bid;

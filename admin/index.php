@@ -16,8 +16,7 @@
 use Xmf\Module\Admin;
 use Xmf\Request;
 use Xmf\Yaml;
-use XoopsModules\Rwbanner\{
-    Common,
+use XoopsModules\Rwbanner\{Common,
     Common\TestdataButtons,
     Helper,
     Utility
@@ -32,7 +31,7 @@ require_once __DIR__ . '/admin_header.php';
 xoops_cp_header();
 
 $adminObject = Admin::getInstance();
-$helper = Helper::getInstance();
+$helper      = Helper::getInstance();
 
 $adminObject->displayNavigation('index.php');
 //------------- Test Data Buttons ----------------------------

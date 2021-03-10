@@ -33,15 +33,28 @@
  *
  */
 
-$dirname = \basename(\dirname(__DIR__));
-/** @var \XoopsModuleHandler $moduleHandler */
-$moduleHandler = xoops_getHandler('module');
-$module        = $moduleHandler->getByDirname($dirname);
-$pathIcon32    = $module->getInfo('icons32');
+use Xmf\Module\Admin;
+use XoopsModules\Rwbanner\{Helper
+};
 
-xoops_loadLanguage('admin', $dirname);
+/** @var Admin $adminObject */
+/** @var Helper $helper */
 
-$adminmenu = [];
+include dirname(__DIR__) . '/preloads/autoloader.php';
+
+$moduleDirName      = basename(dirname(__DIR__));
+$moduleDirNameUpper = mb_strtoupper($moduleDirName);
+
+$helper = Helper::getInstance();
+$helper->loadLanguage('admin');
+$helper->loadLanguage('common');
+$helper->loadLanguage('feedback');
+
+$pathIcon32    = Admin::menuIconPath('');
+$pathModIcon32 = XOOPS_URL . '/modules/' . $moduleDirName . '/assets/images/icons/32/';
+if (is_object($helper->getModule()) && false !== $helper->getModule()->getInfo('modicons32')) {
+    $pathModIcon32 = $helper->url($helper->getModule()->getInfo('modicons32'));
+}
 
 $adminmenu[] = [
     'title' => _MI_RWBANNER_MENU_TITLE0,
@@ -82,6 +95,13 @@ $adminmenu[] = [
     'title' => _AM_RWBANNER_IMPORT,
     'link'  => 'admin/import.php',
     'icon'  => $pathIcon32 . '/download.png',
+];
+
+// Blocks Admin
+$adminmenu[] = [
+    'title' => constant('CO_' . $moduleDirNameUpper . '_' . 'BLOCKS'),
+    'link'  => 'admin/blocksadmin.php',
+    'icon'  => $pathIcon32 . '/block.png',
 ];
 
 //++$i;

@@ -55,18 +55,19 @@
             document.cookie = "rw_banner_lightbox=yes"
         }
     }
+
     showLightBoxornot()
     <{elseif $block.type == 3}>
     var freq =<{$block.freq}>
 
-            function setCookie_lightBox(name, value, expires, path, domain, secure) {
-                var curCookie = name + "=" + escape(value) +
-                        ((expires) ? "; expires=" + expires.toGMTString() : "") +
-                        ((path) ? "; path=" + path : "") +
-                        ((domain) ? "; domain=" + domain : "") +
-                        ((secure) ? "; secure" : "");
-                document.cookie = curCookie;
-            }
+        function setCookie_lightBox(name, value, expires, path, domain, secure) {
+            var curCookie = name + "=" + escape(value) +
+                ((expires) ? "; expires=" + expires.toGMTString() : "") +
+                ((path) ? "; path=" + path : "") +
+                ((domain) ? "; domain=" + domain : "") +
+                ((secure) ? "; secure" : "");
+            document.cookie = curCookie;
+        }
 
     function getCookie_lightBox(name) {
         var dc = document.cookie;

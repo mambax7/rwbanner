@@ -24,8 +24,7 @@
 */
 
 use Xmf\Module\Admin;
-use XoopsModules\Rwbanner\{
-    Banner,
+use XoopsModules\Rwbanner\{Banner,
     Category
 };
 
@@ -153,7 +152,6 @@ function BannersAdmin()
 function import($dados)
 {
     global $xoopsDB;
-
 
     $banners = [];
     for ($i = 0; $i <= count($dados) - 1; ++$i) {

@@ -276,3 +276,17 @@ define('_AM_RWBANNER_RUSUREDEL', 'Are you sure you want to delete the \'%s\' cat
 define('_AM_RWBANNER_CAT_WIDTH', 'CAT. WIDTH');
 define('_AM_RWBANNER_CAT_HEIGHT', 'CAT. HEIGHT');
 define('_AM_RWBANNER_SHOW_CAT', 'Show Banners in Category');
+
+//2.00
+define('_AM_RWBANNER_UPGRADEFAILED0', "Update failed - couldn't rename field '%s'");
+define('_AM_RWBANNER_ERROR_COLUMN', 'Could not create column in database : %s');
+define('_AM_RWBANNER_ERROR_BAD_XOOPS', 'This module requires XOOPS %s+ (%s installed)');
+define('_AM_RWBANNER_ERROR_BAD_PHP', 'This module requires PHP version %s+ (%s installed)');
+define('_AM_RWBANNER_ERROR_TAG_REMOVAL', 'Could not remove tags from Tag Module');
+
+define('_AM_RWBANNER_FOLDERS_DELETED_OK', 'Upload Folders have been deleted');
+
+// Error Msgs
+define('_AM_RWBANNER_ERROR_BAD_DEL_PATH', 'Could not delete %s directory');
+define('_AM_RWBANNER_ERROR_BAD_REMOVE', 'Could not delete %s');
+define('_AM_RWBANNER_ERROR_NO_PLUGIN', 'Could not load plugin');

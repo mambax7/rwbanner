@@ -25,9 +25,9 @@ namespace XoopsModules\Rwbanner\Common;
  */
 
 use CriteriaCompo;
-use XoopsModules\Rwbanner\{
-    Helper
+use XoopsModules\Rwbanner\{Helper
 };
+
 /** @var Helper $this ->helper */
 
 // require_once \dirname(__DIR__, 2) . '/include/common.php';

@@ -14,6 +14,7 @@ namespace XoopsModules\Rwbanner;
  WITHOUT ANY WARRANTY; without even the implied warranty of
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  */
+
 /**
  *
  * @license      https://www.fsf.org/copyleft/gpl.html GNU public license
@@ -21,9 +22,7 @@ namespace XoopsModules\Rwbanner;
  * @author       Mamba <mambax7@gmail.com>
  */
 
-use XoopsModules\Rwbanner\{
-    Common,
-    Constants,
+use XoopsModules\Rwbanner\{Common,
     Helper
 };
 

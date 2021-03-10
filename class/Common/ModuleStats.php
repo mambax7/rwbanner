@@ -19,7 +19,6 @@ namespace XoopsModules\Rwbanner\Common;
  * @license        GNU GPL 2 or later (https://www.gnu.org/licenses/gpl-2.0.html)
  * @author         Michael Beck <mambax7@gmailc.com>
  */
-
 trait ModuleStats
 {
     /**

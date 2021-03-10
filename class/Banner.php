@@ -821,9 +821,9 @@ class Banner
                                      . '</embed>'
                                      . '</object></div>';
                 } elseif (1 == $arr[$i]->getShowimg()) {
-                        $bannerobject .= '<img style="border:0;" src="' . $arr[$i]->getGrafico() . '" alt="" width="' . $arr[$i]->getLargura() . '" height="' . $arr[$i]->getAltura() . '" border="0">';
-                    } else {
-                        $bannerobject .= '<p style="font-weight:normal; text-align:justify;"><span style="text-align:center; font-weight:bold;"<center>' . $arr[$i]->getTitulo() . '</center></span><br>' . $arr[$i]->gettexto() . '</p>';
+                    $bannerobject .= '<img style="border:0;" src="' . $arr[$i]->getGrafico() . '" alt="" width="' . $arr[$i]->getLargura() . '" height="' . $arr[$i]->getAltura() . '" border="0">';
+                } else {
+                    $bannerobject .= '<p style="font-weight:normal; text-align:justify;"><span style="text-align:center; font-weight:bold;"<center>' . $arr[$i]->getTitulo() . '</center></span><br>' . $arr[$i]->gettexto() . '</p>';
                 }
                 $bannerobject .= '</a></div>';
                 $bannerobject .= (count($arr) > 1 && $cols <= 1) ? '<br>' : '';
@@ -918,9 +918,9 @@ class Banner
                                  . '</embed>'
                                  . '</object>';
             } elseif (1 == $ban->getShowimg()) {
-                    $bannerobject .= '<img style="border:0;" src="' . $ban->getGrafico() . '" alt="" width="' . $ban->getLargura() . '" height="' . $ban->getAltura() . '">';
-                } else {
-                    $bannerobject .= '<p style="font-weight:normal; text-align:justify;"><span style="text-align:center; font-weight:bold;"<center>' . $ban->getTitulo() . '</center></span><br>' . $ban->getTexTo() . '</p>';
+                $bannerobject .= '<img style="border:0;" src="' . $ban->getGrafico() . '" alt="" width="' . $ban->getLargura() . '" height="' . $ban->getAltura() . '">';
+            } else {
+                $bannerobject .= '<p style="font-weight:normal; text-align:justify;"><span style="text-align:center; font-weight:bold;"<center>' . $ban->getTitulo() . '</center></span><br>' . $ban->getTexTo() . '</p>';
             }
             $bannerobject .= '</a></div>';
         }

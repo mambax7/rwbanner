@@ -29,10 +29,10 @@
 // Descrição: Sistema de gerenciamento de mídias publicitárias               //
 // ------------------------------------------------------------------------- //
 
-use XoopsModules\Rwbanner\{
-    Banner,
+use XoopsModules\Rwbanner\{Banner,
     Tag as Tag
 };
+
 /** @var Tag $tag */
 
 global $xoopsTpl;

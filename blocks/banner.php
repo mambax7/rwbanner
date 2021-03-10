@@ -23,8 +23,7 @@
   Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA
 */
 
-use XoopsModules\Rwbanner\{
-    Banner,
+use XoopsModules\Rwbanner\{Banner,
     Category,
     FlashHeader
 };
@@ -43,8 +42,6 @@ use XoopsModules\Rwbanner\{
 
 function exibe_banner($options)
 {
-
-
     //    require_once (dirname(__DIR__) .'/admin/admin_header.php');
 
     global $xoopsTpl;

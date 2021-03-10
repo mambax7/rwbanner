@@ -8,14 +8,14 @@
     //Specify rate of display (1/freq)
     var freq =<{$block.freq}>
 
-            function setCookie_Dropin(name, value, expires, path, domain, secure) {
-                var curCookie = name + "=" + escape(value) +
-                        ((expires) ? "; expires=" + expires.toGMTString() : "") +
-                        ((path) ? "; path=" + path : "") +
-                        ((domain) ? "; domain=" + domain : "") +
-                        ((secure) ? "; secure" : "");
-                document.cookie = curCookie;
-            }
+        function setCookie_Dropin(name, value, expires, path, domain, secure) {
+            var curCookie = name + "=" + escape(value) +
+                ((expires) ? "; expires=" + expires.toGMTString() : "") +
+                ((path) ? "; path=" + path : "") +
+                ((domain) ? "; domain=" + domain : "") +
+                ((secure) ? "; secure" : "");
+            document.cookie = curCookie;
+        }
 
     function getCookie_Dropin(name) {
         var dc = document.cookie;
@@ -160,6 +160,7 @@
             document.cookie = "rw_banner_dropin=yes"
         }
     }
+
     Dropinornot()
     <{/if}>
 </script>

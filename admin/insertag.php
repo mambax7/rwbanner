@@ -30,8 +30,7 @@
 // ------------------------------------------------------------------------- //
 
 use Xmf\Module\Admin;
-use XoopsModules\Rwbanner\{
-    Tag
+use XoopsModules\Rwbanner\{Tag
 };
 
 require_once __DIR__ . '/admin_header.php';
@@ -113,7 +112,7 @@ function monta_form($value)
 
     $myDB = $db->prefix('rwbanner_categorias');
     //  $sql = "SELECT titulo,cod FROM ".$xoopsDB->prefix("rwbanner_categorias");
-    $sql    = 'SELECT titulo, cod FROM ' . $myDB;
+    $sql      = 'SELECT titulo, cod FROM ' . $myDB;
     $consulta = $xoopsDB->queryF($sql);
     while (list($titulo, $cod) = $xoopsDB->fetchRow($consulta)) {
         $categ->addOption($cod, $titulo);
@@ -122,7 +121,7 @@ function monta_form($value)
     $form['modid'] = unserialize(($form['modid'] ?? ''));
     $mid_selbox    = new \XoopsFormSelect(_AM_RWBANNER_TAG_TITLE16, 'form[modid]', $form['modid'], 5, true);
     $mid_selbox->addOption(0, _AM_RWBANNER_TAG_TITLE17);
-    $sql = 'SELECT mid,name FROM ' . $xoopsDB->prefix('modules') . ' WHERE (hasmain="1" or mid="1") and isactive="1" and (weight!="0" or mid="1") ORDER BY name';
+    $sql    = 'SELECT mid,name FROM ' . $xoopsDB->prefix('modules') . ' WHERE (hasmain="1" or mid="1") and isactive="1" and (weight!="0" or mid="1") ORDER BY name';
     $result = $xoopsDB->queryF($sql);
     while (list($mid, $name) = $xoopsDB->fetchRow($result)) {
         $mid_selbox->addOption($mid, $name);

@@ -89,33 +89,8 @@ if ($block['is_custom']) {
 
     // $can_use_spaw = check_browser_can_use_spaw() ;
 
-    $can_use_spaw = true;
-
-    if ($usespaw && $can_use_spaw) {
-        // SPAW Config
-
-        require XOOPS_ROOT_PATH . '/common/spaw/spaw_control.class.php';
-
-        ob_start();
-
-        $sw = new SPAW_Wysiwyg('bcontent', $block['content']);
-
-        $sw->show();
-
-        $textarea = new \XoopsFormLabel(_AM_CONTENT, ob_get_contents());
-
-        $textarea->setDescription($notice_for_tags . "<br><br><a href='$uri_to_myself&amp;usespaw=0'>NORMAL</a>");
-
-        ob_end_clean();
-    } else {
-        $textarea = new \XoopsFormDhtmlTextArea(_AM_CONTENT, 'bcontent', htmlspecialchars($block['content'], ENT_QUOTES), 15, 70);
-
-        if ($can_use_spaw) {
-            $textarea->setDescription($notice_for_tags . "<br><br><a href='$uri_to_myself&amp;usespaw=1'>SPAW</a>");
-        } else {
-            $textarea->setDescription($notice_for_tags);
-        }
-    }
+    $textarea = new \XoopsFormDhtmlTextArea(_AM_CONTENT, 'bcontent', htmlspecialchars($block['content'], ENT_QUOTES), 15, 70);
+    $textarea->setDescription($notice_for_tags);
 
     $form->addElement($textarea, true);
 

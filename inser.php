@@ -29,8 +29,7 @@
 // Descrição: Sistema de gerenciamento de mídias publicitárias               //
 // ------------------------------------------------------------------------- //
 
-use XoopsModules\Rwbanner\{
-    Banner
+use XoopsModules\Rwbanner\{Banner
 };
 
 require_once \dirname(__DIR__, 2) . '/mainfile.php';

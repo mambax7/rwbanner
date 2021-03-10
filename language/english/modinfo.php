@@ -174,3 +174,23 @@ define('_MI_RWBANNER_USER_OPT1', 'Number of Clicks');
 define('_MI_RWBANNER_USER_OPT2', 'Method of Replay');
 define('_MI_RWBANNER_USER_OPT3', 'Image Banner');
 define('_MI_RWBANNER_USER_OPT4', 'Link(URL)');
+
+//2.00
+//Config
+define('MI_RWBANNER_EDITOR_ADMIN', 'Editor: Admin');
+define('MI_RWBANNER_EDITOR_ADMIN_DESC', 'Select the Editor to use by the Admin');
+define('MI_RWBANNER_EDITOR_USER', 'Editor: User');
+define('MI_RWBANNER_EDITOR_USER_DESC', 'Select the Editor to use by the User');
+
+//Help
+define('_MI_RWBANNER_DIRNAME', basename(dirname(__DIR__, 2)));
+define('_MI_RWBANNER_HELP_HEADER', __DIR__ . '/help/helpheader.tpl');
+define('_MI_RWBANNER_BACK_2_ADMIN', 'Back to Administration of ');
+define('_MI_RWBANNER_OVERVIEW', 'Overview');
+
+//define('_MI_RWBANNER_HELP_DIR', __DIR__);
+
+//help multi-page
+define('_MI_RWBANNER_DISCLAIMER', 'Disclaimer');
+define('_MI_RWBANNER_LICENSE', 'License');
+define('_MI_RWBANNER_SUPPORT', 'Support');

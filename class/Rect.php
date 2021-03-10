@@ -55,7 +55,6 @@ namespace XoopsModules\Rwbanner;
  *
  */
 
-
 /**
  * class Rect
  * store the size values into an associative array

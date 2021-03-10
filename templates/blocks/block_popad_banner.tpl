@@ -25,10 +25,10 @@
 
     function setCookie(name, value, expires, path, domain, secure) {
         var curCookie = name + "=" + escape(value) +
-                ((expires) ? "; expires=" + expires.toGMTString() : "") +
-                ((path) ? "; path=" + path : "") +
-                ((domain) ? "; domain=" + domain : "") +
-                ((secure) ? "; secure" : "");
+            ((expires) ? "; expires=" + expires.toGMTString() : "") +
+            ((path) ? "; path=" + path : "") +
+            ((domain) ? "; domain=" + domain : "") +
+            ((secure) ? "; secure" : "");
         document.cookie = curCookie;
     }
 
@@ -49,7 +49,7 @@
 
     function initAd() {
         if (!ns && !ie && !w3) return;
-        if (ie)      adDiv = eval('document.all.sponsorAdDiv.style');
+        if (ie) adDiv = eval('document.all.sponsorAdDiv.style');
         else if (ns) adDiv = eval('document.layers["sponsorAdDiv"]');
         else if (w3) adDiv = eval('document.getElementById("sponsorAdDiv").style');
         if (ie || w3)
@@ -73,18 +73,17 @@
             setCookie('rwbanner', i);
         }
     }
+
     function showAd() {
         if (adCount < adTime * 10) {
             adCount += 1;
             if (ie) {
                 documentWidth = truebody().offsetWidth / 2 + truebody().scrollLeft - 20;
                 documentHeight = truebody().offsetHeight / 2 + truebody().scrollTop - 20;
-            }
-            else if (ns) {
+            } else if (ns) {
                 documentWidth = window.innerWidth / 2 + window.pageXOffset - 20;
                 documentHeight = window.innerHeight / 2 + window.pageYOffset - 20;
-            }
-            else if (w3) {
+            } else if (w3) {
                 documentWidth = self.innerWidth / 2 + window.pageXOffset - 20;
                 documentHeight = self.innerHeight / 2 + window.pageYOffset - 20;
             }
@@ -93,6 +92,7 @@
             setTimeout("showAd()", 100);
         } else closeAd();
     }
+
     function closeAd() {
         if (ie || w3)
             adDiv.display = "none";

@@ -82,13 +82,14 @@ $modversion['submit_feature']    = 'http://rwbanner.brinfo.com.br/modules/newbb/
 //$modversion['author_word']            = _MI_RWBANNER_AUTHOR_WORD_DESC;
 //$modversion['version_history']        = _MI_RWBANNER_HISTORY;
 
-// All tables should not have any prefix!
-//$modversion['sqlfile']['mysql'] = 'sql/mysql.sql';
-
-// Tables created by sql file (without prefix!)
-//$modversion['tables'][0] = _MI_RWBANNER_TABLE1;
-//$modversion['tables'][1] = _MI_RWBANNER_TABLE2;
-//$modversion['tables'][2] = _MI_RWBANNER_TABLE3;
+// ------------------- Help files ------------------- //
+$modversion['help']        = 'page=help';
+$modversion['helpsection'] = [
+    ['name' => _MI_RWBANNER_OVERVIEW, 'link' => 'page=help'],
+    ['name' => _MI_RWBANNER_DISCLAIMER, 'link' => 'page=disclaimer'],
+    ['name' => _MI_RWBANNER_LICENSE, 'link' => 'page=license'],
+    ['name' => _MI_RWBANNER_SUPPORT, 'link' => 'page=support'],
+];
 
 // ------------------- Mysql ------------------- //
 $modversion['sqlfile']['mysql'] = 'sql/mysql.sql';

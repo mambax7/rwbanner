@@ -23,8 +23,7 @@
   Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA
 */
 
-use XoopsModules\Rwbanner\{
-    Banner,
+use XoopsModules\Rwbanner\{Banner,
     Category,
     FlashHeader
 };
@@ -43,7 +42,6 @@ use XoopsModules\Rwbanner\{
 function exibe_dropbanner($options)
 {
     global $xoopsConfig;
-
 
     require_once dirname(__DIR__) . '/language/' . $xoopsConfig['language'] . '/modinfo.php';
     //    require_once (dirname(__DIR__) .'/admin/admin_header.php');
@@ -98,7 +96,7 @@ function exibe_dropbanner($options)
             $arr3[$i]['swf'] = 1;
             $arq             = explode('/', $arr3[$i]['grafico']);
             $grafico1        = _RWBANNER_DIRIMAGES . '/' . $arq[count($arq) - 1];
-            
+
             $f               = new FlashHeader($grafico1);
             $result          = $f->getimagesize();
             $arr3[$i]['fps'] = $result['frameRate'];

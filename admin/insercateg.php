@@ -30,8 +30,7 @@
 // ------------------------------------------------------------------------- //
 
 use Xmf\Module\Admin;
-use XoopsModules\Rwbanner\{
-    Category
+use XoopsModules\Rwbanner\{Category
 };
 
 require_once __DIR__ . '/admin_header.php';

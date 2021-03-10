@@ -36,15 +36,14 @@
 
 $admin_mydirname = \basename(\dirname(__DIR__));
 
+require_once __DIR__ . '/admin_header.php';
+
 $fct = empty($_POST['fct']) ? '' : trim($_POST['fct']);
 $fct = empty($_GET['fct']) ? $fct : trim($_GET['fct']);
 if (empty($fct)) {
     $fct = 'preferences';
 }
 
-require dirname(__DIR__, 3) . '/mainfile.php';
-require XOOPS_ROOT_PATH . '/include/cp_functions.php';
-require_once XOOPS_ROOT_PATH . '/kernel/module.php';
 require_once dirname(__DIR__) . '/include/gtickets.php';// GIJ
 
 $admintest = 0;

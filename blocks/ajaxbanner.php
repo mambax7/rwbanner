@@ -23,8 +23,7 @@
   Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA
 */
 
-use XoopsModules\Rwbanner\{
-    Banner,
+use XoopsModules\Rwbanner\{Banner,
     Category
 };
 
@@ -41,9 +40,6 @@ use XoopsModules\Rwbanner\{
 
 function exibe_ajaxbanner($options)
 {
-
-
-
     global $xoopsTpl;
     $dirname = \basename(\dirname(__DIR__));
     $xoopsTpl->assign('module_dir', $dirname);

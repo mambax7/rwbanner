@@ -114,13 +114,13 @@ class RwBannerUtility extends XoopsObject
                     break;
                 }
             } elseif ((int)$v > 0) { // handles things like x.x.x.0_RC2
-                    $success = false;
-                    break;
+                $success = false;
+                break;
             }
         }
 
         if (!$success) {
-            $module->setErrors(sprintf(_AM_XXXXX_ERROR_BAD_XOOPS, $requiredVer, $currentVer));
+            $module->setErrors(sprintf(_AM_RWBANNER_ERROR_BAD_XOOPS, $requiredVer, $currentVer));
         }
 
         return $success;
@@ -143,7 +143,7 @@ class RwBannerUtility extends XoopsObject
         $reqVer  = $module->getInfo('min_php');
         if (false !== $reqVer && '' !== $reqVer) {
             if (version_compare($verNum, $reqVer, '<')) {
-                $module->setErrors(sprintf(_AM_XXXXX_ERROR_BAD_PHP, $reqVer, $verNum));
+                $module->setErrors(sprintf(_AM_RWBANNER_ERROR_BAD_PHP, $reqVer, $verNum));
                 $success = false;
             }
         }

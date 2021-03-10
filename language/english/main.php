@@ -30,7 +30,8 @@
 // ------------------------------------------------------------------------- //
 
 //index.php
-//define('_MD_RWBANNER_NOPERM1', 'You don\'t have any banners registered at your site therefore you don\'t have permissions to access this area!');
+define('_MD_RWBANNER_NOPERM1', 'You don\'t have any banners registered at your site therefore you don\'t have permissions to access this area!');
+define('_MD_RWBANNER_NOPERM', "Sorry, you don't have permission to perform this action");
 define(
     '_MD_RWBANNER_MSG_INDEX_NOUSER',
     'To use the advertising services of %s you need to be a registered user.
@@ -129,3 +130,6 @@ define('_MD_RWBANNER_SORT_CLICKS', 'Clicks');
 define('_MD_RWBANNER_SORT_ID', 'ID');
 define('_MD_RWBANNER_SORT_DATE', 'Registration');
 define('_MD_RWBANNER_SORT_IMPRESSIONS', 'Impressions');
+
+define('_MD_RWBANNER_BTN_OP1', 'Add');
+define('_MD_RWBANNER_BTN_OP2', 'Edit');

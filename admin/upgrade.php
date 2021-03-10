@@ -110,7 +110,7 @@ if (is_object($xoopsUser) && $xoopsUser->isAdmin($xoopsModule->mid())) {
             ++$errors;
         }
     } elseif (Utility::fieldExists('modid', $xoopsDB->prefix('rwbanner_categorias'))) {
-            rwRemoveField('modid', $xoopsDB->prefix('rwbanner_categorias'));
+        rwRemoveField('modid', $xoopsDB->prefix('rwbanner_categorias'));
     }
 
     if (!rwTableExists($xoopsDB->prefix('rwbanner_tags'))) {

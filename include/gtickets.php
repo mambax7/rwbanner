@@ -37,7 +37,7 @@ if (!class_exists('XoopsGTicket')) {
      */
     class XoopsGTicket
     {
-        public $_errors = [];
+        public $_errors       = [];
         public $_latest_token = '';
         // render form as plain html
 
@@ -207,9 +207,9 @@ if (!class_exists('XoopsGTicket')) {
                         $_SESSION['XOOPS_G_STUBS'][] = $stub;
                     }
                 } elseif (md5($stub['token'] . XOOPS_DB_PREFIX) === $ticket) {
-                        // not CSRF but Time-Out
+                    // not CSRF but Time-Out
 
-                        $timeout_flag = true;
+                    $timeout_flag = true;
                 }
             }
 
