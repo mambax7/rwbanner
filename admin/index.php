@@ -9,18 +9,48 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
  * @copyright    XOOPS Project (https://xoops.org)
- * @license      {@link http://www.gnu.org/licenses/gpl-2.0.html GNU Public License}
+ * @license      {@link https://www.gnu.org/licenses/gpl-2.0.html GNU Public License}
  * @author       XOOPS Development Team
  **/
 
-require_once dirname(dirname(dirname(__DIR__))) . '/include/cp_header.php';
-include_once __DIR__ . '/admin_header.php';
+use Xmf\Module\Admin;
+use Xmf\Request;
+use Xmf\Yaml;
+use XoopsModules\Rwbanner\{
+    Common,
+    Common\TestdataButtons,
+    Helper,
+    Utility
+};
+
+/** @var Admin $adminObject */
+/** @var Helper $helper */
+/** @var Utility $utility */
+
+require_once __DIR__ . '/admin_header.php';
 
 xoops_cp_header();
 
-$indexAdmin = new ModuleAdmin();
+$adminObject = Admin::getInstance();
+$helper = Helper::getInstance();
 
-echo $indexAdmin->addNavigation('index.php');
-echo $indexAdmin->renderIndex();
+$adminObject->displayNavigation('index.php');
+//------------- Test Data Buttons ----------------------------
+if ($helper->getConfig('displaySampleButton')) {
+    TestdataButtons::loadButtonConfig($adminObject);
+    $adminObject->displayButton('left', '');;
+}
+$op = Request::getString('op', 0, 'GET');
+switch ($op) {
+    case 'hide_buttons':
+        TestdataButtons::hideButtons();
+        break;
+    case 'show_buttons':
+        TestdataButtons::showButtons();
+        break;
+}
+//------------- End Test Data Buttons ----------------------------
 
-include_once __DIR__ . '/admin_footer.php';
+$adminObject->displayIndex();
+
+require_once __DIR__ . '/admin_footer.php';

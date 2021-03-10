@@ -22,29 +22,35 @@
   along with this program; if not, write to the Free Software
   Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA
 */
+
+use XoopsModules\Rwbanner\{
+    Banner,
+    Category
+};
+
 /**
  * XOOPS rwbanner Banner Block
  *
- * @copyright::  {@link www.brinfo.com.br BrInfo - Soluções Web}
- * @license  ::    {@link http://www.fsf.org/copyleft/gpl.html GNU public license}
+ * @param $options
+ * @return array
  * @author   ::     Rodrigo Pereira Lima aka RpLima (http://www.brinfo.com.br)
  * @package  ::    rwbanner
  * @since    ::      1.0
- * @param $options
- * @return array
+ * @copyright::  {@link www.brinfo.com.br BrInfo - Soluções Web}
+ * @license  ::    {@link http://www.fsf.org/copyleft/gpl.html GNU public license}
  */
 
 function exibe_banner($options)
 {
-    include_once dirname(__DIR__) . '/class/class.categoria.php';
-    include_once dirname(__DIR__) . '/class/class.banner.php';
-    //    include_once (dirname(__DIR__) .'/admin/admin_header.php');
+
+
+    //    require_once (dirname(__DIR__) .'/admin/admin_header.php');
 
     global $xoopsTpl;
-    $dirname = basename(dirname(__DIR__));
+    $dirname = \basename(\dirname(__DIR__));
     $xoopsTpl->assign('module_dir', $dirname);
 
-    $block = array();
+    $block = [];
 
     //recebendo parâmetros de configuração
     $block['categ'] = $options[0];
@@ -53,15 +59,15 @@ function exibe_banner($options)
     $block['redim'] = $options[3];
     $block['title'] = _MI_RWBANNER_BLOCK1_NAME;
 
-    $categ         = new Categoria(null, $options[0]);
+    $categ         = new Category(null, $options[0]);
     $block['larg'] = $categ->getLarg();
     $block['alt']  = $categ->getAlt();
 
-    $banner = new RWbanners();
+    $banner = new Banner();
     $arr    = $banner->getBanners(false, 'ORDER BY RAND()', $options[0], $options[1]);
 
-    $arr2 = array();
-    $arr3 = array();
+    $arr2 = [];
+    $arr3 = [];
     for ($i = 0; $i <= count($arr) - 1; ++$i) {
         $arr[$i]->inchits();
         foreach ($arr[$i] as $key => $value) {
@@ -74,7 +80,7 @@ function exibe_banner($options)
             $arr3[$i]['swf'] = 1;
             $arq             = explode('/', $arr3[$i]['grafico']);
             $grafico1        = _RWBANNER_DIRIMAGES . '/' . $arq[count($arq) - 1];
-            include_once(dirname(__DIR__) . '/class/FlashHeader.php');
+
             $f               = new FlashHeader($grafico1);
             $result          = $f->getimagesize();
             $arr3[$i]['fps'] = $result['frameRate'];
@@ -92,7 +98,7 @@ function exibe_banner($options)
 function edita_banner($options)
 {
     global $xoopsDB;
-    $query    = 'SELECT cod,titulo FROM ' . $xoopsDB->prefix('rw_categorias');
+    $query    = 'SELECT cod,titulo FROM ' . $xoopsDB->prefix('rwbanner_categorias');
     $consulta = $xoopsDB->queryF($query);
     $categ    = _MB_RWBANNER_OPTION1 . "&nbsp;<select options[0] name=\"options[0]\" onchange='javascript:options0.value = this.value;'>";
     while (list($cod, $titulo) = $xoopsDB->fetchRow($consulta)) {
@@ -104,21 +110,21 @@ function edita_banner($options)
         $categ .= '<option value="' . $cod . '" ' . $sel . '>' . $titulo . '</option>';
     }
     $categ .= '</select>';
-    $form = $categ;
+    $form  = $categ;
     //Quantidade de banners à exibir no bloco
-    $qtde = _MB_RWBANNER_OPTION2 . "&nbsp;<input type='text' name='options[]' value='" . $options[1] . "' onchange='javascript:options1.value = this.value;' />";
-    $form .= '<br />' . $qtde;
+    $qtde = _MB_RWBANNER_OPTION2 . "&nbsp;<input type='text' name='options[]' value='" . $options[1] . "' onchange='javascript:options1.value = this.value;'>";
+    $form .= '<br>' . $qtde;
     //Quantidade de colunas em que os banners serão exibidos
-    $qtde = _MB_RWBANNER_OPTION3 . "&nbsp;<input type='text' name='options[]' value='" . $options[2] . "' onchange='javascript:options2.value = this.value;' />";
-    $form .= '<br />' . $qtde;
+    $qtde = _MB_RWBANNER_OPTION3 . "&nbsp;<input type='text' name='options[]' value='" . $options[2] . "' onchange='javascript:options2.value = this.value;'>";
+    $form .= '<br>' . $qtde;
     //Redimensionar imagens?
     if ($options[3] == 1) {
-        $check = 'checked="checked"';
+        $check = 'checked';
     } else {
         $check = '';
     }
-    $qtde = _MB_RWBANNER_OPTION4 . "&nbsp;<input type='checkbox' name='options[]' value='1' " . $check . " onchange='javascript:options3.value = this.value;' />" . _YES;
-    $form .= '<br />' . $qtde . '<br />' . _MB_RWBANNER_OPTION4_DESC;
+    $qtde = _MB_RWBANNER_OPTION4 . "&nbsp;<input type='checkbox' name='options[]' value='1' " . $check . " onchange='javascript:options3.value = this.value;'>" . _YES;
+    $form .= '<br>' . $qtde . '<br>' . _MB_RWBANNER_OPTION4_DESC;
 
     return $form;
 }

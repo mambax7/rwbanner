@@ -742,7 +742,7 @@ function getObject(objectId) {
 }
 function initLightbox() {
     myLightbox = new Lightbox();
-    var startImg = getObject('rw_banner_lightbox');
+    var startImg = getObject('rwbanner_lightbox');
     myLightbox.start(startImg);
     return false;
 }

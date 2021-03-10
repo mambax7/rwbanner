@@ -10,22 +10,20 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
  * @copyright       XOOPS Project (https://xoops.org)
- * @license         GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+ * @license         GNU GPL 2 (https://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
  * @package         pm
  * @since           2.4.0
  * @author          trabis <lusopoemas@gmail.com>
  */
 
-// defined('XOOPS_ROOT_PATH') || exit('XOOPS root path not defined');
-
 /**
  * rw-banner core preloads
  *
  * @copyright       XOOPS Project (https://xoops.org)
- * @license         GNU GPL 2 (http://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
+ * @license         GNU GPL 2 (https://www.gnu.org/licenses/old-licenses/gpl-2.0.html)
  * @author          mamba
  */
-class RwbannerCorePreload extends XoopsPreloadItem
+class RwbannerCorePreload extends \XoopsPreloadItem
 {
     /**
      * @param $args
@@ -33,8 +31,8 @@ class RwbannerCorePreload extends XoopsPreloadItem
     public static function eventCoreHeaderEnd($args)
     {
         if (RwbannerCorePreload::isActive()) {
-            if (file_exists($filename = dirname(__DIR__) . '/include/maketags.php')) {
-                include $filename;
+            if (is_file($filename = dirname(__DIR__) . '/include/maketags.php')) {
+                require $filename;
             }
         }
     }
@@ -44,9 +42,18 @@ class RwbannerCorePreload extends XoopsPreloadItem
      */
     public static function isActive()
     {
-        $module_handler = xoops_getHandler('module');
-        $module         = $module_handler->getByDirname('rw_banner');
+        /** @var \XoopsModuleHandler $moduleHandler */
+        $moduleHandler = xoops_getHandler('module');
+        $module        = $moduleHandler->getByDirname('rwbanner');
 
         return ($module && $module->getVar('isactive')) ? true : false;
+    }
+
+    /**
+     * @param $args
+     */
+    public static function eventCoreIncludeCommonEnd($args)
+    {
+        include __DIR__ . '/autoloader.php';
     }
 }

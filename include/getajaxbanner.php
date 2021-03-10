@@ -29,8 +29,8 @@
 // Descrição: Sistema de gerenciamento de mídias publicitárias               //
 // ------------------------------------------------------------------------- //
 
-include dirname(dirname(dirname(__DIR__))) . '/mainfile.php';
-include_once(dirname(__DIR__) . '/class/class.banner.php');
+require dirname(__DIR__, 3) . '/mainfile.php';
+
 
 //Desabilitando a exibição do debug dentro do bloco
 error_reporting(0);
@@ -41,5 +41,5 @@ $categ = $_GET['categ'];
 $qtde  = $_GET['qtde'];
 $cols  = $_GET['cols'];
 
-$banner = new RWbanners();
+$banner = new Banner();
 echo $banner->showBanner($categ, $qtde, $cols);

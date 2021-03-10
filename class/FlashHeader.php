@@ -1,4 +1,7 @@
 <?php
+
+namespace XoopsModules\Rwbanner;
+
 //  ------------------------------------------------------------------------ //
 //                                  RW-Banner                                //
 //                    Copyright (c) 2006 Web Applications                    //
@@ -116,15 +119,15 @@ class FlashHeader
         $this->framerate  = $this->framerate['rate'] / 256;
         $this->framecount = $this->readshort();
 
-        return array(
+        return [
             'zlib-compression' => $this->compression,
             'fileType'         => $this->filetype,
             'version'          => $this->version,
             'fileSize'         => $this->filelength,
             'frameRate'        => $this->framerate,
             'frameCount'       => $this->framecount,
-            'movieSize'        => $this->rect
-        );
+            'movieSize'        => $this->rect,
+        ];
     }
 
     /* read */
@@ -134,7 +137,7 @@ class FlashHeader
      */
     public function read($n)
     {
-        $ret = substr($this->data, $this->point, $this->point + $n);
+        $ret         = substr($this->data, $this->point, $this->point + $n);
         $this->point += $n;
 
         return $ret;
@@ -224,35 +227,3 @@ class FlashHeader
         $this->pos = 1;
     }
 }
-
-/**
- * class Rect
- * store the size values into an associative array
- */
-class Rect
-{
-    /**
-     * Rect constructor.
-     * @param $x2
-     * @param $y2
-     */
-    public function __construct($x2, $y2)
-    {
-        $this->xmax  = $x2;
-        $this->ymax  = $y2;
-        $this->value = $this->__str__();
-    }
-
-    /**
-     * @return array
-     */
-    public function __str__()
-    {
-        $ret           = array($this->xmax, $this->ymax);
-        $ret['width']  = $this->xmax;
-        $ret['height'] = $this->ymax;
-
-        return $ret;
-    }
-}
-/* end */

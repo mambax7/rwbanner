@@ -18,7 +18,7 @@
                 <div align="center">
                     <{$banner.htmlcode}>
                     <{if $block.qtde > "1"}>
-                        <br/>
+                        <br>
                     <{/if}>
                 </div>
                 <{if $banner.url != '' && $banner.url != '#'}>
@@ -46,14 +46,14 @@
                             </embed>
                         </object>
                     <{else}>
-                        <img style="border:0;" src="<{$banner.grafico}>" <{$width}> <{$height}> alt="" border="0"/>
+                        <img style="border:0;" src="<{$banner.grafico}>" <{$width}> <{$height}> alt="" border="0">
                     <{/if}>
                     <{if $banner.url != '' && $banner.url != '#'}>
                 </a>
                 <{/if}>
             </div>
             <{if $block.qtde > "1"}>
-                <br/>
+                <br>
             <{/if}>
         </td>
         <{if $cont == $block.cols}>

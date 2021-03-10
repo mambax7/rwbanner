@@ -1,6 +1,6 @@
 <{$block.conteudo}>
 
-<link rel="stylesheet" href="<{$xoops_url}>/modules/<{$module_dir}>/assets/css/lightbox.css" type="text/css" media="screen"/>
+<link rel="stylesheet" href="<{$xoops_url}>/modules/<{$module_dir}>/assets/css/lightbox.css" type="text/css" media="screen">
 <script language="JavaScript1.2">
     var fileLoadingImage = "<{$xoops_url}>/modules/<{$module_dir}>/assets/images/loading.gif";
     var fileBottomNavCloseImage = "<{$xoops_url}>/modules/<{$module_dir}>/assets/images/close.gif";
@@ -87,38 +87,38 @@
         var oldonload = window.onload;
         window.onload = function () {
             oldonload();
-            if (getCookie_lightBox('rw_banner_lightbox') != null)
-                var i = getCookie_lightBox('rw_banner_lightbox');
+            if (getCookie_lightBox('rwbanner_lightbox') != null)
+                var i = getCookie_lightBox('rwbanner_lightbox');
             else
                 var i = 0;
             if (i == freq) {
                 initLightbox();
-                setCookie_lightBox('rw_banner_lightbox', 1);
+                setCookie_lightBox('rwbanner_lightbox', 1);
             } else if (i == 0) {
                 initLightbox();
-                setCookie_lightBox('rw_banner_lightbox', 1);
+                setCookie_lightBox('rwbanner_lightbox', 1);
             } else {
-                var i = getCookie_lightBox('rw_banner_lightbox');
+                var i = getCookie_lightBox('rwbanner_lightbox');
                 i++;
-                setCookie_lightBox('rw_banner_lightbox', i);
+                setCookie_lightBox('rwbanner_lightbox', i);
             }
         }
     } else {
         window.onload = function () {
-            if (getCookie_lightBox('rw_banner_lightbox') != null)
-                var i = getCookie_lightBox('rw_banner_lightbox');
+            if (getCookie_lightBox('rwbanner_lightbox') != null)
+                var i = getCookie_lightBox('rwbanner_lightbox');
             else
                 var i = 0;
             if (i == freq) {
                 initLightbox();
-                setCookie_lightBox('rw_banner_lightbox', 1);
+                setCookie_lightBox('rwbanner_lightbox', 1);
             } else if (i == 0) {
                 initLightbox();
-                setCookie_lightBox('rw_banner_lightbox', 1);
+                setCookie_lightBox('rwbanner_lightbox', 1);
             } else {
-                var i = getCookie_lightBox('rw_banner_lightbox');
+                var i = getCookie_lightBox('rwbanner_lightbox');
                 i++;
-                setCookie_lightBox('rw_banner_lightbox', i);
+                setCookie_lightBox('rwbanner_lightbox', i);
             }
         }
     }
@@ -126,6 +126,6 @@
 </script>
 <div style="display:none;">
     <{foreach item=banner from=$block.banners}>
-        <a id=rw_banner_lightbox href="<{$banner.grafico}>" rel="lightbox"><img id="bannerImg" src="<{$banner.grafico}>" width="<{$block.larg}>" height="<{$block.alt}>"/></a>
+        <a id=rw_banner_lightbox href="<{$banner.grafico}>" rel="lightbox"><img id="bannerImg" src="<{$banner.grafico}>" width="<{$block.larg}>" height="<{$block.alt}>"></a>
     <{/foreach}>
 </div>

@@ -22,6 +22,7 @@
   along with this program; if not, write to the Free Software
   Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA
 */
+
 /**
  * XOOPS rwbanner Main Admin
  *
@@ -32,12 +33,16 @@
  *
  */
 
-include_once __DIR__ . '/admin_header.php';
+use Xmf\Module\Admin;
+use XoopsModules\Rwbanner\{
+    Banner,
+    Category,
+    Tag
+};
 
-include_once XOOPS_ROOT_PATH . '/include/cp_functions.php';
-include_once dirname(__DIR__) . '/class/class.banner.php';
-include_once dirname(__DIR__) . '/class/class.categoria.php';
-include_once dirname(__DIR__) . '/class/class.tags.php';
+require_once __DIR__ . '/admin_header.php';
+
+require_once XOOPS_ROOT_PATH . '/include/cp_functions.php';
 
 $dir   = $xoopsModuleConfig['dir_images'];
 $limit = $xoopsModuleConfig['total_reg_index'];
@@ -50,8 +55,8 @@ switch ($op) {
         $seq   = isset($_GET['seq']) ? $_GET['seq'] : 'ASC';
         $start = isset($_GET['start']) ? $_GET['start'] : 0;
         xoops_cp_header();
-        $indexAdmin = new ModuleAdmin();
-        echo $indexAdmin->addNavigation('main.php');
+        $adminObject = Admin::getInstance();
+        $adminObject->displayNavigation('main.php');
 
         // rwbanner_adminMenu (0,_AM_RWBANNER_INDEX);
         if (!is_dir($dir) || !is_writable($dir)) {
@@ -71,7 +76,7 @@ switch ($op) {
         break;
     case 'mudastatus':
         $id     = isset($_GET['id']) ? $_GET['id'] : '';
-        $banner = new RWbanners(null, $id);
+        $banner = new Banner(null, $id);
         if ($banner->mudaStatus()) {
             redirect_header('main.php', 2, _AM_RWBANNER_MSG1);
         } else {
@@ -80,7 +85,7 @@ switch ($op) {
         break;
     case 'mudastatus_tag':
         $id  = isset($_GET['id']) ? $_GET['id'] : '';
-        $tag = new RWTag(null, $id);
+        $tag = new Tag(null, $id);
         if ($tag->mudaStatus()) {
             redirect_header('main.php', 2, _AM_RWBANNER_MSG1);
         } else {
@@ -90,12 +95,12 @@ switch ($op) {
     case 'deletar':
         $id = isset($_GET['id']) ? $_GET['id'] : '';
         xoops_cp_header();
-        xoops_confirm(array('id' => $id, 'op' => 'deletar_ok'), 'main.php', _AM_RWBANNER_MSG19);
+        xoops_confirm(['id' => $id, 'op' => 'deletar_ok'], 'main.php', _AM_RWBANNER_MSG19);
         xoops_cp_footer();
         break;
     case 'deletar_ok':
         $id     = isset($_POST['id']) ? $_POST['id'] : '';
-        $banner = new RWbanners(null, $id);
+        $banner = new Banner(null, $id);
         if ($banner->exclui()) {
             redirect_header('main.php', 2, _AM_RWBANNER_MSG101);
         } else {
@@ -105,12 +110,12 @@ switch ($op) {
     case 'deletar_categ':
         $id = isset($_GET['id']) ? $_GET['id'] : '';
         xoops_cp_header();
-        xoops_confirm(array('id' => $id, 'op' => 'deletar_categ_ok'), 'main.php', _AM_RWBANNER_MSG3);
+        xoops_confirm(['id' => $id, 'op' => 'deletar_categ_ok'], 'main.php', _AM_RWBANNER_MSG3);
         xoops_cp_footer();
         break;
     case 'deletar_categ_ok':
         $id    = isset($_POST['id']) ? $_POST['id'] : '';
-        $categ = new Categoria(null, $id);
+        $categ = new Category(null, $id);
         if ($categ->exclui()) {
             redirect_header('main.php', 2, _AM_RWBANNER_MSG102);
         } else {
@@ -120,12 +125,12 @@ switch ($op) {
     case 'deletar_tag':
         $id = isset($_GET['id']) ? $_GET['id'] : '';
         xoops_cp_header();
-        xoops_confirm(array('id' => $id, 'op' => 'deletar_tag_ok'), 'main.php', _AM_RWBANNER_MSG20);
+        xoops_confirm(['id' => $id, 'op' => 'deletar_tag_ok'], 'main.php', _AM_RWBANNER_MSG20);
         xoops_cp_footer();
         break;
     case 'deletar_tag_ok':
         $id  = isset($_POST['id']) ? $_POST['id'] : '';
-        $tag = new RWTag(null, $id);
+        $tag = new Tag(null, $id);
         if ($tag->exclui()) {
             redirect_header('main.php', 2, _AM_RWBANNER_MSG21);
         } else {
@@ -152,12 +157,12 @@ function lista_banners($order = null, $seq = '', $limit = 10, $start = 0)
 {
     global $xoopsModule, $pathIcon16;
 
-    $banner = new RWbanners();
-    $total  = $banner->getRowNum();
-    $ord    = $order;
-    $order  = 'ORDER BY ' . $order;
-    $order .= ' ' . $seq;
-    $img       = ($seq === 'ASC') ? '<img src="../assets/images/asc.gif" />' : '<img src="../assets/images/desc.gif" />';
+    $banner    = new Banner();
+    $total     = $banner->getRowNum();
+    $ord       = $order;
+    $order     = 'ORDER BY ' . $order;
+    $order     .= ' ' . $seq;
+    $img       = ($seq === 'ASC') ? '<img src="../assets/images/asc.gif">' : '<img src="../assets/images/desc.gif">';
     $img_cod   = ($ord === 'codigo') ? $img : '';
     $img_cli   = ($ord === 'idcliente') ? $img : '';
     $img_cat   = ($ord === 'categoria') ? $img : '';
@@ -171,7 +176,7 @@ function lista_banners($order = null, $seq = '', $limit = 10, $start = 0)
     $seq           = ($seq === 'ASC') ? 'DESC' : 'ASC';
 
     rwbanner_collapsableBar('banners', 'bannersicon');
-    echo "<img id='bannersicon' name='bannersicon' src=" . XOOPS_URL . '/modules/' . $xoopsModule->dirname() . "/assets/images/icon/close12.gif alt='' /></a>&nbsp;" . _AM_RWBANNER_LIST_BANNER . '</h3>';
+    echo "<img id='bannersicon' name='bannersicon' src=" . XOOPS_URL . '/modules/' . $xoopsModule->dirname() . "/assets/images/icon/close12.gif alt=''></a>&nbsp;" . _AM_RWBANNER_LIST_BANNER . '</h3>';
     echo "<span style=\"color: #567; margin: 3px 0 12px 0; font-size: small; display: block; text-align:justify; \">" . _AM_RWBANNER_LIST_BANNER_DESC . '</span>';
     echo "<div id='banners'>";
 
@@ -251,9 +256,40 @@ function lista_banners($order = null, $seq = '', $limit = 10, $start = 0)
         <td align="center"><a href="main.php?op=mudastatus&id=' . $lista_banners[$i]->getCodigo() . '">' . $status . '</a></td>';
         echo '
         <td align="center" width="10%">
-          <a href="javascript:;" onClick="javascript: window.open(\'exibe.php?id=' . $lista_banners[$i]->getCodigo() . '\',\'editar\',\'width=' . ($lista_banners[$i]->getLargura() + 20) . ',height=' . $lista_banners[$i]->getAltura() . ',toolbar=no\');"><img src=' . $pathIcon16 . '/search.png' . ' width="16" height="16" border="0" alt="' . _AM_RWBANNER_VALUE_BTN2 . '" title="' . _AM_RWBANNER_VALUE_BTN2 . '"></a>
-          <a href="inser.php?id=' . $lista_banners[$i]->getCodigo() . '&op=editar"><img src=' . $pathIcon16 . '/edit.png' . ' width="16" height="16" border="0" alt="' . _AM_RWBANNER_VALUE_BTN3 . '" title="' . _AM_RWBANNER_VALUE_BTN3 . '"></a>
-          <a href="main.php?id=' . $lista_banners[$i]->getCodigo() . '&op=deletar"><img src=' . $pathIcon16 . '/delete.png' . ' width="16" height="16" border="0" alt="' . _AM_RWBANNER_VALUE_BTN4 . '" title="' . _AM_RWBANNER_VALUE_BTN4 . '"></a>
+          <a href="javascript:;" onClick="javascript: window.open(\'exibe.php?id='
+             . $lista_banners[$i]->getCodigo()
+             . '\',\'editar\',\'width='
+             . ($lista_banners[$i]->getLargura() + 20)
+             . ',height='
+             . $lista_banners[$i]->getAltura()
+             . ',toolbar=no\');"><img src='
+             . $pathIcon16
+             . '/search.png'
+             . ' width="16" height="16" border="0" alt="'
+             . _AM_RWBANNER_VALUE_BTN2
+             . '" title="'
+             . _AM_RWBANNER_VALUE_BTN2
+             . '"></a>
+          <a href="inser.php?id='
+             . $lista_banners[$i]->getCodigo()
+             . '&op=editar"><img src='
+             . $pathIcon16
+             . '/edit.png'
+             . ' width="16" height="16" border="0" alt="'
+             . _AM_RWBANNER_VALUE_BTN3
+             . '" title="'
+             . _AM_RWBANNER_VALUE_BTN3
+             . '"></a>
+          <a href="main.php?id='
+             . $lista_banners[$i]->getCodigo()
+             . '&op=deletar"><img src='
+             . $pathIcon16
+             . '/delete.png'
+             . ' width="16" height="16" border="0" alt="'
+             . _AM_RWBANNER_VALUE_BTN4
+             . '" title="'
+             . _AM_RWBANNER_VALUE_BTN4
+             . '"></a>
         </td>
       </tr>';
     }
@@ -268,25 +304,25 @@ function lista_banners($order = null, $seq = '', $limit = 10, $start = 0)
     } else {
         $extra_pag = '';
     }
-    $pagenav = new XoopsPageNav($total, $limit, $start, 'start', $extra_pag);
+    $pagenav = new \XoopsPageNav($total, $limit, $start, 'start', $extra_pag);
     $pag     = $pagenav->renderNav();
     echo '  <tr class="head">';
     echo '    <td align="left" colspan="12" nowrap="nowrap">' . _AM_RWBANNER_TOTAL_BANNER_LEG . ' ' . $total . '<br><div align="center">' . $pag . '</div></td>';
     echo '  </tr>';
     echo '</table> ';
-    echo '</div><br />';
+    echo '</div><br>';
 }
 
 function lista_categs()
 {
     global $xoopsModule;
 
-    $categ        = new Categoria();
-    $lista_categs = $categ->getCategorias('ORDER BY cod ASC');
+    $categ        = new Category();
+    $lista_categs = $categ->getCategories('ORDER BY cod ASC');
     global $pathIcon16;
 
     rwbanner_collapsableBar('categs', 'categsicon');
-    echo "<img id='categssicon' name='categsicon' src=" . XOOPS_URL . '/modules/' . $xoopsModule->dirname() . "/assets/images/icon/close12.gif alt='' /></a>&nbsp;" . _AM_RWBANNER_LIST_CATEG . '</h3>';
+    echo "<img id='categssicon' name='categsicon' src=" . XOOPS_URL . '/modules/' . $xoopsModule->dirname() . "/assets/images/icon/close12.gif alt=''></a>&nbsp;" . _AM_RWBANNER_LIST_CATEG . '</h3>';
     echo "<span style=\"color: #567; margin: 3px 0 12px 0; font-size: small; display: block; text-align:justify; \">" . _AM_RWBANNER_LIST_CATEG_DESC . '</span>';
     echo "<div id='categs'>";
 
@@ -306,7 +342,7 @@ function lista_categs()
         } else {
             $class = 'even';
         }
-        $banner = new RWbanners();
+        $banner = new Banner();
         $qtde   = 0;
         $qtde   = $banner->getRowNum($lista_categs[$i]->getCod());
         $banner->clearDb();
@@ -323,18 +359,18 @@ function lista_categs()
       </tr>';
     }
     echo '</table> ';
-    echo '</div><br />';
+    echo '</div><br>';
 }
 
 function lista_tags()
 {
     global $xoopsModule, $pathIcon16;
 
-    $tag        = new RWTag();
+    $tag        = new Tag();
     $lista_tags = $tag->getTags('ORDER BY id ASC');
 
     rwbanner_collapsableBar('tags', 'tagsicon');
-    echo "<img id='tagsicon' name='tagsicon' src=" . XOOPS_URL . '/modules/' . $xoopsModule->dirname() . "/assets/images/icon/close12.gif alt='' /></a>&nbsp;" . _AM_RWBANNER_LIST_TAG . '</h3>';
+    echo "<img id='tagsicon' name='tagsicon' src=" . XOOPS_URL . '/modules/' . $xoopsModule->dirname() . "/assets/images/icon/close12.gif alt=''></a>&nbsp;" . _AM_RWBANNER_LIST_TAG . '</h3>';
     echo "<span style=\"color: #567; margin: 3px 0 12px 0; font-size: small; display: block; text-align:justify; \">" . _AM_RWBANNER_LIST_TAG_DESC . '</span>';
     echo "<div id='tags'>";
 
@@ -386,18 +422,18 @@ function lista_tags()
       </tr>';
     }
     echo '</table> ';
-    echo '</div><br />';
+    echo '</div><br>';
 }
 
 function lista_users()
 {
     global $xoopsDB, $xoopsModule, $pathIcon16;
 
-    $categ        = new Categoria();
-    $lista_categs = $categ->getCategorias('ORDER BY cod ASC');
+    $categ        = new Category();
+    $lista_categs = $categ->getCategories('ORDER BY cod ASC');
 
     rwbanner_collapsableBar('users', 'usersicon');
-    echo "<img id='userssicon' name='usersicon' src=" . XOOPS_URL . '/modules/' . $xoopsModule->dirname() . "/assets/images/icon/close12.gif alt='' /></a>&nbsp;" . _AM_RWBANNER_LIST_USERS . '</h3>';
+    echo "<img id='userssicon' name='usersicon' src=" . XOOPS_URL . '/modules/' . $xoopsModule->dirname() . "/assets/images/icon/close12.gif alt=''></a>&nbsp;" . _AM_RWBANNER_LIST_USERS . '</h3>';
     echo "<span style=\"color: #567; margin: 3px 0 12px 0; font-size: small; display: block; text-align:justify; \">" . _AM_RWBANNER_LIST_USERS_DESC . '</span>';
     echo "<div id='users'>";
 
@@ -415,7 +451,7 @@ function lista_users()
     $class = 'even';
     $query = $xoopsDB->queryF('SELECT uid,uname,name,email FROM ' . $xoopsDB->prefix('users'));
     while (list($uid, $uname, $name, $email) = $xoopsDB->fetchRow($query)) {
-        $query1    = $xoopsDB->queryF('SELECT * FROM ' . $xoopsDB->prefix('rw_banner') . ' WHERE idcliente=' . $uid);
+        $query1    = $xoopsDB->queryF('SELECT * FROM ' . $xoopsDB->prefix('rwbanner_banner') . ' WHERE idcliente=' . $uid);
         $qtbanners = $xoopsDB->getRowsNum($query1);
         if ($qtbanners > 0) {
             if ($class === 'even') {

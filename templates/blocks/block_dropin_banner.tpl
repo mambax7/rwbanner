@@ -36,38 +36,38 @@
         var oldonload = window.onload;
         window.onload = function () {
             oldonload();
-            if (getCookie_Dropin('rw_banner_dropin') != null)
-                var i = getCookie_Dropin('rw_banner_dropin');
+            if (getCookie_Dropin('rwbanner_dropin') != null)
+                var i = getCookie_Dropin('rwbanner_dropin');
             else
                 var i = 0;
             if (i == freq) {
                 initbox();
-                setCookie_Dropin('rw_banner_dropin', 1);
+                setCookie_Dropin('rwbanner_dropin', 1);
             } else if (i == 0) {
                 initbox();
-                setCookie_Dropin('rw_banner_dropin', 1);
+                setCookie_Dropin('rwbanner_dropin', 1);
             } else {
-                var i = getCookie_Dropin('rw_banner_dropin');
+                var i = getCookie_Dropin('rwbanner_dropin');
                 i++;
-                setCookie_Dropin('rw_banner_dropin', i);
+                setCookie_Dropin('rwbanner_dropin', i);
             }
         }
     } else {
         window.onload = function () {
-            if (getCookie_Dropin('rw_banner_dropin') != null)
-                var i = getCookie_Dropin('rw_banner_dropin');
+            if (getCookie_Dropin('rwbanner_dropin') != null)
+                var i = getCookie_Dropin('rwbanner_dropin');
             else
                 var i = 0;
             if (i == freq) {
                 initbox();
-                setCookie_Dropin('rw_banner_dropin', 1);
+                setCookie_Dropin('rwbanner_dropin', 1);
             } else if (i == 0) {
                 initbox();
-                setCookie_Dropin('rw_banner_dropin', 1);
+                setCookie_Dropin('rwbanner_dropin', 1);
             } else {
-                var i = getCookie_Dropin('rw_banner_dropin');
+                var i = getCookie_Dropin('rwbanner_dropin');
                 i++;
-                setCookie_Dropin('rw_banner_dropin', i);
+                setCookie_Dropin('rwbanner_dropin', i);
             }
         }
     }
@@ -180,7 +180,7 @@
                     <div align="center">
                         <{$banner.htmlcode}>
                         <{if $block.qtde > "1"}>
-                            <br/>
+                            <br>
                         <{/if}>
                     </div>
                     <{if $banner.url != '' && $banner.url != '#'}>
@@ -208,14 +208,14 @@
                                 </embed>
                             </object>
                         <{else}>
-                            <img src="<{$banner.grafico}>" alt=""/>
+                            <img src="<{$banner.grafico}>" alt="">
                         <{/if}>
                         <{if $banner.url != '' && $banner.url != '#'}>
                     </a>
                     <{/if}>
                 </div>
                 <{if $block.qtde > "1"}>
-                    <br/>
+                    <br>
                 <{/if}>
             </td>
             <{if $cont == $block.cols}>

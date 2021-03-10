@@ -28,12 +28,16 @@
 // Project: RW-Banner                                                        //
 // Descrição: Sistema de gerenciamento de mídias publicitárias               //
 // ------------------------------------------------------------------------- //
-include_once(dirname(__DIR__) . '/class/class.tags.php');
+
+use XoopsModules\Rwbanner\{
+    Banner,
+    Tag
+};
 
 global $xoopsConfig;
 
-$valid_aligns = array('left', 'center', 'right');
-$tag          = new RWTag();
+$valid_aligns = ['left', 'center', 'right'];
+$tag          = new Tag();
 $lista_tags   = $tag->getTags('ORDER BY id ASC');
 $valid_tags   = $tag->getTags('ORDER BY id ASC', true);
 if (preg_match_all('/\[RW align=(.*)\](.*)\[\/RW\]/sU', $text, $texto)) {
@@ -48,7 +52,7 @@ if (preg_match_all('/\[RW align=(.*)\](.*)\[\/RW\]/sU', $text, $texto)) {
                 foreach ($lista_tags as $tag) {
                     if ($arr[$i]['tag'] == $tag->getName() && $tag->getStatus() == 1) {
                         if (in_array($arr[$i]['algin'], $valid_aligns)) {
-                            $banner     = new RWbanners();
+                            $banner     = new Banner();
                             $patterns[] = "/\[RW align=" . $arr[$i]['algin'] . ']' . $tag->getName() . "\[\/RW\]/sU";
                             if ($tag->isRandom) {
                                 $replacements[] = $banner->showBanner($tag->getCateg(), $tag->getQtde(), $tag->getCols(), $arr[$i]['algin']);

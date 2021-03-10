@@ -22,6 +22,7 @@
   along with this program; if not, write to the Free Software
   Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA
 */
+
 /**
  * XOOPS rwbanner Admin menu
  *
@@ -32,57 +33,56 @@
  *
  */
 
-// defined('XOOPS_ROOT_PATH') || exit('XOOPS root path not defined');
-
-$dirname        = basename(dirname(__DIR__));
-$module_handler = xoops_getHandler('module');
-$module         = $module_handler->getByDirname($dirname);
-$pathIcon32     = $module->getInfo('icons32');
+$dirname = \basename(\dirname(__DIR__));
+/** @var \XoopsModuleHandler $moduleHandler */
+$moduleHandler = xoops_getHandler('module');
+$module        = $moduleHandler->getByDirname($dirname);
+$pathIcon32    = $module->getInfo('icons32');
 
 xoops_loadLanguage('admin', $dirname);
 
-$adminmenu = array();
+$adminmenu = [];
 
-$adminmenu[] = array(
+$adminmenu[] = [
     'title' => _MI_RWBANNER_MENU_TITLE0,
     'link'  => 'admin/index.php',
-    'icon'  => $pathIcon32 . '/home.png'
-);
+    'icon'  => $pathIcon32 . '/home.png',
+];
 
-$adminmenu[] = array(
+$adminmenu[] = [
     'title' => _MI_RWBANNER_MENU_TITLE1,
     'link'  => 'admin/main.php',
-    'icon'  => $pathIcon32 . '/manage.png'
-);
+    'icon'  => $pathIcon32 . '/manage.png',
+];
 
 //++$i;
 //$adminmenu[$i]["title"] = _MI_RWBANNER_MENU_TITLE2;
 //$adminmenu[$i]["link"] = "admin/myblocksadmin.php";
 //$adminmenu[$i]["icon"] = $pathIcon32.'/block.png';
 
-$adminmenu[] = array(
+$adminmenu[] = [
     'title' => _MI_RWBANNER_MENU_TITLE3,
     'link'  => 'admin/inser.php',
-    'icon'  => '././assets/images/icon/32/page_add.png'
-);
+    'icon'  => '././assets/images/icon/32/page_add.png',
+];
 
-$adminmenu[] = array(
+$adminmenu[] = [
     'title' => _MI_RWBANNER_MENU_TITLE4,
     'link'  => 'admin/insercateg.php',
-    'icon'  => $pathIcon32 . '/categoryadd.png'
-);
+    'icon'  => $pathIcon32 . '/categoryadd.png',
+];
 
-$adminmenu[] = array(
+$adminmenu[] = [
     'title' => _MI_RWBANNER_MENU_TITLE8,
     'link'  => 'admin/insertag.php',
-    'icon'  => '././assets/images/icon/32/tag_blue_add.png'
-);
+    'icon'  => '././assets/images/icon/32/tag_blue_add.png',
+];
 
-$adminmenu[] = array(
+$adminmenu[] = [
     'title' => _AM_RWBANNER_IMPORT,
     'link'  => 'admin/import.php',
-    'icon'  => $pathIcon32 . '/download.png'
-);
+    'icon'  => $pathIcon32 . '/download.png',
+];
 
 //++$i;
 //$adminmenu[$i]["title"] = _AM_RWBANNER_PERMISSIONS;
@@ -94,8 +94,8 @@ $adminmenu[] = array(
 //$adminmenu[$i]["link"] = "admin/about2.php";
 //$adminmenu[$i]["icon"] = $pathIcon32.'/about.png';
 
-$adminmenu[] = array(
+$adminmenu[] = [
     'title' => _MI_RWBANNER_MENU_TITLE6,
     'link'  => 'admin/about.php',
-    'icon'  => $pathIcon32 . '/about.png'
-);
+    'icon'  => $pathIcon32 . '/about.png',
+];

@@ -35,7 +35,6 @@
  */
 function rwbanner_adminMenu($currentoption = 0, $breadcrumb = '')
 {
-
     /* Nice buttons styles */
     echo "
         <style type='text/css'>
@@ -59,16 +58,26 @@ function rwbanner_adminMenu($currentoption = 0, $breadcrumb = '')
     // global $xoopsDB, $xoopsModule, $xoopsConfig, $xoopsModuleConfig;
     global $xoopsModule, $xoopsConfig;
 
-    $myts = MyTextSanitizer::getInstance();
+    $myts = \MyTextSanitizer::getInstance();
 
-    $tblColors                 = array();
+    $tblColors                 = [];
     $tblColors[0]              = $tblColors[1] = $tblColors[2] = $tblColors[3] = $tblColors[4] = $tblColors[5] = $tblColors[6] = $tblColors[7] = $tblColors[8] = '';
     $tblColors[$currentoption] = 'current';
 
     echo "<div id='buttontop'>";
     echo "<table style=\"width: 100%; padding: 0; \" cellspacing=\"0\"><tr>";
     //echo "<td style=\"width: 45%; font-size: 10px; text-align: left; color: #2F5376; padding: 0 6px; line-height: 18px;\"><a class=\"nobutton\" href=\"../../system/admin.php?fct=preferences&amp;op=showmod&amp;mod=" . $xoopsModule->getVar('mid') . "\">" . _AM_SPARTNER_OPTS . "</a> | <a href=\"../index.php\">" . _AM_SPARTNER_GOMOD . "</a> | <a href=\"import.php\">" . _AM_SPARTNER_IMPORT . "</a> | <a href='" . smartpartner_getHelpPath() ."' target=\"_blank\">" . _AM_SPARTNER_HELP . "</a> | <a href=\"about.php\">" . _AM_SPARTNER_ABOUT . "</a></td>";
-    echo "<td style=\"width: 45%; font-size: 10px; text-align: left; color: #2F5376; padding: 0 6px; line-height: 18px;\"><a href=\"../../system/admin.php?fct=preferences&amp;op=showmod&amp;mod=" . $xoopsModule->getVar('mid') . "\">" . _AM_RWBANNER_PREF . "</a> | <a href=\"http://rwbanner.brinfo.com.br\" target=\"_blank\">" . _AM_RWBANNER_DEMO . "</a> | <a href=\"import.php\">" . _AM_RWBANNER_IMPORT . "</a> | <a href=\"about.php\">" . _AM_RWBANNER_ABOUT . '</a></td>';
+    echo "<td style=\"width: 45%; font-size: 10px; text-align: left; color: #2F5376; padding: 0 6px; line-height: 18px;\"><a href=\"../../system/admin.php?fct=preferences&amp;op=showmod&amp;mod="
+         . $xoopsModule->getVar('mid')
+         . "\">"
+         . _AM_RWBANNER_PREF
+         . "</a> | <a href=\"http://rwbanner.brinfo.com.br\" target=\"_blank\">"
+         . _AM_RWBANNER_DEMO
+         . "</a> | <a href=\"import.php\">"
+         . _AM_RWBANNER_IMPORT
+         . "</a> | <a href=\"about.php\">"
+         . _AM_RWBANNER_ABOUT
+         . '</a></td>';
     echo "<td style=\"width: 55%; font-size: 10px; text-align: right; color: #2F5376; padding: 0 6px; line-height: 18px;\"><b>" . $myts->displayTarea($xoopsModule->name()) . ' ' . _AM_RWBANNER_MODADMIN . '</b> ' . $breadcrumb . '</td>';
     echo '</tr></table>';
     echo '</div>';
@@ -160,7 +169,7 @@ function somaData($data, $qDias)
         $tira   = 0;
         $diaAnt = $dia;
         $maxDia = date('t', strtotime($ano . $mes . $dia));
-        $dia += $qDias;
+        $dia    += $qDias;
         if ($dia > $maxDia) {
             $dia = 1;
             ++$mes;
@@ -197,9 +206,9 @@ function escreveData($data)
 
     $convertedia = date('w', mktime(0, 0, 0, $varmes, $vardia, $varano));
 
-    $diaSemana = array('Domingo', 'Segunda-feira', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sábado');
+    $diaSemana = ['Domingo', 'Segunda-feira', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sábado'];
 
-    $mes = array('Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro');
+    $mes = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'];
 
     return $diaSemana[$convertedia] . ', ' . $vardia . ' de ' . $mes[$varmes] . ' de ' . $varano;
 }
@@ -248,7 +257,7 @@ function EmailStats($bid)
     $email = $xoopsUser->getVar('email');
     $name  = ($xoopsUser->getVar('name') == '') ? $xoopsUser->getVar('uname') : $xoopsUser->getVar('name');
 
-    $result = $xoopsDB->query('select * from ' . $xoopsDB->prefix('rw_banner') . " where codigo=$bid and idcliente=$uid");
+    $result = $xoopsDB->query('select * from ' . $xoopsDB->prefix('rwbanner_banner') . " where codigo=$bid and idcliente=$uid");
     $row    = $xoopsDB->fetchArray($result);
 
     if ($row['exibicoes'] == 0) {
@@ -277,8 +286,59 @@ function EmailStats($bid)
     $row['data'] = converte($row['data'], 'BR', false);
     $fecha       = escreveData(date('Y-n-d'));
     $subject     = _MD_RWBANNER_SUBJECT_EMAILSTATS . ' ' . $xoopsConfig['sitename'];
-    $message     = _MD_RWBANNER_BODY1_EMAILSTATS . ' ' . $xoopsConfig['sitename'] . ":\n\n\n" . _MD_RWBANNER_BODY2_EMAILSTATS . " $name\n" . _MD_RWBANNER_BODY3_EMAILSTATS . " $bid\n" . _MD_RWBANNER_BODY4_EMAILSTATS . ' ' . $row['grafico'] . "\n" . _MD_RWBANNER_BODY5_EMAILSTATS . ' ' . $row['url'] . "\n\n" . _MD_RWBANNER_BODY6_EMAILSTATS . ' ' . $row['maxexib'] . "\n" . _MD_RWBANNER_BODY7_EMAILSTATS . ' ' . $row['exibicoes'] . "\n" . _MD_RWBANNER_BODY8_EMAILSTATS . " $left\n" . _MD_RWBANNER_BODY11_EMAILSTATS . ' ' . $row['maxclick'] . "\n" . _MD_RWBANNER_BODY9_EMAILSTATS . ' ' . $row['clicks'] . "\n" . _MD_RWBANNER_BODY10_EMAILSTATS . " $percent%\n" . _MD_RWBANNER_BODY12_EMAILSTATS . " $left_clicks\n" . _MD_RWBANNER_BODY13_EMAILSTATS . ' ' . $row['data'] . "\n" . _MD_RWBANNER_BODY14_EMAILSTATS . ' ' . $row['periodo'] . ' ' . _MD_RWBANNER_BODY17_EMAILSTATS . "\n" . _MD_RWBANNER_BODY15_EMAILSTATS . " $left_periodo\n\n\n" . _MD_RWBANNER_BODY16_EMAILSTATS . " $fecha";
-    $xoopsMailer =& getMailer();
+    $message     = _MD_RWBANNER_BODY1_EMAILSTATS
+                   . ' '
+                   . $xoopsConfig['sitename']
+                   . ":\n\n\n"
+                   . _MD_RWBANNER_BODY2_EMAILSTATS
+                   . " $name\n"
+                   . _MD_RWBANNER_BODY3_EMAILSTATS
+                   . " $bid\n"
+                   . _MD_RWBANNER_BODY4_EMAILSTATS
+                   . ' '
+                   . $row['grafico']
+                   . "\n"
+                   . _MD_RWBANNER_BODY5_EMAILSTATS
+                   . ' '
+                   . $row['url']
+                   . "\n\n"
+                   . _MD_RWBANNER_BODY6_EMAILSTATS
+                   . ' '
+                   . $row['maxexib']
+                   . "\n"
+                   . _MD_RWBANNER_BODY7_EMAILSTATS
+                   . ' '
+                   . $row['exibicoes']
+                   . "\n"
+                   . _MD_RWBANNER_BODY8_EMAILSTATS
+                   . " $left\n"
+                   . _MD_RWBANNER_BODY11_EMAILSTATS
+                   . ' '
+                   . $row['maxclick']
+                   . "\n"
+                   . _MD_RWBANNER_BODY9_EMAILSTATS
+                   . ' '
+                   . $row['clicks']
+                   . "\n"
+                   . _MD_RWBANNER_BODY10_EMAILSTATS
+                   . " $percent%\n"
+                   . _MD_RWBANNER_BODY12_EMAILSTATS
+                   . " $left_clicks\n"
+                   . _MD_RWBANNER_BODY13_EMAILSTATS
+                   . ' '
+                   . $row['data']
+                   . "\n"
+                   . _MD_RWBANNER_BODY14_EMAILSTATS
+                   . ' '
+                   . $row['periodo']
+                   . ' '
+                   . _MD_RWBANNER_BODY17_EMAILSTATS
+                   . "\n"
+                   . _MD_RWBANNER_BODY15_EMAILSTATS
+                   . " $left_periodo\n\n\n"
+                   . _MD_RWBANNER_BODY16_EMAILSTATS
+                   . " $fecha";
+    $xoopsMailer = getMailer();
     $xoopsMailer->useMail();
     $xoopsMailer->setToEmails($email);
     $xoopsMailer->setFromEmail($xoopsConfig['adminmail']);
@@ -299,7 +359,7 @@ function EmailStats($bid)
 function &rwbanner_getModuleInfo()
 {
     static $rwModule;
-    $dirname = basename(dirname(__DIR__));
+    $dirname = \basename(\dirname(__DIR__));
     if (!isset($rwModule)) {
         global $xoopsModule;
         if (isset($xoopsModule) && is_object($xoopsModule) && $xoopsModule->getVar('dirname') == $dirname) {
@@ -323,7 +383,7 @@ function rwbanner_getModuleConfig()
         global $xoopsModule;
         if (isset($xoopsModule) && is_object($xoopsModule) && $xoopsModule->getVar('dirname') == basename(dirname(__DIR__))) {
             global $xoopsModuleConfig;
-            $rwConfig =& $xoopsModuleConfig;
+            $rwConfig = $xoopsModuleConfig;
         } else {
             $rwModule   =& rwbanner_getModuleInfo();
             $hModConfig = xoops_getHandler('config');
@@ -337,11 +397,11 @@ function rwbanner_getModuleConfig()
 /**
  * Verify that a mysql table exists
  *
- * @package       News
- * @author        Hervé Thouzard (www.herve-thouzard.com)
- * @copyright (c) XOOPS Project (https://xoops.org)
  * @param $tablename
  * @return bool
+ * @copyright (c) XOOPS Project (https://xoops.org)
+ * @package       News
+ * @author        Hervé Thouzard (www.herve-thouzard.com)
  */
 function rwTableExists($tablename)
 {
@@ -354,12 +414,12 @@ function rwTableExists($tablename)
 /**
  * Verify that a field exists inside a mysql table
  *
- * @package       News
- * @author        Hervé Thouzard (www.herve-thouzard.com)
- * @copyright (c) XOOPS Project (https://xoops.org)
  * @param $fieldname
  * @param $table
  * @return bool
+ * @package       News
+ * @author        Hervé Thouzard (www.herve-thouzard.com)
+ * @copyright (c) XOOPS Project (https://xoops.org)
  */
 function rwFieldExists($fieldname, $table)
 {
@@ -372,12 +432,12 @@ function rwFieldExists($fieldname, $table)
 /**
  * Add a field to a mysql table
  *
- * @package       News
- * @author        Hervé Thouzard (www.herve-thouzard.com)
- * @copyright (c) XOOPS Project (https://xoops.org)
  * @param $field
  * @param $table
  * @return
+ * @package       News
+ * @author        Hervé Thouzard (www.herve-thouzard.com)
+ * @copyright (c) XOOPS Project (https://xoops.org)
  */
 function rwAddField($field, $table)
 {
@@ -390,11 +450,11 @@ function rwAddField($field, $table)
 /**
  * Remove a field to a mysql table
  *
- * @package RW-Banner
- * @author  Rodrigo Pereira Lima aka RpLima (http://www.brinfo.com.br)
  * @param $field
  * @param $table
  * @return
+ * @author  Rodrigo Pereira Lima aka RpLima (http://www.brinfo.com.br)
+ * @package RW-Banner
  */
 function rwRemoveField($field, $table)
 {

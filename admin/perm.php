@@ -1,24 +1,27 @@
 <?php
+
 //
-include_once __DIR__ . '/admin_header.php';
+use Xmf\Module\Admin;
+
+require_once __DIR__ . '/admin_header.php';
 // Функции модуля
-include dirname(__DIR__) . '/include/functions.php';
+require dirname(__DIR__) . '/include/functions.php';
 
 // Admin Gui
-$indexAdmin = new ModuleAdmin();
+$adminObject = Admin::getInstance();
 
 // Подключаем форму прав
-include_once $GLOBALS['xoops']->path('class/xoopsform/grouppermform.php');
+require_once $GLOBALS['xoops']->path('class/xoopsform/grouppermform.php');
 
 // Заголовок админки
 xoops_cp_header();
 // Меню
 //loadModuleAdminMenu( 3, _AM_INSTRUCTION_BC_PERM );
-$xoopsTpl->assign('insNavigation', $indexAdmin->addNavigation('perm.php'));
+$xoopsTpl->assign('insNavigation', $adminObject->displayNavigation('perm.php'));
 
 $permission = instr_CleanVars($_REQUEST, 'permission', 1, 'int');
 //$permission = isset( $_POST['permission'] ) ? (int)( $_POST['permission'] ): 1;
-$selected                  = array('', '', '');
+$selected                  = ['', '', ''];
 $selected[$permission - 1] = ' selected';
 
 //
@@ -48,12 +51,12 @@ switch ($permission) {
 }
 
 // Права
-$permissionsForm = new XoopsGroupPermForm($formTitle, $moduleId, $permissionName, $permissionDescription, 'admin/perm.php?permission=' . $permission);
+$permissionsForm = new \XoopsGroupPermForm($formTitle, $moduleId, $permissionName, $permissionDescription, 'admin/perm.php?permission=' . $permission);
 
 $sql    = 'SELECT cid, pid, title FROM ' . $xoopsDB->prefix('instruction_cat') . ' ORDER BY title';
 $result = $xoopsDB->query($sql);
 if ($result) {
-    while ($row = $xoopsDB->fetchArray($result)) {
+    while (false !== ($row = $xoopsDB->fetchArray($result))) {
         $permissionsForm->addItem($row['cid'], $row['title'], $row['pid']);
     }
 }
@@ -66,6 +69,6 @@ unset($permissionsForm);
 // Выводим шаблон
 $GLOBALS['xoopsTpl']->display('db:instruction_admin_perm.tpl');
 // Текст внизу админки
-include_once __DIR__ . '/admin_footer.php';
+require_once __DIR__ . '/admin_footer.php';
 // Подвал админки
 xoops_cp_footer();

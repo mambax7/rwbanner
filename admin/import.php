@@ -23,7 +23,13 @@
   Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA
 */
 
-include_once __DIR__ . '/admin_header.php';
+use Xmf\Module\Admin;
+use XoopsModules\Rwbanner\{
+    Banner,
+    Category
+};
+
+require_once __DIR__ . '/admin_header.php';
 xoops_cp_header();
 
 $op = isset($_POST['op']) ? $_POST['op'] : 'show';
@@ -41,15 +47,15 @@ switch ($op) {
 function BannersAdmin()
 {
     global $xoopsConfig, $xoopsModule;
-    $xoopsDB = XoopsDatabaseFactory::getDatabaseConnection();
-    //    include_once __DIR__ . '/admin_header.php';
+    $xoopsDB = \XoopsDatabaseFactory::getDatabaseConnection();
+    //    require_once __DIR__ . '/admin_header.php';
     //    xoops_cp_header();
-    $indexAdmin = new ModuleAdmin();
-    echo $indexAdmin->addNavigation('import.php');
-    include_once dirname(__DIR__) . '/class/class.categoria.php';
+    $adminObject = Admin::getInstance();
+    $adminObject->displayNavigation('import.php');
+
     $impmade      = $imptotal = 0;
-    $categ        = new Categoria();
-    $lista_categs = $categ->getCategorias('ORDER BY cod ASC');
+    $categ        = new Category();
+    $lista_categs = $categ->getCategories('ORDER BY cod ASC');
 
     echo '<script>
           function pega()
@@ -85,7 +91,7 @@ function BannersAdmin()
           </script>';
 
     echo '<form name="formimport" id="formimport" method="post" action="" onsubmit="return pega();">';
-    echo "<div style='text-align:center'><b>" . _AM_RWBANNER_IMPORT_TITLE . "</b></div><br />
+    echo "<div style='text-align:center'><b>" . _AM_RWBANNER_IMPORT_TITLE . "</b></div><br>
     <table width='100%' border='0' class='outer'><tr>
     <th align='center'>" . _AM_RWBANNER_TITLE2 . "</td>
     <th align='center'>" . _AM_RWBANNER_IMPORT_TITLE1 . "</td>
@@ -94,7 +100,7 @@ function BannersAdmin()
     <th align='center'>" . _AM_RWBANNER_IMPORT_TITLE3 . '</td>';
     echo '</tr>';
     $result = $xoopsDB->query('SELECT bid, cid FROM ' . $xoopsDB->prefix('banner') . ' ORDER BY bid');
-    $myts   = MyTextSanitizer::getInstance();
+    $myts   = \MyTextSanitizer::getInstance();
     $class  = '';
     while (list($bid, $cid) = $xoopsDB->fetchRow($result)) {
         if ($class === 'even') {
@@ -103,8 +109,8 @@ function BannersAdmin()
             $class = 'even';
         }
         $result2 = $xoopsDB->query('SELECT cid, name FROM ' . $xoopsDB->prefix('bannerclient') . " WHERE cid=$cid");
-        list($cid, $name) = $xoopsDB->fetchRow($result2);
-        $name = $myts->htmlSpecialChars($name);
+        [$cid, $name] = $xoopsDB->fetchRow($result2);
+        $name = htmlspecialchars($name);
         if ($impmade == 0) {
             $percent = 0;
         } else {
@@ -120,8 +126,8 @@ function BannersAdmin()
             $categs .= '<option value="' . $lista_categs[$i]->getCod() . '">' . $lista_categs[$i]->getTitulo() . '</option>';
         }
         $categs .= '</select>';
-        $rwuid = '<select name="rwuid' . $bid . '" id="rwuid' . $bid . '">';
-        $query = $xoopsDB->queryF('SELECT uid,uname FROM ' . $xoopsDB->prefix('users') . ' ORDER BY uname ASC');
+        $rwuid  = '<select name="rwuid' . $bid . '" id="rwuid' . $bid . '">';
+        $query  = $xoopsDB->queryF('SELECT uid,uname FROM ' . $xoopsDB->prefix('users') . ' ORDER BY uname ASC');
         while (list($uid, $uname) = $xoopsDB->fetchRow($query)) {
             $rwuid .= '<option value="' . $uid . '">' . $uname . '</option>';
         }
@@ -138,7 +144,7 @@ function BannersAdmin()
     echo '<tr class="head"><td colspan="4" align="center"><input type="submit" value=' . _AM_RWBANNER_IMPORT . ' ></td><td align="center"><input type="checkbox" id="selall" onClick="Selall(this.checked);"></td></tr>';
     echo '</table></form>';
     //xoops_cp_footer();
-    include_once __DIR__ . '/admin_footer.php';
+    require_once __DIR__ . '/admin_footer.php';
 }
 
 /**
@@ -147,9 +153,9 @@ function BannersAdmin()
 function import($dados)
 {
     global $xoopsDB;
-    include_once dirname(__DIR__) . '/class/class.banner.php';
 
-    $banners = array();
+
+    $banners = [];
     for ($i = 0; $i <= count($dados) - 1; ++$i) {
         $ban                      = explode('|', $dados[$i]);
         $query                    = $xoopsDB->query('SELECT * FROM ' . $xoopsDB->prefix('banner') . ' WHERE bid=' . $ban[0]);
@@ -175,7 +181,7 @@ function import($dados)
     }
     $errors = 0;
     for ($i = 0; $i <= count($banners) - 1; ++$i) {
-        $banner = new RWbanners($banners[$i]);
+        $banner = new Banner($banners[$i]);
         if (!$banner->grava()) {
             ++$errors;
         }

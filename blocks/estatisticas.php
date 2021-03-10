@@ -22,25 +22,30 @@
   along with this program; if not, write to the Free Software
   Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA
 */
+
+use XoopsModules\Rwbanner\{
+    Banner
+};
+
 /**
  * XOOPS rwbanner Statistics block
  *
- * @copyright::  {@link www.brinfo.com.br BrInfo - Soluções Web}
- * @license  ::    {@link http://www.fsf.org/copyleft/gpl.html GNU public license}
- * @author   ::     Rodrigo Pereira Lima aka RpLima (http://www.bcsg.com.br/rwbanner)
- * @package  ::    rwbanner
  * @param $options
  * @return array
+ * @author   ::     Rodrigo Pereira Lima aka RpLima (http://www.bcsg.com.br/rwbanner)
+ * @package  ::    rwbanner
+ * @copyright::  {@link www.brinfo.com.br BrInfo - Soluções Web}
+ * @license  ::    {@link http://www.fsf.org/copyleft/gpl.html GNU public license}
  */
 
 function estatisticas_banner($options)
 {
     global $xoopsUser, $xoopsConfig;
-    include_once dirname(__DIR__) . '/class/class.banner.php';
-    include_once(XOOPS_ROOT_PATH . '/class/pagenav.php');
+
+    require_once XOOPS_ROOT_PATH . '/class/pagenav.php';
 
     if ($xoopsUser) {
-        $block          = array();
+        $block          = [];
         $block['title'] = _MI_RWBANNER_BLOCK2_NAME;
 
         $uid = $xoopsUser->getVar('uid');
@@ -71,20 +76,20 @@ function estatisticas_banner($options)
         <option value="DESC"' . $sel6 . '>DESC</option>
       </select>';
 
-        $qtdes            = array('5', '10', '15', '20');
+        $qtdes            = ['5', '10', '15', '20'];
         $block['select1'] = '<select name="limit">';
         for ($i = 0; $i <= count($qtdes) - 1; ++$i) {
-            $sel7 = ($limit == $qtdes[$i]) ? ' selected="selected"' : '';
+            $sel7             = ($limit == $qtdes[$i]) ? ' selected="selected"' : '';
             $block['select1'] .= '<option value="' . $qtdes[$i] . '"' . $sel7 . '>' . $qtdes[$i] . '</option>';
         }
         $block['select1'] .= '</select>';
 
-        $banner = new RWbanners();
+        $banner = new Banner();
         $arr    = $banner->getAllByClient($uid, $ord, null, $limit, $start);
         $total  = $banner->getRowNum(null, $uid);
 
-        $arr2 = array();
-        $arr3 = array();
+        $arr2 = [];
+        $arr3 = [];
         for ($i = 0; $i <= count($arr) - 1; ++$i) {
             foreach ($arr[$i] as $key => $value) {
                 $arr2[$key] = $value;
@@ -95,7 +100,19 @@ function estatisticas_banner($options)
             $arr3[$i]['exibrest'] = ($arr3[$i]['maxexib'] == 0) ? _MB_RWBANNER_EXIBREST : round($arr3[$i]['maxexib'] - $arr3[$i]['exibicoes']);
             $arr3[$i]['perc']     = ($arr3[$i]['clicks'] != 0 && $arr3[$i]['exibicoes'] != 0) ? round(($arr3[$i]['clicks'] / $arr3[$i]['exibicoes']) * 100, 2) : 0;
             $arr3[$i]['class']    = ($arr3[$i]['status'] == 0) ? 'desativ' : 'ativ';
-            $arr3[$i]['link']     = '<a class="' . $arr3[$i]['class'] . '" href="javascript:void(0);" onclick="javascript: window.open(\'' . dirname(__DIR__) . '/admin/exibe.php?id=' . $arr3[$i]['codigo'] . '\',\'editar\',\'width=' . ($arr3[$i]['larg'] + 20) . ',height=' . $arr3[$i]['alt'] . ',toolbar=no\');">' . $arr3[$i]['codigo'] . '</a>';
+            $arr3[$i]['link']     = '<a class="'
+                                    . $arr3[$i]['class']
+                                    . '" href="javascript:void(0);" onclick="javascript: window.open(\''
+                                    . dirname(__DIR__)
+                                    . '/admin/exibe.php?id='
+                                    . $arr3[$i]['codigo']
+                                    . '\',\'editar\',\'width='
+                                    . ($arr3[$i]['larg'] + 20)
+                                    . ',height='
+                                    . $arr3[$i]['alt']
+                                    . ',toolbar=no\');">'
+                                    . $arr3[$i]['codigo']
+                                    . '</a>';
             $data                 = $arr3[$i]['data'];
             $periodo              = $arr3[$i]['periodo'];
             $maxdata              = somaData($data, $periodo);
@@ -115,11 +132,11 @@ function estatisticas_banner($options)
             for ($i = 0; $i <= count($arr_qs) - $n; ++$i) {
                 $extra_pag .= $arr_qs[$i] . '&';
             }
-            $extra_pag = substr($extra_pag, 0, - 1);
+            $extra_pag = substr($extra_pag, 0, -1);
         } else {
             $extra_pag = '';
         }
-        $pagenav      = new XoopsPageNav($total, $limit, $start, 'start', $extra_pag);
+        $pagenav      = new \XoopsPageNav($total, $limit, $start, 'start', $extra_pag);
         $block['pag'] = $pagenav->renderNav();
 
         $block['lang_msg1']    = _MB_RWBANNER_MSG1;

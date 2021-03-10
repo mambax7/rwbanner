@@ -22,6 +22,7 @@
   along with this program; if not, write to the Free Software
   Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA
 */
+
 /**
  * Administration Language Defines
  *
@@ -55,7 +56,7 @@ define('_AM_RWBANNER_MSG7', 'There was a problem editing the category.');
 define('_AM_RWBANNER_MSG17', 'Default upload folder for banners created successfully!');
 define('_AM_RWBANNER_MSG18', 'There was an error creating the default upload folder for the banners! Please, try again.');
 define('_AM_RWBANNER_MSG19', 'Are you sure you want to delete this banner?');
-define('_AM_RWBANNER_MSG20', 'Are you sure you want to remove this tag?<br />WARNING: By deleting the tag from the database, also remove it from the templates it was being used to avoid any problems.');
+define('_AM_RWBANNER_MSG20', 'Are you sure you want to remove this tag?<br >WARNING: By deleting the tag from the database, also remove it from the templates it was being used to avoid any problems.');
 define('_AM_RWBANNER_MSG21', 'Tag deleted successfully!');
 define('_AM_RWBANNER_MSG22', 'Tag added successfully!');
 define('_AM_RWBANNER_MSG23', 'There was a problem adding the tag.');
@@ -93,7 +94,10 @@ define('_AM_RWBANNER_TITLE39', 'CLICKS LEFT.');
 //define('_AM_RWBANNER_TITLE47', 'Insert here the CSS for the block. Pay attention, in the field there is already a CSS model for a default block, don\'t change the name of the classes, simply adapt them to your needs.');
 //define('_AM_RWBANNER_TITLE48', 'Insert here a brief description of the block. We recommend to write here the template with which it is used and further information that can show clearly the purpose of the block.');
 //define('_AM_RWBANNER_TITLE49', 'INCLUSION ID');
-define('_AM_RWBANNER_TITLE50', 'Click on the button "Generate" to create the inclusion code for the block. This code should be inserted in the template, in the exact place where the banner block will be shown. Remember that the color, position, font and size formats depend on the CSS chosen by you in this screen.');
+define(
+    '_AM_RWBANNER_TITLE50',
+    'Click on the button "Generate" to create the inclusion code for the block. This code should be inserted in the template, in the exact place where the banner block will be shown. Remember that the color, position, font and size formats depend on the CSS chosen by you in this screen.'
+);
 define('_AM_RWBANNER_TITLE51', 'Generate inclusion code');
 //define('_AM_RWBANNER_TITLE52', 'FILE');
 //define('_AM_RWBANNER_TITLE53', 'The time has to be set in milliseconds. E.g.: If you want to change the banners every 10 seconds, insert the value of 10000 milliseconds. For 30 seconds, 30000 milliseconds and so on.');
@@ -165,9 +169,12 @@ define('_AM_RWBANNER_LIST_CATEG_DESC', 'List of all registered categories in the
 define('_AM_RWBANNER_LIST_USERS', 'List all clients with banners');
 define('_AM_RWBANNER_LIST_USERS_DESC', 'List of all registered users that have banners registered in the system.');
 define('_AM_RWBANNER_LIST_TAG', 'Registered Smarty Tags list');
-define('_AM_RWBANNER_LIST_TAG_DESC', 'List of all registered smarty tags in the system. These tags are automatically created when the site is started and shows the blocks in your site\'s theme or in the templates from the modules according to your defined configuration. To show the banners in the templates or in the theme edit the desired file including the tag in the exact place where the banners should be shown. You can deactivate the tags at any time clicking on the icon in the status column but remember that only the active tags will show banners.<br /><fieldset><p style=\'color:#FF7F27; text-align: center;\'><b>NOTICE:</b> To activate the TAGS BBcode function it is necessary to hack the XOOPS core, to learn how to apply this hack read the README.TXT file</p></fieldset>');
+define(
+    '_AM_RWBANNER_LIST_TAG_DESC',
+    'List of all registered smarty tags in the system. These tags are automatically created when the site is started and shows the blocks in your site\'s theme or in the templates from the modules according to your defined configuration. To show the banners in the templates or in the theme edit the desired file including the tag in the exact place where the banners should be shown. You can deactivate the tags at any time clicking on the icon in the status column but remember that only the active tags will show banners.<br ><fieldset><p style=\'color:#FF7F27; text-align: center;\'><b>NOTICE:</b> To activate the TAGS BBcode function it is necessary to hack the XOOPS core, to learn how to apply this hack read the README.TXT file</p></fieldset>'
+);
 
-define('_AM_RWBANNER_NODIR', 'The default upload folder for the banners does not exist or is inaccessible.<br /><span style="color:red">Default folder: "%s"</span> <a href="main.php?op=criardir">Create folder</a>');
+define('_AM_RWBANNER_NODIR', 'The default upload folder for the banners does not exist or is inaccessible.<br ><span style="color:red">Default folder: "%s"</span> <a href="main.php?op=criardir">Create folder</a>');
 
 define('_AM_RWBANNER_TOTAL_BANNER_LEG', 'Total Registered Banners:');
 define('_AM_RWBANNER_NO_USERS', 'There are no clients with banners');
@@ -233,7 +240,10 @@ define('_AM_RWBANNER_UPGRADEFAILED3', 'Error while creating the TAGS table!');
 
 define('_AM_RWBANNER_UPGRADECOMPLETE', 'Tables have been updated! Follow the steps below to activate all the module resources and after that click on the following link.');
 define('_AM_RWBANNER_UPGRADECOMPLETE1', 'The code to show the banner in the theme and templates on your site was changed, you have to update the old code in the following file ".XOOPS_ROOT_PATH."/header.php using the code below:');
-define('_AM_RWBANNER_UPGRADECOMPLETE2', 'The module has a new feature: banner serving in text from other modules, allowing you to show your banners in any module that accepts bbcodes such as the news, articles, including forums. To activate this new feature, you have to hack the ".XOOPS_ROOT_PATH."/class/module.textsanitizer.php file.<br />The hack has to be applied in the end of the xoopsCodeDecode function. To make it easier, take a look at the the file: function_bbcode_xoops2015.txt in the docs folder in this module.');
+define(
+    '_AM_RWBANNER_UPGRADECOMPLETE2',
+    'The module has a new feature: banner serving in text from other modules, allowing you to show your banners in any module that accepts bbcodes such as the news, articles, including forums. To activate this new feature, you have to hack the ".XOOPS_ROOT_PATH."/class/module.textsanitizer.php file.<br >The hack has to be applied in the end of the xoopsCodeDecode function. To make it easier, take a look at the the file: function_bbcode_xoops2015.txt in the docs folder in this module.'
+);
 
 define('_AM_RWBANNER_UPDATEMODULE', 'Update Templates and Blocks');
 

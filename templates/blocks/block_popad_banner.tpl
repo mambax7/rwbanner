@@ -56,21 +56,21 @@
             adDiv.visibility = "visible";
         else
             adDiv.visibility = "show";
-        if (getCookie('rw_banner') != null)
-            var i = getCookie('rw_banner');
+        if (getCookie('rwbanner') != null)
+            var i = getCookie('rwbanner');
         else
             var i = 0;
         if (i == chanceAd) {
             showAd();
-            setCookie('rw_banner', 1);
+            setCookie('rwbanner', 1);
         } else if (i == 0) {
             showAd();
-            setCookie('rw_banner', 1);
+            setCookie('rwbanner', 1);
         } else {
             closeAd();
-            var i = getCookie('rw_banner');
+            var i = getCookie('rwbanner');
             i++;
-            setCookie('rw_banner', i);
+            setCookie('rwbanner', i);
         }
     }
     function showAd() {
@@ -138,7 +138,7 @@
                                             <div align="center">
                                                 <{$banner.htmlcode}>
                                                 <{if $block.qtde > "1"}>
-                                                    <br/>
+                                                    <br>
                                                 <{/if}>
                                             </div>
                                             <{if $banner.url != '' && $banner.url != '#'}>
@@ -167,14 +167,14 @@
                                                         </embed>
                                                     </object>
                                                 <{else}>
-                                                    <img src="<{$banner.grafico}>" alt=""/>
+                                                    <img src="<{$banner.grafico}>" alt="">
                                                 <{/if}>
                                                 <{if $banner.url != '' && $banner.url != '#'}>
                                             </a>
                                             <{/if}>
                                         </div>
                                         <{if $block.qtde > "1"}>
-                                            <br/>
+                                            <br>
                                         <{/if}>
                                     </td>
                                     <{if $cont == $block.cols}>

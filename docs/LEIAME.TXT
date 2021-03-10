@@ -118,7 +118,7 @@ acrescente, antes de } ?>, o código abaixo:
 #### Hack by rw-banner
 #### Cria variáveis smarty para exibir banner no tema do site e nos templates
 #######################################################################################
-$mod = XoopsModule::getByDirname("rw_banner");
+$mod = XoopsModule::getByDirname("rwbanner");
 if ($mod){
   include_once (dirname(__DIR__) .'/include/maketags.php');
 }
@@ -143,7 +143,7 @@ e procure pela função xoopsCodeDecode, no final dela você deverá colocar o c
 #### Hack by rw-banner
 #### Permite a exibição de banners randomicos em qualquer módulo que aceite bbcodes
 #######################################################################################
-$mod = XoopsModule::getByDirname("rw_banner");
+$mod = XoopsModule::getByDirname("rwbanner");
 if ($mod){
   include(dirname(__DIR__) .'/include/bbcode.php');
 }
@@ -190,7 +190,7 @@ O módulo sofreu uma  modificação  total  em sua estrutura, seja em banco de d
 scipts, praticamente foi todo  refeito.  Se você usa  versões  anteriores à 1.3 RC, nós
 recomendamos firmemente que você desinstale o módulo antes de instalar a nova versão.
 
-Caso você use uma  versão igual  ou superior à 1.3 RC, apague  a  pasta do rw_banner  e
+Caso você use uma  versão igual  ou superior à 1.3 RC, apague  a  pasta do rwbanner  e
 coloque no lugar a pasta da nova versão.
 
 Faça login no site como administrador.
@@ -220,7 +220,7 @@ Para maiores informações ou resolução de problemas do módulo acesse:
 
 http://rwbanner.brinfo.com.br
 
-Estaremos  dentro do possivel  sempre criando  exemplos de  como utilizar o rw_banner e
+Estaremos  dentro do possivel  sempre criando  exemplos de  como utilizar o rwbanner e
 assim você poderá obter o maior proveito possivel a utilizar este módulo.
 
 Se  você  estiver  utilizando  este  módulo, não  deixe de   visitar  o nosso  site  de

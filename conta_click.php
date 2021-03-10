@@ -29,14 +29,16 @@
 // Descrição: Sistema de gerenciamento de mídias publicitárias               //
 // ------------------------------------------------------------------------- //
 
+use XoopsModules\Rwbanner\{
+    Banner
+};
+
 error_reporting(0);
-include dirname(dirname(__DIR__)) . '/mainfile.php';
+require_once \dirname(__DIR__, 2) . '/mainfile.php';
 
 $id = $_GET['id'];
 
-include_once 'class/class.banner.php';
-
-$rwbanner = new RWbanners(null, $id);
+$rwbanner = new Banner(null, $id);
 
 $rwbanner->incClicks();
 

@@ -22,6 +22,7 @@
   along with this program; if not, write to the Free Software
   Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA
 */
+
 /**
  * XOOPS rwbanner Banner Click Redirect page
  *
@@ -33,8 +34,12 @@
  *
  */
 
-include_once __DIR__ . '/admin_header.php';
-include_once dirname(__DIR__) . '/class/class.banner.php';
+use XoopsModules\Rwbanner\{
+    Banner
+};
+
+require_once __DIR__ . '/admin_header.php';
+
 
 if ($_GET['id'] == '') {
     $id = $_POST['id'];
@@ -42,13 +47,30 @@ if ($_GET['id'] == '') {
     $id = $_GET['id'];
 }
 
-$banner = new RWbanners(null, $id);
+$banner = new Banner(null, $id);
 
 if ($banner->getUsarhtml() == 1) {
     echo $banner->getHtmlcode();
 } else {
     if (stristr($banner->getGrafico(), '.swf')) {
-        echo '<object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,40,0" width="' . $banner->getLargura() . '" height="' . $banner->getAltura() . '">' . '<param name=movie value="' . $banner->getGrafico() . '">' . '<param name=quality value=high>' . '<embed src="' . $banner->getGrafico() . '" quality=high pluginspage="http://www.macromedia.com/shockwave/download/index.cgi?P1_Prod_Version=ShockwaveFlash"; type="application/x-shockwave-flash" width="' . $banner->getLargura() . '" height="' . $banner->getAltura() . '">' . '</embed>' . '</object>';
+        echo '<object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,40,0" width="'
+             . $banner->getLargura()
+             . '" height="'
+             . $banner->getAltura()
+             . '">'
+             . '<param name=movie value="'
+             . $banner->getGrafico()
+             . '">'
+             . '<param name=quality value=high>'
+             . '<embed src="'
+             . $banner->getGrafico()
+             . '" quality=high pluginspage="http://www.macromedia.com/shockwave/download/index.cgi?P1_Prod_Version=ShockwaveFlash"; type="application/x-shockwave-flash" width="'
+             . $banner->getLargura()
+             . '" height="'
+             . $banner->getAltura()
+             . '">'
+             . '</embed>'
+             . '</object>';
     } else {
         echo '<div align="center" style="margin:0px; padding:0px"><img src="' . $banner->getGrafico() . '" width="' . $banner->getLargura() . '" height="' . $banner->getAltura() . '" border="0"></div><br><br>';
     }

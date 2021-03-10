@@ -28,10 +28,10 @@
 # Descrição: Sistema de gerenciamento de mídias publicitárias               #
 # ------------------------------------------------------------------------- #
 
-# Table structure for table rw_banner
+# Table structure for table rwbanner_banner
 #
 
-CREATE TABLE rw_banner (
+CREATE TABLE rwbanner_banner (
   codigo    INT(11)         NOT NULL AUTO_INCREMENT,
   categoria INT(11)                  DEFAULT NULL,
   titulo    VARCHAR(255)             DEFAULT NULL,
@@ -56,10 +56,10 @@ CREATE TABLE rw_banner (
   ENGINE = MyISAM;
 
 #
-# Table structure for table rw_categorias
+# Table structure for table rwbanner_categorias
 #
 
-CREATE TABLE rw_categorias (
+CREATE TABLE rwbanner_categorias (
   cod    INT(11) UNSIGNED NOT NULL AUTO_INCREMENT,
   titulo VARCHAR(50)               DEFAULT NULL,
   larg   INT(11) UNSIGNED NOT NULL DEFAULT '0',
@@ -69,19 +69,19 @@ CREATE TABLE rw_categorias (
   ENGINE = MyISAM;
 
 #
-# Dumping data for table rw_categorias
+# Dumping data for table rwbanner_categorias
 #
 
-INSERT INTO rw_categorias VALUES (1, '468x60', 468, 60);
-INSERT INTO rw_categorias VALUES (2, '120x60', 120, 60);
+INSERT INTO rwbanner_categorias VALUES (1, '468x60', 468, 60);
+INSERT INTO rwbanner_categorias VALUES (2, '120x60', 120, 60);
 
 #
-# Table structure for table rw_tags
+# Table structure for table rwbanner_tags
 #
-CREATE TABLE rw_tags (
+CREATE TABLE rwbanner_tags (
   id        INT(11)      NOT NULL AUTO_INCREMENT,
   title     VARCHAR(255)          DEFAULT NULL,
-  name      VARCHAR(255) NOT NULL DEFAULT 'rw_banner',
+  name      VARCHAR(255) NOT NULL DEFAULT 'rwbanner',
   codbanner INT(5)                DEFAULT NULL,
   categ     INT(5)       NOT NULL DEFAULT '1',
   qtde      INT(5)       NOT NULL DEFAULT '1',
@@ -94,6 +94,6 @@ CREATE TABLE rw_tags (
   ENGINE = MyISAM;
 
 #
-# Dumping data for table rw_tags
+# Dumping data for table rwbanner_tags
 #
-INSERT INTO rw_tags (id, title, name, categ, qtde, cols, modid, obs, status) VALUES (1, 'RW-BANNER Default TAG', 'rw_banner', 1, 1, 1, 'a:1:{i:0;s:1:\"0\";}', '', 1);
+INSERT INTO rwbanner_tags (id, title, name, categ, qtde, cols, modid, obs, status) VALUES (1, 'RW-BANNER Default TAG', 'rwbanner', 1, 1, 1, 'a:1:{i:0;s:1:\"0\";}', '', 1);

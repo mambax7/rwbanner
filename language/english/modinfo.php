@@ -22,6 +22,7 @@
   along with this program; if not, write to the Free Software
   Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA
 */
+
 /**
  * Module Information Defines
  *
@@ -38,9 +39,9 @@ define('_MI_RWBANNER_DESC', 'System for management of random banners.');
 //define('_MI_RWBANNER_DIR_NAME', 'rwbanner');
 
 /* removed - 1.52 for simplicity
-define('_MI_RWBANNER_TABLE1', 'rw_banner');
-define('_MI_RWBANNER_TABLE2', 'rw_categorias');
-define('_MI_RWBANNER_TABLE3', 'rw_tags');
+define('_MI_RWBANNER_TABLE1', 'rwbanner_banner');
+define('_MI_RWBANNER_TABLE2', 'rwbanner_categorias');
+define('_MI_RWBANNER_TABLE3', 'rwbanner_tags');
 */
 define('_MI_RWBANNER_BLOCK1_NAME', 'Random Banner');
 define('_MI_RWBANNER_BLOCK1_NAME_DESC', 'Creates a block with 1 or more random banners.');
@@ -70,8 +71,8 @@ define('_MI_RWBANNER_ADMINVIS_DESC', 'If no, administrator clicks and impression
 define('_MI_RWBANNER_MAX_UPLOAD_SZ', 'Max. Upload File Size');
 define('_MI_RWBANNER_MAX_UPLOAD_SZ_DESC', 'Enter the maximum upload size allowed. Enter 0 (zero) to use PHP server maximum settings.');
 /* removed in v1.52, no longer needed
-define('_MI_RWBANNER_HISTORY', '<b>=> Version 1.5 (10/09/2006)<br/>
-===================================<br/></b>
+define('_MI_RWBANNER_HISTORY', '<b>=> Version 1.5 (10/09/2006)<br>
+===================================<br></b>
 <ul>
 <li>Finally, the counting problem for the flash banner was solved. Each action script of the banner module was rewritten and the bugs corrected.</li>
 <li>The module was entirely refactored. Now its code is object-oriented and it is much faster and more stable.</li>
@@ -80,19 +81,19 @@ define('_MI_RWBANNER_HISTORY', '<b>=> Version 1.5 (10/09/2006)<br/>
 <li>Added a function to manage the SMARTY TAGS of the module. Previously to show your banners in the theme of your site or in the module templates you had to create the tags manually by inserting the command in the header.php file. Now, the hack is still necessary, although you create it only once and after you create, edit, change the status and delete the tags directly via the site administration.</li>
 <li>2 new blocks with DHTML effects were added, Drop-in Banner and LightBox Banner. Now you can provide a new highlight to your banners.</li>
 </ul>
-<b>=> Version 1.4 RC (02/04/2006)<br/>
-===================================<br/></b>
+<b>=> Version 1.4 RC (02/04/2006)<br>
+===================================<br></b>
 <ul>
 <li>New block added. Ajax Banner: this block creates a table with the selected banners based on the configuration criteria and changes the shown banners form x to x seconds. The time is also defined in the configurations.<li>
 <li>Templates for all the blocks were created. Now it\'s much easier to change the display format within the blocks.<li>
 </ul>
-<b>=> Version 1.3.2 RC1 (23/02/2006)<br/>
-===================================<br/></b>
+<b>=> Version 1.3.2 RC1 (23/02/2006)<br>
+===================================<br></b>
 <ul>
 <li>New block added. DHTML Banner: this block creates a floating area that closes automatically in X seconds and it has the option to select background and border color, how many banners will be shown, in how many columns, show the banner once each X reloads, among other features.</li>
 </ul>
-<b>=> Version 1.3.2 RC (05/02/2006)<br/>
-===================================<br/></b>
+<b>=> Version 1.3.2 RC (05/02/2006)<br>
+===================================<br></b>
 <ul>
 <li>The click counting bug for flash banners was corrected.</li>
 <li>The screen for adding and editing banners was changed as well as the screen for adding and editing the categories. Now these screens are using the xoops form class.</li>
@@ -100,16 +101,16 @@ define('_MI_RWBANNER_HISTORY', '<b>=> Version 1.5 (10/09/2006)<br/>
 <li>Bugs corrected in the user\'s side in the module: now the site users that are banner clients can see the statistics of their banners through this area.</li>
 <li>Added the option to acquire a banner per clicks. When the total of clicks acquired is reached, the banner becomes inactive and is not shown anymore.</li>
 </ul>
-<b>=> Version 1.3 RC (18/09/2005)<br/>
-===================================<br/></b>
+<b>=> Version 1.3 RC (18/09/2005)<br>
+===================================<br></b>
 <ul>
 <li>The banner exhibition function in the header and in the templates was changed. There was an option added to show one category in one particular module.</li>
 <li>Due to this change in the function, there was added another option in the registration forms and by the editing of categories. With this new option the module administrator is able to link a category to a specific module bringing the banners for this category to be shown in the linked module.</li>
 <li>The language constants were created.</li>
 <li>A bug remains and I couldn\'t solve the click counting problem yet for flash banners and HTML code.</li>
 </ul>
-<b>=> Version 1.1 RC (14/09/2005)<br/>
-==================================<br/></b>
+<b>=> Version 1.1 RC (14/09/2005)<br>
+==================================<br></b>
 <ul>
 <li>Many bugs were corrected in the previous version.</li>
 <li>Added an option to add banners for a particular client.</li>
@@ -117,8 +118,8 @@ define('_MI_RWBANNER_HISTORY', '<b>=> Version 1.5 (10/09/2006)<br/>
 <li>Added a new block, client statistics, that shows the client the main statistics of his banners.</li>
 <li>Created an area for the client where he has access to the statistics of his banners, possibility to change the url of the banners and, further, the submission of the statistics per e-mail.</li>
 </ul>
-<b>=> Version 0.9 Beta 1 (11/09/2005)<br/>
-==================================<br/></b>
+<b>=> Version 0.9 Beta 1 (11/09/2005)<br>
+==================================<br></b>
 <ul>
 <li>Public Release of the first test version.</li>
 </ul>');

@@ -73,11 +73,14 @@ define('_MB_RWBANNER_PORCCLI', '%');
 define('_MB_RWBANNER_DATA', 'CREATION DATE');
 define('_MB_RWBANNER_PERIODO', 'EXPIRATION DATE');
 define('_MB_RWBANNER_MSG1', '<b>Note:</b> To see the banner image, click on the ID of the banner on the list to create a popup window showing your banner');
-define('_MB_RWBANNER_MSG2', 'To be able to use the services of advertising of  %s you need to be a registered user.
-   This procedure helps to have a better control of our partners and a better management of our advertising medias.<br /><br />
+define(
+    '_MB_RWBANNER_MSG2',
+    'To be able to use the services of advertising of  %s you need to be a registered user.
+   This procedure helps to have a better control of our partners and a better management of our advertising medias.<br ><br >
    In case you are already registered on our site, click <a href=\"%s\">here</a> and login in order to fill out the registration form
    of banners and join our advertising system. If you are not registered at our site, click <a href=\"%s\">here</a> and
-   register. After you have registered on our site you will be able to join our advertising system.');
+   register. After you have registered on our site you will be able to join our advertising system.'
+);
 define('_MB_RWBANNER_EXIBREST', 'Unlimited');
 define('_MB_RWBANNER_BUTTON1', 'Order');
 define('_MB_RWBANNER_BUTTON2', 'Banners per page');

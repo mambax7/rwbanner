@@ -31,12 +31,15 @@
 
 //index.php
 //define('_MD_RWBANNER_NOPERM1', 'You don\'t have any banners registered at your site therefore you don\'t have permissions to access this area!');
-define('_MD_RWBANNER_MSG_INDEX_NOUSER', 'To use the advertising services of %s you need to be a registered user.
-   This procedure aims to have a better control of our partners and a better management of our advertising media.<br /><br />
+define(
+    '_MD_RWBANNER_MSG_INDEX_NOUSER',
+    'To use the advertising services of %s you need to be a registered user.
+   This procedure aims to have a better control of our partners and a better management of our advertising media.<br ><br >
    If you are already registered at our site, click <a href=\"%s\">here</a> and login to fill out the banner registration
    form and join our advertising system. If you are not registered at our site, click <a href=\"%s\">here</a> and
-   register yourself. After you have registered on our site you will be able to join our advertising system.');
-define('_MD_RWBANNER_MSG_INDEX_OLAUSER', 'Hello %s, welcome to the Advertising System on %s.<br /><br />');
+   register yourself. After you have registered on our site you will be able to join our advertising system.'
+);
+define('_MD_RWBANNER_MSG_INDEX_OLAUSER', 'Hello %s, welcome to the Advertising System on %s.<br ><br >');
 define('_MD_RWBANNER_MSG_INDEX_NOBANNER', 'You don\'t have any banners registered at our site. If you wish to take part in our advertising system, please fill out the banner registration form by clicking <a href="inser.php">here</a>.');
 define('_MD_RWBANNER_MSG_INDEX_NOBANNER1', 'Self registration of new banners is disabled at the moment, if you want to include a banner in our system, please contact the site administrator.');
 //define('_MD_RWBANNER_CARREG', 'Loading...');

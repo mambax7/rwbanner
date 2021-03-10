@@ -22,6 +22,7 @@
   along with this program; if not, write to the Free Software
   Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA
 */
+
 /**
  * XOOPS rwbanner Upgrade
  *
@@ -33,17 +34,20 @@
  *
  */
 
-include_once dirname(dirname(dirname(__DIR__))) . '/include/cp_header.php';
+use XoopsModules\Rwbanner;
+use XoopsModules\Rwbanner\Utility;
+
+require dirname(__DIR__, 3) . '/include/cp_header.php';
 xoops_cp_header();
-include_once dirname(__DIR__) . '/include/functions.php';
+require_once dirname(__DIR__) . '/include/functions.php';
 
 if (is_object($xoopsUser) && $xoopsUser->isAdmin($xoopsModule->mid())) {
     $errors = 0;
 
     //Checa se a tabela ds banners existe, caso n?o exista cria.
-    if (!rwTableExists($xoopsDB->prefix('rw_banner'))) {
+    if (!rwTableExists($xoopsDB->prefix('rwbanner_banner'))) {
         $sql = '
-    CREATE TABLE ' . $xoopsDB->prefix('rw_banner') . " (
+    CREATE TABLE ' . $xoopsDB->prefix('rwbanner_banner') . " (
       codigo int(11) NOT NULL auto_increment,
       categoria int(11) default NULL,
       titulo varchar(255) default NULL,
@@ -67,33 +71,33 @@ if (is_object($xoopsUser) && $xoopsUser->isAdmin($xoopsModule->mid())) {
     ) ENGINE=MyISAM;
     ";
         if (!$xoopsDB->queryF($sql)) {
-            echo '<br />' . _AM_RWBANNER_UPGRADEFAILED1;
+            echo '<br>' . _AM_RWBANNER_UPGRADEFAILED1;
             ++$errors;
         }
     } else {
-        if (!rwFieldExists('titulo', $xoopsDB->prefix('rw_banner'))) {
-            rwAddField('titulo varchar(255) default NULL AFTER categoria', $xoopsDB->prefix('rw_banner'));
+        if (!Utility::fieldExists('titulo', $xoopsDB->prefix('rwbanner_banner'))) {
+            rwAddField('titulo varchar(255) default NULL AFTER categoria', $xoopsDB->prefix('rwbanner_banner'));
         }
-        if (!rwFieldExists('texto', $xoopsDB->prefix('rw_banner'))) {
-            rwAddField('texto text AFTER titulo', $xoopsDB->prefix('rw_banner'));
+        if (!Utility::fieldExists('texto', $xoopsDB->prefix('rwbanner_banner'))) {
+            rwAddField('texto text AFTER titulo', $xoopsDB->prefix('rwbanner_banner'));
         }
-        if (!rwFieldExists('showimg', $xoopsDB->prefix('rw_banner'))) {
-            rwAddField("showimg int(1) NOT NULL default '1' AFTER htmlcode", $xoopsDB->prefix('rw_banner'));
+        if (!Utility::fieldExists('showimg', $xoopsDB->prefix('rwbanner_banner'))) {
+            rwAddField("showimg int(1) NOT NULL default '1' AFTER htmlcode", $xoopsDB->prefix('rwbanner_banner'));
         }
-        if (!rwFieldExists('periodo', $xoopsDB->prefix('rw_banner'))) {
-            rwAddField("periodo int(5) NOT NULL default '0' AFTER data", $xoopsDB->prefix('rw_banner'));
+        if (!Utility::fieldExists('periodo', $xoopsDB->prefix('rwbanner_banner'))) {
+            rwAddField("periodo int(5) NOT NULL default '0' AFTER data", $xoopsDB->prefix('rwbanner_banner'));
         }
-        if (!rwFieldExists('obs', $xoopsDB->prefix('rw_banner'))) {
-            rwAddField('obs text AFTER idcliente', $xoopsDB->prefix('rw_banner'));
+        if (!Utility::fieldExists('obs', $xoopsDB->prefix('rwbanner_banner'))) {
+            rwAddField('obs text AFTER idcliente', $xoopsDB->prefix('rwbanner_banner'));
         }
-        if (!rwFieldExists('maxclick', $xoopsDB->prefix('rw_banner'))) {
-            rwAddField("maxclick int(11) NOT NULL default '0' AFTER clicks", $xoopsDB->prefix('rw_banner'));
+        if (!Utility::fieldExists('maxclick', $xoopsDB->prefix('rwbanner_banner'))) {
+            rwAddField("maxclick int(11) NOT NULL default '0' AFTER clicks", $xoopsDB->prefix('rwbanner_banner'));
         }
     }
 
-    if (!rwTableExists($xoopsDB->prefix('rw_categorias'))) {
+    if (!rwTableExists($xoopsDB->prefix('rwbanner_categorias'))) {
         $sql = '
-    CREATE TABLE ' . $xoopsDB->prefix('rw_categorias') . " (
+    CREATE TABLE ' . $xoopsDB->prefix('rwbanner_categorias') . " (
       cod int(11) unsigned NOT NULL auto_increment,
       titulo varchar(50) default NULL,
       larg int(11) unsigned NOT NULL default '0',
@@ -102,21 +106,21 @@ if (is_object($xoopsUser) && $xoopsUser->isAdmin($xoopsModule->mid())) {
     ) ENGINE=MyISAM;
     ";
         if (!$xoopsDB->queryF($sql)) {
-            echo '<br />' . _AM_RWBANNER_UPGRADEFAILED2;
+            echo '<br>' . _AM_RWBANNER_UPGRADEFAILED2;
             ++$errors;
         }
     } else {
-        if (rwFieldExists('modid', $xoopsDB->prefix('rw_categorias'))) {
-            rwRemoveField('modid', $xoopsDB->prefix('rw_categorias'));
+        if (Utility::fieldExists('modid', $xoopsDB->prefix('rwbanner_categorias'))) {
+            rwRemoveField('modid', $xoopsDB->prefix('rwbanner_categorias'));
         }
     }
 
-    if (!rwTableExists($xoopsDB->prefix('rw_tags'))) {
+    if (!rwTableExists($xoopsDB->prefix('rwbanner_tags'))) {
         $sql = '
-    CREATE TABLE ' . $xoopsDB->prefix('rw_tags') . " (
+    CREATE TABLE ' . $xoopsDB->prefix('rwbanner_tags') . " (
       id int(11) NOT NULL auto_increment,
       title varchar(255) default NULL,
-      name varchar(255) NOT NULL default 'rw_banner',
+      name varchar(255) NOT NULL default 'rwbanner',
       codbanner int(5) default NULL,
       categ int(5) NOT NULL default '1',
       qtde int(5) NOT NULL default '1',
@@ -128,12 +132,12 @@ if (is_object($xoopsUser) && $xoopsUser->isAdmin($xoopsModule->mid())) {
     ) ENGINE=MyISAM;
     ";
         if (!$xoopsDB->queryF($sql)) {
-            echo '<br />' . _AM_RWBANNER_UPGRADEFAILED3;
+            echo '<br>' . _AM_RWBANNER_UPGRADEFAILED3;
             ++$errors;
         }
-        $sql = 'INSERT INTO ' . $xoopsDB->prefix('rw_tags') . ' (id,title,name,codbanner,categ,qtde,cols,modid,obs,status) VALUES (1,"RW-BANNER Default TAG","rw_banner","",1,1,1,"a:1:{i:0;s:1:\"0\";}","",1)';
+        $sql = 'INSERT INTO ' . $xoopsDB->prefix('rwbanner_tags') . ' (id,title,name,codbanner,categ,qtde,cols,modid,obs,status) VALUES (1,"RW-BANNER Default TAG","rwbanner","",1,1,1,"a:1:{i:0;s:1:\"0\";}","",1)';
         if (!$xoopsDB->queryF($sql)) {
-            echo '<br />' . _AM_RWBANNER_UPGRADEFAILED3;
+            echo '<br>' . _AM_RWBANNER_UPGRADEFAILED3;
             ++$errors;
         }
     }
@@ -151,7 +155,7 @@ if (is_object($xoopsUser) && $xoopsUser->isAdmin($xoopsModule->mid())) {
       #######################################################################################
       $mod = XoopsModule::getByDirname(basename(dirname(__DIR__)));
       if ($mod) {
-        include_once (dirname(__DIR__) .\'/include/maketags.php\');
+        require_once (dirname(__DIR__) .\'/include/maketags.php\');
       }
       #######################################################################################
       #### Fim do Hack by rw-banner
@@ -167,7 +171,7 @@ if (is_object($xoopsUser) && $xoopsUser->isAdmin($xoopsModule->mid())) {
       #######################################################################################
       $mod = XoopsModule::getByDirname(basename(dirname(__DIR__)));
       if ($mod) {
-        include(dirname(__DIR__) .\'/include/bbcode.php\');
+        require dirname(__DIR__) .\'/include/bbcode.php\';
       }
       #######################################################################################
       #### Fim do Hack by rw-banner

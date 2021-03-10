@@ -29,8 +29,11 @@
 // Descrição: Sistema de gerenciamento de mídias publicitárias               //
 // ------------------------------------------------------------------------- //
 
-include_once __DIR__ . '/admin_header.php';
+use XoopsModules\Rwbanner\{
+    About
+};
 
-include_once dirname(__DIR__) . '/class/about.php';
-$aboutObj = new RwbannerAbout(_AM_RWBANNER_ABOUT);
+require_once __DIR__ . '/admin_header.php';
+
+$aboutObj = new About(_AM_RWBANNER_ABOUT);
 $aboutObj->render();

@@ -9,25 +9,50 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  *
  * @copyright    XOOPS Project (https://xoops.org)
- * @license      {@link http://www.gnu.org/licenses/gpl-2.0.html GNU Public License}
+ * @license      {@link https://www.gnu.org/licenses/gpl-2.0.html GNU Public License}
  * @author       XOOPS Development Team
  **/
 
-$path = dirname(dirname(dirname(__DIR__)));
-include_once $path . '/mainfile.php';
-include_once $path . '/header.php';
-include_once $path . '/include/cp_functions.php';
+use Xmf\Module\Admin;
+use XoopsModules\Rwbanner\{
+    Helper
+};
+/** @var Admin $adminObject */
+/** @var Helper $helper */
+
+require dirname(__DIR__) . '/preloads/autoloader.php';
+
+require dirname(__DIR__, 3) . '/include/cp_header.php';
+//require dirname(__DIR__, 3) . '/class/xoopsformloader.php';
+require  dirname(__DIR__) . '/include/common.php';
+
+$moduleDirName = basename(dirname(__DIR__));
+$moduleDirNameUpper = mb_strtoupper($moduleDirName);
+$helper = Helper::getInstance();
+
+$adminObject = Admin::getInstance();
+
+// Load language files
+$helper->loadLanguage('admin');
+$helper->loadLanguage('modinfo');
+$helper->loadLanguage('common');
+
+$path = dirname(__DIR__, 3);
+require_once $path . '/mainfile.php';
+require_once $path . '/header.php';
+require_once $path . '/include/cp_functions.php';
 require_once $path . '/include/cp_header.php';
 
-include_once $path . '/kernel/module.php';
-include_once $path . '/class/xoopstree.php';
-include_once $path . '/class/xoopslists.php';
-include_once $path . '/class/xoopsformloader.php';
-include_once $path . '/class/pagenav.php';
+require_once $path . '/kernel/module.php';
+require_once $path . '/class/xoopstree.php';
+require_once $path . '/class/xoopslists.php';
+require_once $path . '/class/xoopsformloader.php';
+require_once $path . '/class/pagenav.php';
 
-$dirname        = basename(dirname(__DIR__));
-$module_handler = xoops_getHandler('module');
-$module         = $module_handler->getByDirname($dirname);
+$dirname = \basename(\dirname(__DIR__));
+/** @var \XoopsModuleHandler $moduleHandler */
+$moduleHandler = xoops_getHandler('module');
+$module        = $moduleHandler->getByDirname($dirname);
 
 if (is_object($xoopsUser)) {
     $xoopsModule = XoopsModule::getByDirname($dirname);
@@ -44,17 +69,10 @@ global $xoopsModule;
 
 //if functions.php file exist
 require_once dirname(__DIR__) . '/include/functions.php';
-$myts = MyTextSanitizer::getInstance();
+$myts = \MyTextSanitizer::getInstance();
 
 //$xoopsTpl->assign('module_dir', $module->getVar('dirname'));
 
-// Load language files
-xoops_loadLanguage('admin', $dirname);
-xoops_loadLanguage('modinfo', $dirname);
-xoops_loadLanguage('main', $dirname);
 
-$pathIcon16      = '../' . $xoopsModule->getInfo('icons16');
-$pathIcon32      = '../' . $xoopsModule->getInfo('icons32');
-$pathModuleAdmin = $xoopsModule->getInfo('dirmoduleadmin');
 
-include_once $GLOBALS['xoops']->path($pathModuleAdmin . '/moduleadmin.php');
+

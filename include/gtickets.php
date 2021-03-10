@@ -29,16 +29,16 @@
 // Descrição: Sistema de gerenciamento de mídias publicitárias               //
 // ------------------------------------------------------------------------- //
 
+use Xmf\Request;
+
 if (!class_exists('XoopsGTicket')) {
     /**
      * Class XoopsGTicket
      */
     class XoopsGTicket
     {
-        public $_errors = array();
-
+        public $_errors = [];
         public $_latest_token = '';
-
         // render form as plain html
 
         /**
@@ -49,7 +49,7 @@ if (!class_exists('XoopsGTicket')) {
          */
         public function getTicketHtml($salt = '', $timeout = 1800, $area = '')
         {
-            return '<input type="hidden" name="XOOPS_G_TICKET" value="' . $this->issue($salt, $timeout, $area) . '" />';
+            return '<input type="hidden" name="XOOPS_G_TICKET" value="' . $this->issue($salt, $timeout, $area) . '">';
         }
 
         // returns an object of XoopsFormHidden including theh ticket
@@ -62,7 +62,7 @@ if (!class_exists('XoopsGTicket')) {
          */
         public function getTicketXoopsForm($salt = '', $timeout = 1800, $area = '')
         {
-            return new XoopsFormHidden('XOOPS_G_TICKET', $this->issue($salt, $timeout, $area));
+            return new \XoopsFormHidden('XOOPS_G_TICKET', $this->issue($salt, $timeout, $area));
         }
 
         // returns an array for xoops_confirm() ;
@@ -75,7 +75,7 @@ if (!class_exists('XoopsGTicket')) {
          */
         public function getTicketArray($salt = '', $timeout = 1800, $area = '')
         {
-            return array('XOOPS_G_TICKET' => $this->issue($salt, $timeout, $area));
+            return ['XOOPS_G_TICKET' => $this->issue($salt, $timeout, $area)];
         }
 
         // return GET parameter string.
@@ -108,13 +108,13 @@ if (!class_exists('XoopsGTicket')) {
                 $salt = '$2y$07$' . strtr(base64_encode(mcrypt_create_iv(16, MCRYPT_DEV_URANDOM)), '+', '.');
             }
             // create a token
-            list($usec, $sec) = explode(' ', microtime());
+            [$usec, $sec] = explode(' ', microtime());
             $appendix_salt       = empty($_SERVER['PATH']) ? XOOPS_DB_NAME : $_SERVER['PATH'];
             $token               = crypt($salt . $usec . $appendix_salt . $sec, $salt);
             $this->_latest_token = $token;
 
             if (empty($_SESSION['XOOPS_G_STUBS'])) {
-                $_SESSION['XOOPS_G_STUBS'] = array();
+                $_SESSION['XOOPS_G_STUBS'] = [];
             }
 
             // limit max stubs 10
@@ -125,7 +125,7 @@ if (!class_exists('XoopsGTicket')) {
 
             // record referer if browser send it
 
-            $referer = empty($_SERVER['HTTP_REFERER']) ? '' : $_SERVER['REQUEST_URI'];
+            $referer = empty(Request::getString('HTTP_REFERER', '', 'SERVER')) ? '' : $_SERVER['REQUEST_URI'];
 
             // area as module's dirname
 
@@ -135,14 +135,14 @@ if (!class_exists('XoopsGTicket')) {
 
             // store stub
 
-            $_SESSION['XOOPS_G_STUBS'][] = array(
+            $_SESSION['XOOPS_G_STUBS'][] = [
 
                 'expire'  => time() + $timeout,
                 'referer' => $referer,
                 'area'    => $area,
-                'token'   => $token
+                'token'   => $token,
 
-            );
+            ];
 
             // paid md5ed token as a ticket
             return md5($token . XOOPS_DB_PREFIX);
@@ -159,7 +159,7 @@ if (!class_exists('XoopsGTicket')) {
         {
             global $xoopsModule;
 
-            $this->_errors = array();
+            $this->_errors = [];
 
             // CHECK: stubs are not stored in session
 
@@ -193,24 +193,21 @@ if (!class_exists('XoopsGTicket')) {
 
             $stubs_tmp = $_SESSION['XOOPS_G_STUBS'];
 
-            $_SESSION['XOOPS_G_STUBS'] = array();
+            $_SESSION['XOOPS_G_STUBS'] = [];
 
             foreach ($stubs_tmp as $stub) {
-
                 // default lifetime 30min
 
                 if ($stub['expire'] >= time()) {
                     if (md5($stub['token'] . XOOPS_DB_PREFIX) === $ticket) {
                         $found_stub = $stub;
                     } else {
-
                         // store the other valid stubs into session
 
                         $_SESSION['XOOPS_G_STUBS'][] = $stub;
                     }
                 } else {
                     if (md5($stub['token'] . XOOPS_DB_PREFIX) === $ticket) {
-
                         // not CSRF but Time-Out
 
                         $timeout_flag = true;
@@ -246,7 +243,7 @@ if (!class_exists('XoopsGTicket')) {
                 $area_check = true;
             }
 
-            if (!empty($found_stub['referer']) && false !== strpos(@$_SERVER['HTTP_REFERER'], $found_stub['referer'])) {
+            if (!empty($found_stub['referer']) && false !== strpos(@Request::getString('HTTP_REFERER', '', 'SERVER'), $found_stub['referer'])) {
                 $referer_check = true;
             }
 
@@ -269,7 +266,7 @@ if (!class_exists('XoopsGTicket')) {
 
         public function clear()
         {
-            $_SESSION['XOOPS_G_STUBS'] = array();
+            $_SESSION['XOOPS_G_STUBS'] = [];
         }
 
         // Ticket Using
@@ -298,7 +295,7 @@ if (!class_exists('XoopsGTicket')) {
                 $ret = '';
 
                 foreach ($this->_errors as $msg) {
-                    $ret .= "$msg<br />\n";
+                    $ret .= "$msg<br>\n";
                 }
             } else {
                 $ret = $this->_errors;
@@ -306,17 +303,15 @@ if (!class_exists('XoopsGTicket')) {
 
             return $ret;
         }
-
         // end of class
     }
 
     // create a instance in global scope
 
-    $GLOBALS['xoopsGTicket'] = new XoopsGTicket();
+    $GLOBALS['xoopsGTicket'] = new \XoopsGTicket();
 }
 
 if (!function_exists('admin_refcheck')) {
-
     //Admin Referer Check By Marijuana(Rev.011)
 
     /**
@@ -325,10 +320,10 @@ if (!function_exists('admin_refcheck')) {
      */
     function admin_refcheck($chkref = '')
     {
-        if (empty($_SERVER['HTTP_REFERER'])) {
+        if (empty(Request::getString('HTTP_REFERER', '', 'SERVER'))) {
             return true;
         } else {
-            $ref = $_SERVER['HTTP_REFERER'];
+            $ref = Request::getString('HTTP_REFERER', '', 'SERVER');
         }
 
         $cr = XOOPS_URL;

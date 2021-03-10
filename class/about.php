@@ -1,4 +1,7 @@
 <?php
+
+namespace XoopsModules\Rwbanner;
+
 /*
                                   RW-Banner
                           Copyright (c) 2006 BrInfo
@@ -22,6 +25,7 @@
   along with this program; if not, write to the Free Software
   Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA
 */
+
 /**
  * Class About is a simple class that lets you build an about page
  *
@@ -31,9 +35,7 @@
  * @package  ::    rwbanner
  *
  */
-// defined('XOOPS_ROOT_PATH') || exit('XOOPS root path not defined');
-
-class RwbannerAbout
+class About
 {
     public $lang_aboutTitle;
     public $lang_author_info;
@@ -57,19 +59,14 @@ class RwbannerAbout
     public $lang_by;
 
     /**
-     * RwbannerAbout constructor.
+     * About constructor.
      * @param string $aboutTitle
      */
     public function __construct($aboutTitle = 'About')
     {
         global $xoopsModule, $xoopsConfig;
-        $fileName = XOOPS_ROOT_PATH . '/modules/' . $xoopsModule->getVar('dirname') . '/language/' . $xoopsConfig['language'] . '/modinfo.php';
-        if (file_exists($fileName)) {
-            include_once $fileName;
-        } else {
-            include_once XOOPS_ROOT_PATH . '/modules/' . $xoopsModule->getVar('dirname') . '/language/english/modinfo.php';
-        }
-        $this->_aboutTitle                 = $aboutTitle;
+        xoops_loadLanguage('modinfo', 'rwbanner');
+        $this->_aboutTitle                = $aboutTitle;
         $this->lang_author_info           = _MI_RWBANNER_AUTHOR_INFO;
         $this->lang_developer_lead        = _MI_RWBANNER_DEVELOPER_LEAD;
         $this->lang_developer_contributor = _MI_RWBANNER_DEVELOPER_CONTRIBUTOR;
@@ -93,18 +90,19 @@ class RwbannerAbout
 
     public function render()
     {
-        $myts = &MyTextSanitizer::getInstance();
+        $myts = \MyTextSanitizer::getInstance();
 
         global $xoopsModule;
 
         xoops_cp_header();
         // rwbanner_adminMenu('',_AM_RWBANNER_ABOUT);
-        $module_handler = xoops_getHandler('module');
-        $versioninfo    = &$module_handler->get($xoopsModule->getVar('mid'));
+        /** @var \XoopsModuleHandler $moduleHandler */
+        $moduleHandler = xoops_getHandler('module');
+        $versioninfo   = $moduleHandler->get($xoopsModule->getVar('mid'));
 
         $adminMenu = $versioninfo->getInfo('adminMenu');
 
-        if (false != $adminMenu && trim($adminMenu) != '') {
+        if (false !== $adminMenu && trim($adminMenu) != '') {
             if (function_exists($adminMenu)) {
                 $func = $adminMenu;
                 if (!$func(-1, $this->_aboutTitle . ' ' . $versioninfo->getInfo('name'))) {
@@ -113,7 +111,7 @@ class RwbannerAbout
         }
 
         // Left headings...
-        echo "<img src='" . XOOPS_URL . '/modules/' . $xoopsModule->getVar('dirname') . '/' . $versioninfo->getInfo('image') . "' alt='' hspace='0' vspace='0' align='left' style='margin-right: 10px;'/></a>";
+        echo "<img src='" . XOOPS_URL . '/modules/' . $xoopsModule->getVar('dirname') . '/' . $versioninfo->getInfo('image') . "' alt='' hspace='0' vspace='0' align='left' style='margin-right: 10px;'></a>";
         echo "<div style='margin-top: 10px; color: #33538e; margin-bottom: 4px; font-size: 18px; line-height: 18px; font-weight: bold; display: block;'>" . $versioninfo->getInfo('name') . ' version ' . $versioninfo->getInfo('version') . ' (' . $versioninfo->getInfo('status_version') . ')</div>';
         if ($versioninfo->getInfo('author_realname') != '') {
             $author_name = $versioninfo->getInfo('author') . ' (' . $versioninfo->getInfo('author_realname') . ')';
@@ -126,7 +124,7 @@ class RwbannerAbout
         echo "<div style = 'line-height: 16px; display: block;'>" . $versioninfo->getInfo('license') . "</div>\n";
 
         // Developers Information
-        echo "<br /><table width='100%' cellspacing=1 cellpadding=3 border=0 class = outer>";
+        echo "<br><table width='100%' cellspacing=1 cellpadding=3 border=0 class = outer>";
         echo '<tr>';
         echo "<td colspan='2' class='bg3' align='left'><b>" . $this->lang_author_info . '</b></td>';
         echo '</tr>';
@@ -157,7 +155,7 @@ class RwbannerAbout
         }
 
         echo '</table>';
-        echo "<br />\n";
+        echo "<br>\n";
         // Module Developpment information
         echo "<table width='100%' cellspacing=1 cellpadding=3 border=0 class = outer>";
         echo '<tr>';
@@ -208,7 +206,7 @@ class RwbannerAbout
         echo '</table>';
         // Warning
         if ($versioninfo->getInfo('warning') != '') {
-            echo "<br />\n";
+            echo "<br>\n";
             echo "<table width='100%' cellspacing=1 cellpadding=3 border=0 class = outer>";
             echo '<tr>';
             echo "<td class='bg3' align='left'><b>" . $this->lang_module_disclaimer . '</b></td>';
@@ -222,7 +220,7 @@ class RwbannerAbout
         }
         // Author's note
         if ($versioninfo->getInfo('author_word') != '') {
-            echo "<br />\n";
+            echo "<br>\n";
             echo "<table width='100%' cellspacing=1 cellpadding=3 border=0 class = outer>";
             echo '<tr>';
             echo "<td class='bg3' align='left'><b>" . $this->lang_author_word . '</b></td>';
@@ -237,7 +235,7 @@ class RwbannerAbout
 
         // Version History
         if ($versioninfo->getInfo('version_history') != '') {
-            echo "<br />\n";
+            echo "<br>\n";
             echo "<table width='100%' cellspacing=1 cellpadding=3 border=0 class = outer>";
             echo '<tr>';
             echo "<td class='bg3' align='left'><b>" . $this->lang_version_history . '</b></td>';
@@ -250,11 +248,11 @@ class RwbannerAbout
             echo '</table>';
         }
 
-        echo '<br />';
+        echo '<br>';
 
         $modFooter = $versioninfo->getInfo('modFooter');
 
-        if (false != $adminMenu && trim($modFooter) != '') {
+        if (false !== $adminMenu && trim($modFooter) != '') {
             if (function_exists($modFooter)) {
                 $func = $modFooter;
                 echo "<div align='center'>" . $func() . '</div>';

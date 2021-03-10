@@ -1,9 +1,10 @@
 <?php
-include_once dirname(dirname(dirname(__DIR__))) . '/include/cp_header.php';
-include_once 'mygrouppermform.php';
-include_once(XOOPS_ROOT_PATH . '/class/xoopsblock.php');
-//include_once "../include/gtickets.php" ;// GIJ
-include_once XOOPS_ROOT_PATH . '/modules/' . $xoopsModule->dirname() . '/include/functions.php';
+
+require dirname(__DIR__, 3) . '/include/cp_header.php';
+require_once __DIR__ . '/mygrouppermform.php';
+require_once XOOPS_ROOT_PATH . '/class/xoopsblock.php';
+//require_once "../include/gtickets.php" ;// GIJ
+require_once XOOPS_ROOT_PATH . '/modules/' . $xoopsModule->dirname() . '/include/functions.php';
 
 $xoops_system_path = XOOPS_ROOT_PATH . '/modules/system';
 
@@ -18,7 +19,7 @@ $error_reporting_level = error_reporting(0);
 include_once("$xoops_system_path/constants.php");
 include_once("$xoops_system_path/language/$language/admin.php");
 include_once("$xoops_system_path/language/$language/admin/blocksadmin.php");
-include_once dirname(__DIR__) . "/language/$language/modinfo.php";
+require_once dirname(__DIR__) . "/language/$language/modinfo.php";
 
 error_reporting($error_reporting_level);
 
@@ -35,13 +36,15 @@ if (!is_object($xoopsModule)) {
 }
 
 // set target_module if specified by $_GET['dirname']
-$module_handler = xoops_getHandler('module');
+/** @var \XoopsModuleHandler $moduleHandler */
+$moduleHandler = xoops_getHandler('module');
 if (!empty($_GET['dirname'])) {
-    $target_module =& $module_handler->getByDirname($_GET['dirname']);
+    $target_module = $moduleHandler->getByDirname($_GET['dirname']);
 }
 // check access right (needs system_admin of BLOCK)
-$sysperm_handler = xoops_getHandler('groupperm');
-if (!$sysperm_handler->checkRight('system_admin', XOOPS_SYSTEM_BLOCK, $xoopsUser->getGroups())) {
+/** @var \XoopsGroupPermHandler $grouppermHandler */
+$grouppermHandler = xoops_getHandler('groupperm');
+if (!$grouppermHandler->checkRight('system_admin', XOOPS_SYSTEM_BLOCK, $xoopsUser->getGroups())) {
     redirect_header(XOOPS_URL . '/user.php', 1, _MD_RWBANNER_NOPERM);
 }
 
@@ -49,7 +52,7 @@ function list_groups()
 {
     global $target_mid, $target_mname, $block_arr, $xoopsModule;
 
-    $myts = &MyTextSanitizer::getInstance();
+    $myts = \MyTextSanitizer::getInstance();
 
     rwbanner_collapsableBar('bottomtable', 'bottomtableicon');
 
@@ -57,7 +60,20 @@ function list_groups()
         $item_list[$block_arr[$i]->getVar('bid')] = $block_arr[$i]->getVar('title');
     }
 
-    $form = new MyXoopsGroupPermForm('', 1, 'block_read', "<img id='bottomtableicon' src=" . XOOPS_URL . '/modules/' . $xoopsModule->dirname() . "/assets/images/icon/close12.gif alt='' /></a>&nbsp;" . _AM_RWBANNER_GROUPS . "</h3><div id='bottomtable'><span style=\"color: #567; margin: 3px 0 0 0; font-size: small; display: block; \">" . _AM_RWBANNER_GROUPSINFO . '</span>');
+    $form = new MyXoopsGroupPermForm(
+        '',
+        1,
+        'block_read',
+        "<img id='bottomtableicon' src="
+        . XOOPS_URL
+        . '/modules/'
+        . $xoopsModule->dirname()
+        . "/assets/images/icon/close12.gif alt=''></a>&nbsp;"
+        . _AM_RWBANNER_GROUPS
+        . "</h3><div id='bottomtable'><span style=\"color: #567; margin: 3px 0 0 0; font-size: small; display: block; \">"
+        . _AM_RWBANNER_GROUPSINFO
+        . '</span>'
+    );
     $form->addAppendix('module_admin', $xoopsModule->mid(), $myts->displayTarea($xoopsModule->name()) . ' ' . _AM_RWBANNER_ACTIVERIGHTS);
     $form->addAppendix('module_read', $xoopsModule->mid(), $myts->displayTarea($xoopsModule->name()) . ' ' . _AM_RWBANNER_ACCESSRIGHTS);
     foreach ($item_list as $item_id => $item_name) {
@@ -68,7 +84,7 @@ function list_groups()
 }
 
 if (!empty($_POST['submit'])) {
-    include __DIR__ . '/mygroupperm.php';
+    require __DIR__ . '/mygroupperm.php';
     redirect_header(XOOPS_URL . '/modules/' . $xoopsModule->dirname() . "/admin/myblocksadmin.php$query4redirect", 1, _MD_AM_DBUPDATED);
 }
 

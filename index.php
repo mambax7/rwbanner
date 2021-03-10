@@ -29,16 +29,15 @@
 // Descrição: Sistema de gerenciamento de mídias publicitárias               //
 // ------------------------------------------------------------------------- //
 
-$path = dirname(dirname(__DIR__));
-include_once $path . '/mainfile.php';
-include_once 'class/class.banner.php';
-include_once XOOPS_ROOT_PATH . '/class/pagenav.php';
+use XoopsModules\Rwbanner\{
+    Banner
+};
 
-if (file_exists(__DIR__ . '/language/' . $xoopsConfig['language'] . '/admin.php')) {
-    include __DIR__ . '/language/' . $xoopsConfig['language'] . '/admin.php';
-} else {
-    include __DIR__ . '/language/english/admin.php';
-}
+$path = \dirname(__DIR__, 2);
+require_once $path . '/mainfile.php';
+require_once XOOPS_ROOT_PATH . '/class/pagenav.php';
+
+xoops_loadLanguage('admin', 'rwbanner');
 
 /*
 $cod = (isset($_GET['cod']))?$_GET['cod']:((isset($_POST['cod']))?$_POST['cod']:'');
@@ -52,14 +51,14 @@ switch ($op) {
         $seq   = isset($_GET['seq']) ? $_GET['seq'] : 'ASC';
         $start = isset($_GET['start']) ? $_GET['start'] : 0;
         $limit = isset($_GET['limit']) ? $_GET['limit'] : 10;
-        include_once(XOOPS_ROOT_PATH . '/header.php');
+        require_once XOOPS_ROOT_PATH . '/header.php';
         if ($uid != 0) {
             echo '<p style="text-align:justify;">' . sprintf(_MD_RWBANNER_MSG_INDEX_OLAUSER, $xoopsUser->getVar('uname'), $xoopsConfig['sitename']) . '</p>';
             lista_banners($uid, $order, $seq, $limit, $start);
         } else {
             echo '<p style="text-align:justify;">' . sprintf(_MD_RWBANNER_MSG_INDEX_NOUSER, $xoopsConfig['sitename'], XOOPS_URL . '/user.php', XOOPS_URL . '/register.php') . '</p>';
         }
-        include_once(XOOPS_ROOT_PATH . '/footer.php');
+        require_once XOOPS_ROOT_PATH . '/footer.php';
         break;
     case 'sendemail':
         $id = isset($_GET['id']) ? $_GET['id'] : (isset($_POST['id']) ? $_POST['id'] : '');
@@ -83,7 +82,7 @@ function lista_banners($uid, $order = null, $seq = '', $limit = 10, $start = 0)
     global $xoopsModule, $xoopsModuleConfig;
     $pathIcon16 =& $xoopsModule->getInfo('icons16');
 
-    $banner = new RWbanners();
+    $banner = new Banner();
     $total  = $banner->getRowNum(null, $uid);
 
     if ($total > 0) {
@@ -114,7 +113,7 @@ function lista_banners($uid, $order = null, $seq = '', $limit = 10, $start = 0)
         echo '<input type="hidden" name="start" value="' . $start . '">';
         echo '</form>';
 
-        $qtdes = array('5', '10', '15', '20');
+        $qtdes = ['5', '10', '15', '20'];
         echo '</p><p><form method="GET"><select name="limit">';
         for ($i = 0; $i <= count($qtdes) - 1; ++$i) {
             $sel7 = ($limit == $qtdes[$i]) ? ' selected="selected"' : '';
@@ -125,7 +124,7 @@ function lista_banners($uid, $order = null, $seq = '', $limit = 10, $start = 0)
         echo '<input type="hidden" name="seq" value="' . $seq . '">';
         echo '<input type="hidden" name="start" value="' . $start . '">';
         echo '</form></p>
-    </div><br />';
+    </div><br>';
 
         $lista_banners = $banner->getAllByClient($uid, $ord, null, $limit, $start);
 
@@ -188,17 +187,49 @@ function lista_banners($uid, $order = null, $seq = '', $limit = 10, $start = 0)
             $lista_banners[$i]->clearDb();
             $data_cad = converte($lista_banners[$i]->getData(), 'BR', 0);
             echo '
-        <tr class="' . $class . '" ' . $estilo . '>
-          <td align="center"><a href="javascript:void(0);" onclick="javascript: window.open(\'' . dirname(__DIR__) . '/admin/exibe.php?id=' . $lista_banners[$i]->getCodigo() . '\',\'editar\',\'width=' . ($lista_banners[$i]->getLargura() + 20) . ',height=' . $lista_banners[$i]->getAltura() . ',toolbar=no\');">' . $lista_banners[$i]->getCodigo() . '</a></td>
-          <td align="center">' . $titulo . '</td>
-          <td align="center">' . $lista_banners[$i]->getExibicoes() . '</td>
-          <td align="center">' . $exibrest . '</td>
-          <td align="center">' . $lista_banners[$i]->getClicks() . '</td>
-          <td align="center">' . $exibrestclick . '</td>
-          <td align="center">' . $perc . '%</td>
-          <td align="center">' . $data_cad . '</td>
-          <td align="center">' . $periodo . '</td>
-          <td align="center">' . $status . '</td>';
+        <tr class="'
+                 . $class
+                 . '" '
+                 . $estilo
+                 . '>
+          <td align="center"><a href="javascript:void(0);" onclick="javascript: window.open(\''
+                 . dirname(__DIR__)
+                 . '/admin/exibe.php?id='
+                 . $lista_banners[$i]->getCodigo()
+                 . '\',\'editar\',\'width='
+                 . ($lista_banners[$i]->getLargura() + 20)
+                 . ',height='
+                 . $lista_banners[$i]->getAltura()
+                 . ',toolbar=no\');">'
+                 . $lista_banners[$i]->getCodigo()
+                 . '</a></td>
+          <td align="center">'
+                 . $titulo
+                 . '</td>
+          <td align="center">'
+                 . $lista_banners[$i]->getExibicoes()
+                 . '</td>
+          <td align="center">'
+                 . $exibrest
+                 . '</td>
+          <td align="center">'
+                 . $lista_banners[$i]->getClicks()
+                 . '</td>
+          <td align="center">'
+                 . $exibrestclick
+                 . '</td>
+          <td align="center">'
+                 . $perc
+                 . '%</td>
+          <td align="center">'
+                 . $data_cad
+                 . '</td>
+          <td align="center">'
+                 . $periodo
+                 . '</td>
+          <td align="center">'
+                 . $status
+                 . '</td>';
             echo '
           <td align="center" width="10%">';
             echo ($xoopsModuleConfig['perm_client'] == 1) ? '<a href="inser.php?id=' . $lista_banners[$i]->getCodigo() . '&op=editar"><img src=' . $pathIcon16 . '/edit.png' . ' width="16" height="16" border="0" alt="' . _AM_RWBANNER_VALUE_BTN3 . '" title="' . _AM_RWBANNER_VALUE_BTN3 . '"></a>' : '';
@@ -213,11 +244,11 @@ function lista_banners($uid, $order = null, $seq = '', $limit = 10, $start = 0)
             for ($i = 0; $i <= count($arr_qs) - $n; ++$i) {
                 $extra_pag .= $arr_qs[$i] . '&';
             }
-            $extra_pag = substr($extra_pag, 0, - 1);
+            $extra_pag = substr($extra_pag, 0, -1);
         } else {
             $extra_pag = '';
         }
-        $pagenav = new XoopsPageNav($total, $limit, $start, 'start', $extra_pag);
+        $pagenav = new \XoopsPageNav($total, $limit, $start, 'start', $extra_pag);
         $pag     = $pagenav->renderNav();
         echo '  <tr class="head">';
         echo '    <td align="left" colspan="12" nowrap="nowrap" style="padding:5px;">' . _AM_RWBANNER_TOTAL_BANNER_LEG . ' ' . $total . '<br><div align="center">' . $pag . '</div></td>';
