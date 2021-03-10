@@ -30,7 +30,7 @@ class RwbannerCorePreload extends \XoopsPreloadItem
      */
     public static function eventCoreHeaderEnd($args)
     {
-        if (RwbannerCorePreload::isActive()) {
+        if (self::isActive()) {
             if (is_file($filename = dirname(__DIR__) . '/include/maketags.php')) {
                 require $filename;
             }
