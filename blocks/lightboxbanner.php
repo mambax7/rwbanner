@@ -73,7 +73,7 @@ function exibe_lightboxbanner($options)
         $arr3[] = $arr2;
     }
     for ($i = 0; $i <= count($arr3) - 1; ++$i) {
-        if (stristr($arr3[$i]['grafico'], '.swf')) {
+        if (false !== stripos($arr3[$i]['grafico'], '.swf')) {
             $arr3[$i]['swf'] = 1;
             $arq             = explode('/', $arr3[$i]['grafico']);
             $grafico1        = _RWBANNER_DIRIMAGES . '/' . $arq[count($arq) - 1];

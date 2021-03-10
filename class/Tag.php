@@ -453,7 +453,7 @@ class Tag
                     }
                 }
             }
-            $mods = substr($mods, 0, strlen($mods) - 2);
+            $mods = substr($mods, 0, -2);
             unset($mids);
 
             return $mods;

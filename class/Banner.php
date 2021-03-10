@@ -766,7 +766,7 @@ class Banner
                 } else {
                     $bannerobject = '<div align="' . $align . '"><a href="' . $xoopsModule->dirname() . '/conta_click.php?id=' . $arr[$i]->getCodigo() . '" target="' . $arr[$i]->getTarget() . '">';
                 }
-                if (stristr($arr[$i]->getGrafico(), '.swf')) {
+                if (false !== stripos($arr[$i]->getGrafico(), '.swf')) {
                     $arq      = explode('/', $arr[$i]->getGrafico());
                     $grafico1 = _RWBANNER_DIRIMAGES . '/' . $arq[count($arq) - 1];
 
@@ -863,7 +863,7 @@ class Banner
             } else {
                 $bannerobject = '<div align="' . $align . '"><a href="' . $xoopsModule->dirname() . '/conta_click.php?id=' . $ban->getCodigo() . '" target="' . $ban->getTarget() . '">';
             }
-            if (stristr($ban->getGrafico(), '.swf')) {
+            if (false !== stripos($ban->getGrafico(), '.swf')) {
                 $arq      = explode('/', $ban->getGrafico());
                 $grafico1 = _RWBANNER_DIRIMAGES . '/' . $arq[count($arq) - 1];
 

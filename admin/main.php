@@ -299,7 +299,7 @@ function lista_banners($order = null, $seq = '', $limit = 10, $start = 0)
         for ($i = 0; $i <= count($arr_qs) - $n; ++$i) {
             $extra_pag .= $arr_qs[$i] . '&';
         }
-        $extra_pag = substr($extra_pag, 0, strlen($extra_pag) - 1);
+        $extra_pag = substr($extra_pag, 0, -1);
     } else {
         $extra_pag = '';
     }
