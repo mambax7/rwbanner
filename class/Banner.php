@@ -876,7 +876,7 @@ class Banner
                                  . $ban->getAltura()
                                  . '">'
                                  . '<param name=movie value="'
-                                 . dirname(dirname(assets / images / _))
+                                 . dirname(assets / images / _, 2)
                                  . '/images/rwbanner.swf">'
                                  . '<param name=quality value=high>'
                                  . '<PARAM NAME=FlashVars VALUE="alt='
