@@ -50,7 +50,7 @@ if ($_GET['id'] == '') {
 $banner = new Banner(null, $id);
 
 if ($banner->getUsarhtml() == 1) {
-    echo $banner->getHtmlcode();
+    echo $banner->getHtmlCode();
 } else {
     if (stristr($banner->getGrafico(), '.swf')) {
         echo '<object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,40,0" width="'
