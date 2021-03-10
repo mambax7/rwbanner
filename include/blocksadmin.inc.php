@@ -805,12 +805,10 @@ function myblocksadmin_update_block($bid, $bside, $bweight, $bvisible, $btitle, 
                     $msg = 'Unable to clear cache for block ID' . $bid;
                 }
             }
-        } else {
-            if ($xoopsTpl->is_cached('db:system_dummy.html', 'block' . $bid)) {
+        } elseif ($xoopsTpl->is_cached('db:system_dummy.html', 'block' . $bid)) {
                 if (!$xoopsTpl->clear_cache('db:system_dummy.html', 'block' . $bid)) {
                     $msg = 'Unable to clear cache for block ID' . $bid;
                 }
-            }
         }
     } else {
         $msg = 'Failed update of block. ID:' . $bid;

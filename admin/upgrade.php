@@ -109,10 +109,8 @@ if (is_object($xoopsUser) && $xoopsUser->isAdmin($xoopsModule->mid())) {
             echo '<br>' . _AM_RWBANNER_UPGRADEFAILED2;
             ++$errors;
         }
-    } else {
-        if (Utility::fieldExists('modid', $xoopsDB->prefix('rwbanner_categorias'))) {
+    } elseif (Utility::fieldExists('modid', $xoopsDB->prefix('rwbanner_categorias'))) {
             rwRemoveField('modid', $xoopsDB->prefix('rwbanner_categorias'));
-        }
     }
 
     if (!rwTableExists($xoopsDB->prefix('rwbanner_tags'))) {

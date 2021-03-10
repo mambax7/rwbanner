@@ -227,8 +227,7 @@ function converte($data_ori, $tipo = 'BR', $hora = 'true')
     if ($tipo === 'BR') {
         $resul = explode('-', $data[0]);
         $resul = $resul[2] . '/' . $resul[1] . '/' . $resul[0];
-    } else {
-        if ($tipo === 'EN') {
+    } elseif ($tipo === 'EN') {
             $resul = explode('/', $data[0]);
             $resul = $resul[2] . '-' . $resul[1] . '-' . $resul[0];
         } else {
@@ -236,7 +235,6 @@ function converte($data_ori, $tipo = 'BR', $hora = 'true')
                 $resul = explode('/', $data[0]);
                 $resul = $resul[0] . '.' . $resul[1] . '.' . $resul[2];
             }
-        }
     }
     if ($hora) {
         return $resul . ' ' . $data[1];

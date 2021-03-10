@@ -206,12 +206,10 @@ if (!class_exists('XoopsGTicket')) {
 
                         $_SESSION['XOOPS_G_STUBS'][] = $stub;
                     }
-                } else {
-                    if (md5($stub['token'] . XOOPS_DB_PREFIX) === $ticket) {
+                } elseif (md5($stub['token'] . XOOPS_DB_PREFIX) === $ticket) {
                         // not CSRF but Time-Out
 
                         $timeout_flag = true;
-                    }
                 }
             }
 
