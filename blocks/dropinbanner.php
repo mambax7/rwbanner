@@ -25,7 +25,8 @@
 
 use XoopsModules\Rwbanner\{
     Banner,
-    Category
+    Category,
+    FlashHeader
 };
 
 /**
